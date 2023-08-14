@@ -55,7 +55,7 @@ func (params CreateParams) Validate() error {
 }
 
 // Create creates a new instance configuration.
-func Create(params CreateParams) (*models.IDResponse, error) {
+func Create(params CreateParams) (*models.VersionedIDResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -69,7 +69,7 @@ func Create(params CreateParams) (*models.IDResponse, error) {
 		}); err != nil {
 			return nil, apierror.Wrap(err)
 		}
-		return &models.IDResponse{ID: ec.String(params.Config.ID)}, nil
+		return &models.VersionedIDResponse{ID: ec.String(params.Config.ID)}, nil
 	}
 
 	res, err := params.API.V1API.PlatformConfigurationInstances.CreateInstanceConfiguration(

@@ -1041,7 +1041,7 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 /*
 GetDeploymentEsResourceKeystore gets the items in the elasticsearch resource keystore
 
-Fetches the current values of the keystore for the Elasticsearch resource.
+Fetches the current fields and metadata (but not the values) of the keystore for the Elasticsearch resource.
 */
 func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceKeystoreOK, error) {
 	// TODO: Validate the params before sending
@@ -1944,7 +1944,7 @@ func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteCluste
 /*
 SetAllInstancesSettingsOverrides sets size overrides
 
-Applies size overrides for all of the instances belonging to the given resource.
+Applies size overrides for all of the instances belonging to the given resource. Instance size overrides will be reset with the next plan change.
 */
 func (a *Client) SetAllInstancesSettingsOverrides(params *SetAllInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllInstancesSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
@@ -2151,7 +2151,7 @@ func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceR
 /*
 SetInstanceSettingsOverrides sets size overrides
 
-Applies size overrides for the given instances belonging to the given resource.
+Applies size overrides for the given instances belonging to the given resource. Instance size overrides will be reset with the next plan change.
 */
 func (a *Client) SetInstanceSettingsOverrides(params *SetInstanceSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetInstanceSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending

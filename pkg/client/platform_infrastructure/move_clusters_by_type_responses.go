@@ -58,12 +58,6 @@ func (o *MoveClustersByTypeReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewMoveClustersByTypeRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -281,86 +275,6 @@ func (o *MoveClustersByTypeForbidden) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *MoveClustersByTypeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewMoveClustersByTypeRetryWith creates a MoveClustersByTypeRetryWith with default headers values
-func NewMoveClustersByTypeRetryWith() *MoveClustersByTypeRetryWith {
-	return &MoveClustersByTypeRetryWith{}
-}
-
-/*
-MoveClustersByTypeRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type MoveClustersByTypeRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this move clusters by type retry with response has a 2xx status code
-func (o *MoveClustersByTypeRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this move clusters by type retry with response has a 3xx status code
-func (o *MoveClustersByTypeRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this move clusters by type retry with response has a 4xx status code
-func (o *MoveClustersByTypeRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this move clusters by type retry with response has a 5xx status code
-func (o *MoveClustersByTypeRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this move clusters by type retry with response a status code equal to that given
-func (o *MoveClustersByTypeRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the move clusters by type retry with response
-func (o *MoveClustersByTypeRetryWith) Code() int {
-	return 449
-}
-
-func (o *MoveClustersByTypeRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *MoveClustersByTypeRetryWith) String() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *MoveClustersByTypeRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *MoveClustersByTypeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

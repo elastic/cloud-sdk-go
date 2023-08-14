@@ -63,6 +63,9 @@ type QueryContainer struct {
 	// range
 	Range map[string]RangeQuery `json:"range,omitempty"`
 
+	// simple query string
+	SimpleQueryString *SimpleQueryStringQuery `json:"simple_query_string,omitempty"`
+
 	// term
 	Term map[string]TermQuery `json:"term,omitempty"`
 }
@@ -96,6 +99,10 @@ func (m *QueryContainer) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRange(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSimpleQueryString(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -263,6 +270,25 @@ func (m *QueryContainer) validateRange(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *QueryContainer) validateSimpleQueryString(formats strfmt.Registry) error {
+	if swag.IsZero(m.SimpleQueryString) { // not required
+		return nil
+	}
+
+	if m.SimpleQueryString != nil {
+		if err := m.SimpleQueryString.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("simple_query_string")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("simple_query_string")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *QueryContainer) validateTerm(formats strfmt.Registry) error {
 	if swag.IsZero(m.Term) { // not required
 		return nil
@@ -318,6 +344,10 @@ func (m *QueryContainer) ContextValidate(ctx context.Context, formats strfmt.Reg
 	}
 
 	if err := m.contextValidateRange(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSimpleQueryString(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -435,6 +465,22 @@ func (m *QueryContainer) contextValidateRange(ctx context.Context, formats strfm
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *QueryContainer) contextValidateSimpleQueryString(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SimpleQueryString != nil {
+		if err := m.SimpleQueryString.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("simple_query_string")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("simple_query_string")
+			}
+			return err
+		}
 	}
 
 	return nil

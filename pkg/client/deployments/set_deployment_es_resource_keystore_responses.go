@@ -52,12 +52,6 @@ func (o *SetDeploymentEsResourceKeystoreReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewSetDeploymentEsResourceKeystoreRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewSetDeploymentEsResourceKeystoreInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -201,86 +195,6 @@ func (o *SetDeploymentEsResourceKeystoreNotFound) GetPayload() *models.BasicFail
 }
 
 func (o *SetDeploymentEsResourceKeystoreNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSetDeploymentEsResourceKeystoreRetryWith creates a SetDeploymentEsResourceKeystoreRetryWith with default headers values
-func NewSetDeploymentEsResourceKeystoreRetryWith() *SetDeploymentEsResourceKeystoreRetryWith {
-	return &SetDeploymentEsResourceKeystoreRetryWith{}
-}
-
-/*
-SetDeploymentEsResourceKeystoreRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type SetDeploymentEsResourceKeystoreRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this set deployment es resource keystore retry with response has a 2xx status code
-func (o *SetDeploymentEsResourceKeystoreRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this set deployment es resource keystore retry with response has a 3xx status code
-func (o *SetDeploymentEsResourceKeystoreRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this set deployment es resource keystore retry with response has a 4xx status code
-func (o *SetDeploymentEsResourceKeystoreRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this set deployment es resource keystore retry with response has a 5xx status code
-func (o *SetDeploymentEsResourceKeystoreRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this set deployment es resource keystore retry with response a status code equal to that given
-func (o *SetDeploymentEsResourceKeystoreRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the set deployment es resource keystore retry with response
-func (o *SetDeploymentEsResourceKeystoreRetryWith) Code() int {
-	return 449
-}
-
-func (o *SetDeploymentEsResourceKeystoreRetryWith) Error() string {
-	return fmt.Sprintf("[PATCH /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] setDeploymentEsResourceKeystoreRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetDeploymentEsResourceKeystoreRetryWith) String() string {
-	return fmt.Sprintf("[PATCH /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] setDeploymentEsResourceKeystoreRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetDeploymentEsResourceKeystoreRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetDeploymentEsResourceKeystoreRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

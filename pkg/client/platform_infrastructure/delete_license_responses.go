@@ -52,12 +52,6 @@ func (o *DeleteLicenseReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteLicenseRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -191,86 +185,6 @@ func (o *DeleteLicenseNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *DeleteLicenseNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteLicenseRetryWith creates a DeleteLicenseRetryWith with default headers values
-func NewDeleteLicenseRetryWith() *DeleteLicenseRetryWith {
-	return &DeleteLicenseRetryWith{}
-}
-
-/*
-DeleteLicenseRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeleteLicenseRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this delete license retry with response has a 2xx status code
-func (o *DeleteLicenseRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete license retry with response has a 3xx status code
-func (o *DeleteLicenseRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete license retry with response has a 4xx status code
-func (o *DeleteLicenseRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete license retry with response has a 5xx status code
-func (o *DeleteLicenseRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete license retry with response a status code equal to that given
-func (o *DeleteLicenseRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the delete license retry with response
-func (o *DeleteLicenseRetryWith) Code() int {
-	return 449
-}
-
-func (o *DeleteLicenseRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteLicenseRetryWith) String() string {
-	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteLicenseRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteLicenseRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

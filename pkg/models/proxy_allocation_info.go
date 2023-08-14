@@ -24,6 +24,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -36,8 +37,9 @@ import (
 // swagger:model ProxyAllocationInfo
 type ProxyAllocationInfo struct {
 
-	// The type of proxy allocations (e.g. Elasticsearch, Kibana, APM)
+	// The type of proxy allocations
 	// Required: true
+	// Enum: [elasticsearch kibana apm integrations_server appsearch enterprise_search]
 	AllocationsType *string `json:"allocations_type"`
 
 	// Proxy allocation counts.
@@ -63,9 +65,55 @@ func (m *ProxyAllocationInfo) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var proxyAllocationInfoTypeAllocationsTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["elasticsearch","kibana","apm","integrations_server","appsearch","enterprise_search"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		proxyAllocationInfoTypeAllocationsTypePropEnum = append(proxyAllocationInfoTypeAllocationsTypePropEnum, v)
+	}
+}
+
+const (
+
+	// ProxyAllocationInfoAllocationsTypeElasticsearch captures enum value "elasticsearch"
+	ProxyAllocationInfoAllocationsTypeElasticsearch string = "elasticsearch"
+
+	// ProxyAllocationInfoAllocationsTypeKibana captures enum value "kibana"
+	ProxyAllocationInfoAllocationsTypeKibana string = "kibana"
+
+	// ProxyAllocationInfoAllocationsTypeApm captures enum value "apm"
+	ProxyAllocationInfoAllocationsTypeApm string = "apm"
+
+	// ProxyAllocationInfoAllocationsTypeIntegrationsServer captures enum value "integrations_server"
+	ProxyAllocationInfoAllocationsTypeIntegrationsServer string = "integrations_server"
+
+	// ProxyAllocationInfoAllocationsTypeAppsearch captures enum value "appsearch"
+	ProxyAllocationInfoAllocationsTypeAppsearch string = "appsearch"
+
+	// ProxyAllocationInfoAllocationsTypeEnterpriseSearch captures enum value "enterprise_search"
+	ProxyAllocationInfoAllocationsTypeEnterpriseSearch string = "enterprise_search"
+)
+
+// prop value enum
+func (m *ProxyAllocationInfo) validateAllocationsTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, proxyAllocationInfoTypeAllocationsTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *ProxyAllocationInfo) validateAllocationsType(formats strfmt.Registry) error {
 
 	if err := validate.Required("allocations_type", "body", m.AllocationsType); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateAllocationsTypeEnum("allocations_type", "body", *m.AllocationsType); err != nil {
 		return err
 	}
 

@@ -77,13 +77,6 @@ LogoutParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type LogoutParams struct {
-
-	/* Cookie.
-
-	   Cookie header containing the ec-sso-session-id session cookie.
-	*/
-	Cookie *string
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -137,17 +130,6 @@ func (o *LogoutParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCookie adds the cookie to the logout params
-func (o *LogoutParams) WithCookie(cookie *string) *LogoutParams {
-	o.SetCookie(cookie)
-	return o
-}
-
-// SetCookie adds the cookie to the logout params
-func (o *LogoutParams) SetCookie(cookie *string) {
-	o.Cookie = cookie
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *LogoutParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -155,14 +137,6 @@ func (o *LogoutParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regist
 		return err
 	}
 	var res []error
-
-	if o.Cookie != nil {
-
-		// header param Cookie
-		if err := r.SetHeaderParam("Cookie", *o.Cookie); err != nil {
-			return err
-		}
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

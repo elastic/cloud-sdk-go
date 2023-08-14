@@ -24,6 +24,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -38,6 +39,9 @@ type InstanceConfiguration struct {
 
 	// Optional filter to match allocators against
 	AllocatorFilter *QueryContainer `json:"allocator_filter,omitempty"`
+
+	// If the IC is configuration controlled, this field is the version either being read back (defaults to most recent), or the version to update. Cannot be used in creates.
+	ConfigVersion int32 `json:"config_version,omitempty"`
 
 	// Settings for the instance CPU multiplier
 	CPUMultiplier float64 `json:"cpu_multiplier,omitempty"`
@@ -56,8 +60,9 @@ type InstanceConfiguration struct {
 	// Unique identifier for the instance configuration
 	ID string `json:"id,omitempty"`
 
-	// The type of instance (elasticsearch, kibana)
+	// The type of instance
 	// Required: true
+	// Enum: [elasticsearch kibana apm integrations_server appsearch enterprise_search]
 	InstanceType *string `json:"instance_type"`
 
 	// The maximum number of availability zones in which this instance configuration has allocators. This field will be missing unless explicitly requested with the show_max_zones parameter.
@@ -162,9 +167,55 @@ func (m *InstanceConfiguration) validateDiscreteSizes(formats strfmt.Registry) e
 	return nil
 }
 
+var instanceConfigurationTypeInstanceTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["elasticsearch","kibana","apm","integrations_server","appsearch","enterprise_search"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		instanceConfigurationTypeInstanceTypePropEnum = append(instanceConfigurationTypeInstanceTypePropEnum, v)
+	}
+}
+
+const (
+
+	// InstanceConfigurationInstanceTypeElasticsearch captures enum value "elasticsearch"
+	InstanceConfigurationInstanceTypeElasticsearch string = "elasticsearch"
+
+	// InstanceConfigurationInstanceTypeKibana captures enum value "kibana"
+	InstanceConfigurationInstanceTypeKibana string = "kibana"
+
+	// InstanceConfigurationInstanceTypeApm captures enum value "apm"
+	InstanceConfigurationInstanceTypeApm string = "apm"
+
+	// InstanceConfigurationInstanceTypeIntegrationsServer captures enum value "integrations_server"
+	InstanceConfigurationInstanceTypeIntegrationsServer string = "integrations_server"
+
+	// InstanceConfigurationInstanceTypeAppsearch captures enum value "appsearch"
+	InstanceConfigurationInstanceTypeAppsearch string = "appsearch"
+
+	// InstanceConfigurationInstanceTypeEnterpriseSearch captures enum value "enterprise_search"
+	InstanceConfigurationInstanceTypeEnterpriseSearch string = "enterprise_search"
+)
+
+// prop value enum
+func (m *InstanceConfiguration) validateInstanceTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, instanceConfigurationTypeInstanceTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *InstanceConfiguration) validateInstanceType(formats strfmt.Registry) error {
 
 	if err := validate.Required("instance_type", "body", m.InstanceType); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateInstanceTypeEnum("instance_type", "body", *m.InstanceType); err != nil {
 		return err
 	}
 

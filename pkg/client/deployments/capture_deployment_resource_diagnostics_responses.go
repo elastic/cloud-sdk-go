@@ -58,12 +58,6 @@ func (o *CaptureDeploymentResourceDiagnosticsReader) ReadResponse(response runti
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCaptureDeploymentResourceDiagnosticsRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -279,86 +273,6 @@ func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) GetPayload() *m
 }
 
 func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCaptureDeploymentResourceDiagnosticsRetryWith creates a CaptureDeploymentResourceDiagnosticsRetryWith with default headers values
-func NewCaptureDeploymentResourceDiagnosticsRetryWith() *CaptureDeploymentResourceDiagnosticsRetryWith {
-	return &CaptureDeploymentResourceDiagnosticsRetryWith{}
-}
-
-/*
-CaptureDeploymentResourceDiagnosticsRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type CaptureDeploymentResourceDiagnosticsRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this capture deployment resource diagnostics retry with response has a 2xx status code
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this capture deployment resource diagnostics retry with response has a 3xx status code
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this capture deployment resource diagnostics retry with response has a 4xx status code
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this capture deployment resource diagnostics retry with response has a 5xx status code
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this capture deployment resource diagnostics retry with response a status code equal to that given
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the capture deployment resource diagnostics retry with response
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) Code() int {
-	return 449
-}
-
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CaptureDeploymentResourceDiagnosticsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

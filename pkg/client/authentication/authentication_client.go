@@ -59,10 +59,6 @@ type ClientService interface {
 
 	DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUsersAPIKeysOK, error)
 
-	DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableElevatedPermissionsOK, error)
-
-	EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableElevatedPermissionsOK, error)
-
 	GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIKeyOK, error)
 
 	GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIKeysOK, error)
@@ -333,96 +329,6 @@ func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo r
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for delete-users-api-keys: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-	DisableElevatedPermissions disables elevated permissions
-
-	> WARNING
-
-> This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired
-
-Disables elevated permissions for the user.
-*/
-func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableElevatedPermissionsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDisableElevatedPermissionsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "disable-elevated-permissions",
-		Method:             "DELETE",
-		PathPattern:        "/users/auth/_elevate",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &DisableElevatedPermissionsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DisableElevatedPermissionsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for disable-elevated-permissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-	EnableElevatedPermissions enables elevated permissions
-
-	> WARNING
-
-> This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired
-
-Enables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.
-*/
-func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableElevatedPermissionsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewEnableElevatedPermissionsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "enable-elevated-permissions",
-		Method:             "POST",
-		PathPattern:        "/users/auth/_elevate",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &EnableElevatedPermissionsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*EnableElevatedPermissionsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for enable-elevated-permissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

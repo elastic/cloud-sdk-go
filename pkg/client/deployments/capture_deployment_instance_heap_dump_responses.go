@@ -52,12 +52,6 @@ func (o *CaptureDeploymentInstanceHeapDumpReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCaptureDeploymentInstanceHeapDumpRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -194,86 +188,6 @@ func (o *CaptureDeploymentInstanceHeapDumpNotFound) GetPayload() *models.BasicFa
 }
 
 func (o *CaptureDeploymentInstanceHeapDumpNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCaptureDeploymentInstanceHeapDumpRetryWith creates a CaptureDeploymentInstanceHeapDumpRetryWith with default headers values
-func NewCaptureDeploymentInstanceHeapDumpRetryWith() *CaptureDeploymentInstanceHeapDumpRetryWith {
-	return &CaptureDeploymentInstanceHeapDumpRetryWith{}
-}
-
-/*
-CaptureDeploymentInstanceHeapDumpRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type CaptureDeploymentInstanceHeapDumpRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this capture deployment instance heap dump retry with response has a 2xx status code
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this capture deployment instance heap dump retry with response has a 3xx status code
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this capture deployment instance heap dump retry with response has a 4xx status code
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this capture deployment instance heap dump retry with response has a 5xx status code
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this capture deployment instance heap dump retry with response a status code equal to that given
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the capture deployment instance heap dump retry with response
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) Code() int {
-	return 449
-}
-
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture][%d] captureDeploymentInstanceHeapDumpRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture][%d] captureDeploymentInstanceHeapDumpRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

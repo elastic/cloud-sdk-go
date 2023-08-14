@@ -46,12 +46,6 @@ func (o *SetSnapshotRepositoryReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewSetSnapshotRepositoryRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -116,74 +110,6 @@ func (o *SetSnapshotRepositoryOK) GetPayload() *models.RepositoryConfig {
 func (o *SetSnapshotRepositoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RepositoryConfig)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSetSnapshotRepositoryRetryWith creates a SetSnapshotRepositoryRetryWith with default headers values
-func NewSetSnapshotRepositoryRetryWith() *SetSnapshotRepositoryRetryWith {
-	return &SetSnapshotRepositoryRetryWith{}
-}
-
-/*
-SetSnapshotRepositoryRetryWith describes a response with status code 449, with default header values.
-
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
-*/
-type SetSnapshotRepositoryRetryWith struct {
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this set snapshot repository retry with response has a 2xx status code
-func (o *SetSnapshotRepositoryRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this set snapshot repository retry with response has a 3xx status code
-func (o *SetSnapshotRepositoryRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this set snapshot repository retry with response has a 4xx status code
-func (o *SetSnapshotRepositoryRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this set snapshot repository retry with response has a 5xx status code
-func (o *SetSnapshotRepositoryRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this set snapshot repository retry with response a status code equal to that given
-func (o *SetSnapshotRepositoryRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the set snapshot repository retry with response
-func (o *SetSnapshotRepositoryRetryWith) Code() int {
-	return 449
-}
-
-func (o *SetSnapshotRepositoryRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetSnapshotRepositoryRetryWith) String() string {
-	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetSnapshotRepositoryRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetSnapshotRepositoryRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

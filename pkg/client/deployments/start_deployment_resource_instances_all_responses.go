@@ -58,12 +58,6 @@ func (o *StartDeploymentResourceInstancesAllReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewStartDeploymentResourceInstancesAllRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewStartDeploymentResourceInstancesAllInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -288,86 +282,6 @@ func (o *StartDeploymentResourceInstancesAllNotFound) GetPayload() *models.Basic
 }
 
 func (o *StartDeploymentResourceInstancesAllNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewStartDeploymentResourceInstancesAllRetryWith creates a StartDeploymentResourceInstancesAllRetryWith with default headers values
-func NewStartDeploymentResourceInstancesAllRetryWith() *StartDeploymentResourceInstancesAllRetryWith {
-	return &StartDeploymentResourceInstancesAllRetryWith{}
-}
-
-/*
-StartDeploymentResourceInstancesAllRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type StartDeploymentResourceInstancesAllRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this start deployment resource instances all retry with response has a 2xx status code
-func (o *StartDeploymentResourceInstancesAllRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this start deployment resource instances all retry with response has a 3xx status code
-func (o *StartDeploymentResourceInstancesAllRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this start deployment resource instances all retry with response has a 4xx status code
-func (o *StartDeploymentResourceInstancesAllRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this start deployment resource instances all retry with response has a 5xx status code
-func (o *StartDeploymentResourceInstancesAllRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this start deployment resource instances all retry with response a status code equal to that given
-func (o *StartDeploymentResourceInstancesAllRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the start deployment resource instances all retry with response
-func (o *StartDeploymentResourceInstancesAllRetryWith) Code() int {
-	return 449
-}
-
-func (o *StartDeploymentResourceInstancesAllRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *StartDeploymentResourceInstancesAllRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *StartDeploymentResourceInstancesAllRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *StartDeploymentResourceInstancesAllRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

@@ -84,6 +84,12 @@ type StartAllocatorMaintenanceModeParams struct {
 	*/
 	AllocatorID string
 
+	/* Reason.
+
+	   Provides a reason for changing the maintenance mode which will appear as a message on the allocator.
+	*/
+	Reason *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -148,6 +154,17 @@ func (o *StartAllocatorMaintenanceModeParams) SetAllocatorID(allocatorID string)
 	o.AllocatorID = allocatorID
 }
 
+// WithReason adds the reason to the start allocator maintenance mode params
+func (o *StartAllocatorMaintenanceModeParams) WithReason(reason *string) *StartAllocatorMaintenanceModeParams {
+	o.SetReason(reason)
+	return o
+}
+
+// SetReason adds the reason to the start allocator maintenance mode params
+func (o *StartAllocatorMaintenanceModeParams) SetReason(reason *string) {
+	o.Reason = reason
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *StartAllocatorMaintenanceModeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -159,6 +176,23 @@ func (o *StartAllocatorMaintenanceModeParams) WriteToRequest(r runtime.ClientReq
 	// path param allocator_id
 	if err := r.SetPathParam("allocator_id", o.AllocatorID); err != nil {
 		return err
+	}
+
+	if o.Reason != nil {
+
+		// query param reason
+		var qrReason string
+
+		if o.Reason != nil {
+			qrReason = *o.Reason
+		}
+		qReason := qrReason
+		if qReason != "" {
+
+			if err := r.SetQueryParam("reason", qReason); err != nil {
+				return err
+			}
+		}
 	}
 
 	if len(res) > 0 {

@@ -46,12 +46,6 @@ func (o *ResyncRunnerReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewResyncRunnerRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewResyncRunnerInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -123,86 +117,6 @@ func (o *ResyncRunnerOK) readResponse(response runtime.ClientResponse, consumer 
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewResyncRunnerRetryWith creates a ResyncRunnerRetryWith with default headers values
-func NewResyncRunnerRetryWith() *ResyncRunnerRetryWith {
-	return &ResyncRunnerRetryWith{}
-}
-
-/*
-ResyncRunnerRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type ResyncRunnerRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this resync runner retry with response has a 2xx status code
-func (o *ResyncRunnerRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this resync runner retry with response has a 3xx status code
-func (o *ResyncRunnerRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this resync runner retry with response has a 4xx status code
-func (o *ResyncRunnerRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this resync runner retry with response has a 5xx status code
-func (o *ResyncRunnerRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this resync runner retry with response a status code equal to that given
-func (o *ResyncRunnerRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the resync runner retry with response
-func (o *ResyncRunnerRetryWith) Code() int {
-	return 449
-}
-
-func (o *ResyncRunnerRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *ResyncRunnerRetryWith) String() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *ResyncRunnerRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ResyncRunnerRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

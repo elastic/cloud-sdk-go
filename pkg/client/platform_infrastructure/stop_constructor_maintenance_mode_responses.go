@@ -58,12 +58,6 @@ func (o *StopConstructorMaintenanceModeReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewStopConstructorMaintenanceModeRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -277,86 +271,6 @@ func (o *StopConstructorMaintenanceModeNotFound) GetPayload() *models.BasicFaile
 }
 
 func (o *StopConstructorMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewStopConstructorMaintenanceModeRetryWith creates a StopConstructorMaintenanceModeRetryWith with default headers values
-func NewStopConstructorMaintenanceModeRetryWith() *StopConstructorMaintenanceModeRetryWith {
-	return &StopConstructorMaintenanceModeRetryWith{}
-}
-
-/*
-StopConstructorMaintenanceModeRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type StopConstructorMaintenanceModeRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this stop constructor maintenance mode retry with response has a 2xx status code
-func (o *StopConstructorMaintenanceModeRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this stop constructor maintenance mode retry with response has a 3xx status code
-func (o *StopConstructorMaintenanceModeRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this stop constructor maintenance mode retry with response has a 4xx status code
-func (o *StopConstructorMaintenanceModeRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this stop constructor maintenance mode retry with response has a 5xx status code
-func (o *StopConstructorMaintenanceModeRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this stop constructor maintenance mode retry with response a status code equal to that given
-func (o *StopConstructorMaintenanceModeRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the stop constructor maintenance mode retry with response
-func (o *StopConstructorMaintenanceModeRetryWith) Code() int {
-	return 449
-}
-
-func (o *StopConstructorMaintenanceModeRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_stop][%d] stopConstructorMaintenanceModeRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *StopConstructorMaintenanceModeRetryWith) String() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_stop][%d] stopConstructorMaintenanceModeRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *StopConstructorMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *StopConstructorMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

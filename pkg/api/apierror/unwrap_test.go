@@ -72,7 +72,7 @@ func TestUnwrap(t *testing.T) {
 		},
 		{
 			name: "Is able to parse a type that encapsulates another unknown type",
-			args: args{err: &deployments.DeleteDeploymentStatelessResourceRetryWith{
+			args: args{err: &deployments.DeleteDeploymentStatelessResourceBadRequest{
 				Payload: &models.BasicFailedReply{
 					Errors: []*models.BasicFailedReplyElement{
 						{
@@ -132,7 +132,7 @@ func TestUnwrap(t *testing.T) {
 		},
 		{
 			name: "Is able to parse a type that encapsulates a BasicFailedReply with fields",
-			args: args{err: &deployments.DeleteDeploymentStatelessResourceRetryWith{
+			args: args{err: &deployments.DeleteDeploymentStatelessResourceBadRequest{
 				Payload: &models.BasicFailedReply{
 					Errors: []*models.BasicFailedReplyElement{
 						{

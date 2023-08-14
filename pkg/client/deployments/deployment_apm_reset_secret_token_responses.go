@@ -58,12 +58,6 @@ func (o *DeploymentApmResetSecretTokenReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeploymentApmResetSecretTokenRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewDeploymentApmResetSecretTokenInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -287,86 +281,6 @@ func (o *DeploymentApmResetSecretTokenNotFound) GetPayload() *models.BasicFailed
 }
 
 func (o *DeploymentApmResetSecretTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeploymentApmResetSecretTokenRetryWith creates a DeploymentApmResetSecretTokenRetryWith with default headers values
-func NewDeploymentApmResetSecretTokenRetryWith() *DeploymentApmResetSecretTokenRetryWith {
-	return &DeploymentApmResetSecretTokenRetryWith{}
-}
-
-/*
-DeploymentApmResetSecretTokenRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeploymentApmResetSecretTokenRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this deployment apm reset secret token retry with response has a 2xx status code
-func (o *DeploymentApmResetSecretTokenRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this deployment apm reset secret token retry with response has a 3xx status code
-func (o *DeploymentApmResetSecretTokenRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this deployment apm reset secret token retry with response has a 4xx status code
-func (o *DeploymentApmResetSecretTokenRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this deployment apm reset secret token retry with response has a 5xx status code
-func (o *DeploymentApmResetSecretTokenRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this deployment apm reset secret token retry with response a status code equal to that given
-func (o *DeploymentApmResetSecretTokenRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the deployment apm reset secret token retry with response
-func (o *DeploymentApmResetSecretTokenRetryWith) Code() int {
-	return 449
-}
-
-func (o *DeploymentApmResetSecretTokenRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeploymentApmResetSecretTokenRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeploymentApmResetSecretTokenRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeploymentApmResetSecretTokenRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

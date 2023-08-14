@@ -52,12 +52,6 @@ func (o *UpgradeDeploymentStatelessResourceReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewUpgradeDeploymentStatelessResourceRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -195,86 +189,6 @@ func (o *UpgradeDeploymentStatelessResourceNotFound) GetPayload() *models.BasicF
 }
 
 func (o *UpgradeDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUpgradeDeploymentStatelessResourceRetryWith creates a UpgradeDeploymentStatelessResourceRetryWith with default headers values
-func NewUpgradeDeploymentStatelessResourceRetryWith() *UpgradeDeploymentStatelessResourceRetryWith {
-	return &UpgradeDeploymentStatelessResourceRetryWith{}
-}
-
-/*
-UpgradeDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type UpgradeDeploymentStatelessResourceRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this upgrade deployment stateless resource retry with response has a 2xx status code
-func (o *UpgradeDeploymentStatelessResourceRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this upgrade deployment stateless resource retry with response has a 3xx status code
-func (o *UpgradeDeploymentStatelessResourceRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this upgrade deployment stateless resource retry with response has a 4xx status code
-func (o *UpgradeDeploymentStatelessResourceRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this upgrade deployment stateless resource retry with response has a 5xx status code
-func (o *UpgradeDeploymentStatelessResourceRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this upgrade deployment stateless resource retry with response a status code equal to that given
-func (o *UpgradeDeploymentStatelessResourceRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the upgrade deployment stateless resource retry with response
-func (o *UpgradeDeploymentStatelessResourceRetryWith) Code() int {
-	return 449
-}
-
-func (o *UpgradeDeploymentStatelessResourceRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *UpgradeDeploymentStatelessResourceRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *UpgradeDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *UpgradeDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

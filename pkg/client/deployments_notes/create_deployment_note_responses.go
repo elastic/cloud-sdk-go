@@ -52,12 +52,6 @@ func (o *CreateDeploymentNoteReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCreateDeploymentNoteRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -193,86 +187,6 @@ func (o *CreateDeploymentNoteNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *CreateDeploymentNoteNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateDeploymentNoteRetryWith creates a CreateDeploymentNoteRetryWith with default headers values
-func NewCreateDeploymentNoteRetryWith() *CreateDeploymentNoteRetryWith {
-	return &CreateDeploymentNoteRetryWith{}
-}
-
-/*
-CreateDeploymentNoteRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type CreateDeploymentNoteRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this create deployment note retry with response has a 2xx status code
-func (o *CreateDeploymentNoteRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this create deployment note retry with response has a 3xx status code
-func (o *CreateDeploymentNoteRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this create deployment note retry with response has a 4xx status code
-func (o *CreateDeploymentNoteRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this create deployment note retry with response has a 5xx status code
-func (o *CreateDeploymentNoteRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this create deployment note retry with response a status code equal to that given
-func (o *CreateDeploymentNoteRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the create deployment note retry with response
-func (o *CreateDeploymentNoteRetryWith) Code() int {
-	return 449
-}
-
-func (o *CreateDeploymentNoteRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CreateDeploymentNoteRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CreateDeploymentNoteRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CreateDeploymentNoteRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

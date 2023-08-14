@@ -50,6 +50,12 @@ type TrafficFilterRule struct {
 	// The rule ID
 	ID string `json:"id,omitempty"`
 
+	// The remote cluster ID
+	RemoteClusterID string `json:"remote_cluster_id,omitempty"`
+
+	// The remote cluster organization ID
+	RemoteClusterOrgID string `json:"remote_cluster_org_id,omitempty"`
+
 	// Allowed traffic filter source: IP address, CIDR mask, or VPC endpoint ID
 	Source string `json:"source,omitempty"`
 }

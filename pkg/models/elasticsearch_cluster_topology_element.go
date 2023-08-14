@@ -47,6 +47,9 @@ type ElasticsearchClusterTopologyElement struct {
 	// An arbitrary JSON object overriding the default autoscaling policy. Don't set unless you really know what you are doing.
 	AutoscalingPolicyOverrideJSON interface{} `json:"autoscaling_policy_override_json,omitempty"`
 
+	// Set to true to enable autoscaling for this topology element, even if the cluster-level 'autoscaling_enabled' field is false. Note that 'autoscaling_tier_override' cannot be set to false if cluster-level 'autoscaling_enabled' is true. Currently only supported for the 'ml' tier
+	AutoscalingTierOverride *bool `json:"autoscaling_tier_override,omitempty"`
+
 	// elasticsearch
 	Elasticsearch *ElasticsearchConfiguration `json:"elasticsearch,omitempty"`
 
@@ -55,6 +58,9 @@ type ElasticsearchClusterTopologyElement struct {
 
 	// Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration.
 	InstanceConfigurationID string `json:"instance_configuration_id,omitempty"`
+
+	// The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in cluster or tier creates or if changing IC id, means most recent version. If unset in other updates, means keep the same version.
+	InstanceConfigurationVersion int32 `json:"instance_configuration_version,omitempty"`
 
 	// The memory capacity in MB for each node of this type built in each zone.
 	MemoryPerNode int32 `json:"memory_per_node,omitempty"`

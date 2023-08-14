@@ -58,12 +58,6 @@ func (o *StartDeploymentResourceMaintenanceModeReader) ReadResponse(response run
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewStartDeploymentResourceMaintenanceModeRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewStartDeploymentResourceMaintenanceModeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -288,86 +282,6 @@ func (o *StartDeploymentResourceMaintenanceModeNotFound) GetPayload() *models.Ba
 }
 
 func (o *StartDeploymentResourceMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewStartDeploymentResourceMaintenanceModeRetryWith creates a StartDeploymentResourceMaintenanceModeRetryWith with default headers values
-func NewStartDeploymentResourceMaintenanceModeRetryWith() *StartDeploymentResourceMaintenanceModeRetryWith {
-	return &StartDeploymentResourceMaintenanceModeRetryWith{}
-}
-
-/*
-StartDeploymentResourceMaintenanceModeRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type StartDeploymentResourceMaintenanceModeRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this start deployment resource maintenance mode retry with response has a 2xx status code
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this start deployment resource maintenance mode retry with response has a 3xx status code
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this start deployment resource maintenance mode retry with response has a 4xx status code
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this start deployment resource maintenance mode retry with response has a 5xx status code
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this start deployment resource maintenance mode retry with response a status code equal to that given
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the start deployment resource maintenance mode retry with response
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) Code() int {
-	return 449
-}
-
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

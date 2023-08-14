@@ -36,6 +36,9 @@ import (
 // swagger:model Organization
 type Organization struct {
 
+	// The list of contacts for billing notifications, if specified
+	BillingContacts []string `json:"billing_contacts"`
+
 	// Whether the default disk alerts are enabled
 	DefaultDiskUsageAlertsEnabled *bool `json:"default_disk_usage_alerts_enabled,omitempty"`
 
@@ -49,6 +52,9 @@ type Organization struct {
 
 	// The list of allowed domains for notification-email recipients
 	NotificationsAllowedEmailDomains []string `json:"notifications_allowed_email_domains"`
+
+	// The list of contacts for operational notifications, if specified
+	OperationalContacts []string `json:"operational_contacts"`
 }
 
 // Validate validates this organization

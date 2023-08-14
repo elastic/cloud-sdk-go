@@ -26,6 +26,8 @@
   }, {
     "name" : "Extensions"
   }, {
+    "name" : "IamService"
+  }, {
     "name" : "Organizations"
   }, {
     "name" : "Platform"
@@ -1300,19 +1302,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -1994,19 +1983,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -2217,19 +2193,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -2295,19 +2258,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "templates.region_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -3346,19 +3296,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -3604,19 +3541,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -3838,19 +3762,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -4078,19 +3989,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -4166,19 +4064,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -4245,19 +4130,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -4290,19 +4162,6 @@
             "description" : "The password reset was out carried successfully",
             "schema" : {
               "$ref" : "#/definitions/ElasticsearchElasticUserPasswordResetResponse"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "404" : {
@@ -4432,19 +4291,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -4716,19 +4562,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -4740,7 +4573,7 @@
       "get" : {
         "tags" : [ "Deployments" ],
         "summary" : "Get the items in the Elasticsearch resource keystore",
-        "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
+        "description" : "Fetches the current fields and metadata (but not the values) of the keystore for the Elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-keystore",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -4758,7 +4591,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "The contents of the Elasticsearch keystore",
+            "description" : "The contents of the Elasticsearch keystore, with values redacted",
             "schema" : {
               "$ref" : "#/definitions/KeystoreContents"
             }
@@ -4783,19 +4616,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.metadata_internal_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -4862,19 +4682,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.metadata_internal_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -4974,19 +4781,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -5507,19 +5301,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -5653,19 +5434,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -5725,19 +5493,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_not_found", "notes.note_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -5851,19 +5606,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.resource_does_not_have_a_pending_plan", "deployments.resource_not_shutdown" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -5994,19 +5736,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -6080,19 +5809,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -6176,19 +5892,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -6262,19 +5965,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -6358,19 +6048,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -6434,19 +6111,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "instance_overrides.out_of_range" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -6547,19 +6211,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -6650,19 +6301,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -6763,19 +6401,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -6871,19 +6496,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -6969,19 +6581,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -7035,19 +6634,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "deployments.instance_not_found_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -7107,19 +6693,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "deployments.instance_not_found_error", "heap_dumps.heap_dump_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -7294,12 +6867,12 @@
             }
           },
           "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "description" : "Please retry. (code: `deployments.metadata_internal_error`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+                "enum" : [ "deployments.metadata_internal_error" ]
               }
             },
             "schema" : {
@@ -7398,19 +6971,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -7479,19 +7039,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "clusters.cluster_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -7568,19 +7115,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -7652,19 +7186,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -7731,19 +7252,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "clusters.cluster_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -7823,19 +7331,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -7922,19 +7417,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -8032,19 +7514,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -8100,19 +7569,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -8597,7 +8053,7 @@
     },
     "/organizations/{organization_id}/members" : {
       "get" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "List organization members",
         "description" : "Fetch users belonging to the selected organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organization-members",
@@ -8637,7 +8093,7 @@
     },
     "/organizations/{organization_id}/members/{user_ids}" : {
       "delete" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "Delete organization memberships",
         "description" : "Deletes one or more organization memberships. Currently unavailable in self-hosted ECE.",
         "operationId" : "delete-organization-memberships",
@@ -8764,19 +8220,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "telemetry.already_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -9044,7 +8487,7 @@
           "201" : {
             "description" : "Instance Configuration added with the auto generated ID returned",
             "schema" : {
-              "$ref" : "#/definitions/IdResponse"
+              "$ref" : "#/definitions/VersionedIdResponse"
             }
           },
           "400" : {
@@ -9055,12 +8498,6 @@
           },
           "403" : {
             "description" : "system_owned or deleted_on cannot be set externally (code: 'configuration.system_owned') ",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -9083,6 +8520,12 @@
           "description" : "ID of the instance configuration",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "config_version",
+          "in" : "query",
+          "description" : "Optionally retrieve the specified config version of the IC (otherwise retrieves the latest/only version)",
+          "required" : false,
+          "type" : "integer"
         }, {
           "name" : "show_deleted",
           "in" : "query",
@@ -9137,9 +8580,27 @@
         }, {
           "name" : "version",
           "in" : "query",
-          "description" : "If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)",
+          "description" : "This is a database-level field, not related to the application-level 'config_version', except as described in the following docs. If specified, checks for conflicts against 'x-cloud-resource-version' from the GET request (where the 'config_version' in the GET should match the the 'configuration_version' in the PUT body if the IC is configuration controlled).",
           "required" : false,
           "type" : "integer"
+        }, {
+          "name" : "config_control",
+          "in" : "query",
+          "description" : "If true, then an update that changes immutable fields will create a new version of the IC (leaving the previous ones accessible via 'config_version'). Otherwise such updates will fail.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "test_config",
+          "in" : "query",
+          "description" : "If true, The IC is added as a test version (set 'instance_config_version': -1 in the deployment request to reference), leaving the existing IC alone. Will error if the IC doesn't already exist.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "strict_mode",
+          "in" : "query",
+          "description" : "If true, then allocator_filter and storage_multiplier cannot be changed in an existing IC. Defaults to false unless config_control is true (in which case a new version is created)",
+          "required" : false,
+          "type" : "boolean"
         }, {
           "name" : "create_only",
           "in" : "query",
@@ -9151,13 +8612,13 @@
           "200" : {
             "description" : "The instance configuration was updated successfully.",
             "schema" : {
-              "$ref" : "#/definitions/IdResponse"
+              "$ref" : "#/definitions/VersionedIdResponse"
             }
           },
           "201" : {
             "description" : "The instance configuration was created successfully.",
             "schema" : {
-              "$ref" : "#/definitions/IdResponse"
+              "$ref" : "#/definitions/VersionedIdResponse"
             }
           },
           "400" : {
@@ -9174,12 +8635,6 @@
           },
           "404" : {
             "description" : "Instance configuration specified by {id} cannot be found or the operation failed (code: 'configuration.instance_configuration_not_found')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -9203,7 +8658,7 @@
         }, {
           "name" : "version",
           "in" : "query",
-          "description" : "If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)",
+          "description" : "This is a database-level field, not related to the application-level 'config_version', except as described in the following docs. If specified, checks for conflicts against 'x-cloud-resource-version' from the GET request (the GET's 'config_version' should be left blank if the IC is configuration controlled, ie to get the latest configuration)",
           "required" : false,
           "type" : "integer"
         } ],
@@ -9222,12 +8677,6 @@
           },
           "404" : {
             "description" : "Instance configuration specified by {id} cannot be found or the operation failed (code: 'configuration.instance_configuration_not_found')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -9658,19 +9107,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -9727,19 +9163,6 @@
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
           "404" : {
             "description" : "The security deployment was not found. (code: `security_deployment.not_found`)",
             "headers" : {
@@ -9771,12 +9194,6 @@
             "description" : "A token has been generated that can be used to start new servers with the requested roles",
             "schema" : {
               "$ref" : "#/definitions/ListEnrollmentTokenReply"
-            }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -9816,12 +9233,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -9851,12 +9262,6 @@
           },
           "404" : {
             "description" : "Token not found (code: 'enrollment_tokens.invalid_token_id')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -10058,19 +9463,6 @@
               "$ref" : "#/definitions/EmptyResponse"
             }
           },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
           "400" : {
             "description" : "* Invalid ids . (code: `security_realm.invalid_ids`)\n* Missing ids . (code: `security_realm.missing_ids`)",
             "headers" : {
@@ -10126,19 +9518,6 @@
             },
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "400" : {
@@ -10300,19 +9679,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -10370,19 +9736,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -10426,19 +9779,6 @@
             },
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "400" : {
@@ -10600,19 +9940,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -10670,19 +9997,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -10726,19 +10040,6 @@
             },
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "400" : {
@@ -10900,19 +10201,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -10965,19 +10253,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "security_realm.version_conflict" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -11042,12 +10317,6 @@
             "description" : "The TLS update has been accepted for the given service and will take effect throughout the system",
             "schema" : {
               "$ref" : "#/definitions/UpdatedTlsChain"
-            }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -11133,12 +10402,6 @@
             "schema" : {
               "$ref" : "#/definitions/RepositoryConfig"
             }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -11175,12 +10438,6 @@
             "description" : "Delete snapshot repository config",
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "449" : {
-            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "500" : {
@@ -11822,19 +11079,6 @@
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -12151,19 +11395,6 @@
             "schema" : {
               "$ref" : "#/definitions/ModelVersionIndexSynchronizationResults"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -12292,19 +11523,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -12340,19 +11558,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "allocators.resync_failed" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -12449,19 +11654,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "clusters.command_prohibited" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -12565,19 +11757,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "clusters.command_prohibited" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -12844,6 +12023,12 @@
           "description" : "The allocator identifier.",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "reason",
+          "in" : "query",
+          "description" : "Provides a reason for changing the maintenance mode which will appear as a message on the allocator.",
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "202" : {
@@ -12877,19 +12062,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -12909,6 +12081,12 @@
           "in" : "path",
           "description" : "The allocator identifier.",
           "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "reason",
+          "in" : "query",
+          "description" : "Provides a reason for changing the maintenance mode which will appear as a message on the allocator.",
+          "required" : false,
           "type" : "string"
         } ],
         "responses" : {
@@ -12938,19 +12116,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "allocators.allocator_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -13082,19 +12247,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -13172,19 +12324,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -13233,19 +12372,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "allocators.allocator_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -13358,19 +12484,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -13419,19 +12532,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "allocators.allocator_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -13886,19 +12986,6 @@
             "schema" : {
               "$ref" : "#/definitions/ModelVersionIndexSynchronizationResults"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -13965,19 +13052,6 @@
             "description" : "The constructor resync operation executed successfully",
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "500" : {
@@ -14286,19 +13360,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -14347,19 +13408,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "constructors.constructor_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -14504,19 +13552,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -14552,19 +13587,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "coordinators.candidate_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -14663,19 +13685,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -14740,19 +13749,6 @@
             },
             "schema" : {
               "$ref" : "#/definitions/ProxiesFilteredGroup"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "400" : {
@@ -14876,19 +13872,6 @@
               "$ref" : "#/definitions/ProxiesFilteredGroup"
             }
           },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
           "400" : {
             "description" : "The provided identifier doesn't match the identifier in the object. (code: `proxies.proxies_filtered_group_id_conflict`)",
             "headers" : {
@@ -14959,19 +13942,6 @@
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
           "409" : {
             "description" : "There is a version conflict. (code: `proxies.proxies_filtered_group_version_conflict`)",
             "headers" : {
@@ -15023,19 +13993,6 @@
             "schema" : {
               "$ref" : "#/definitions/ProxiesFilteredGroupHealth"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -15068,19 +14025,6 @@
             "description" : "The health status is worse than the expected one.",
             "schema" : {
               "$ref" : "#/definitions/ProxiesHealth"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -15138,19 +14082,6 @@
               "$ref" : "#/definitions/ProxiesSettings"
             }
           },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
           "409" : {
             "description" : "There is a version conflict. (code: `proxies.version_conflict`)",
             "headers" : {
@@ -15196,19 +14127,6 @@
             "description" : "Returns the updated settings",
             "schema" : {
               "$ref" : "#/definitions/ProxiesSettings"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "409" : {
@@ -15317,19 +14235,6 @@
             "description" : "The ids of documents, organized by model version, that will be synchronized.",
             "schema" : {
               "$ref" : "#/definitions/ModelVersionIndexSynchronizationResults"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -15465,19 +14370,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -15513,19 +14405,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "runners.resync_failed" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -15840,19 +14719,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -15928,19 +14794,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -15968,19 +14821,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "license.license_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -16208,19 +15048,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -16431,19 +15258,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -16554,13 +15368,7 @@
         "description" : "Destroys the current session.",
         "operationId" : "logout",
         "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "Cookie",
-          "in" : "header",
-          "description" : "Cookie header containing the ec-sso-session-id session cookie.",
-          "required" : false,
-          "type" : "string"
-        } ],
+        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "The current session was successfully destroyed.",
@@ -16715,19 +15523,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -16755,19 +15550,6 @@
             "description" : "The API keys are deleted.",
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -16817,19 +15599,6 @@
             "description" : "The API keys are deleted.",
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -16904,19 +15673,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "api_keys.key_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -17146,19 +15902,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -17244,19 +15987,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "api_keys.key_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -17353,19 +16083,6 @@
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
         "x-doc" : {
@@ -17421,19 +16138,6 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "user.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
               }
             },
             "schema" : {
@@ -17744,7 +16448,8 @@
       "properties" : {
         "cluster_type" : {
           "type" : "string",
-          "description" : "Type of instance that is running. E.g. elasticsearch, kibana"
+          "description" : "Type of instance that is running",
+          "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "cluster_id" : {
           "type" : "string",
@@ -18139,6 +16844,11 @@
           "type" : "string",
           "format" : "date-time",
           "description" : "The date/time for when the API key is created."
+        },
+        "expiration_date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The date/time when the API key expires."
         }
       },
       "description" : "The response model for an API key."
@@ -18543,11 +17253,11 @@
       "properties" : {
         "elasticsearch_url" : {
           "type" : "string",
-          "description" : "Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
+          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nOptionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
         },
         "kibana_url" : {
           "type" : "string",
-          "description" : "Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
+          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nOptionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
         },
         "elasticsearch_username" : {
           "type" : "string",
@@ -18574,6 +17284,11 @@
         "instance_configuration_id" : {
           "type" : "string",
           "description" : "Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration."
+        },
+        "instance_configuration_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -18991,6 +17706,11 @@
         "instance_configuration_id" : {
           "type" : "string",
           "description" : "Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration."
+        },
+        "instance_configuration_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -20628,6 +19348,10 @@
         "description" : {
           "type" : "string",
           "description" : "API key description. Useful if there are multiple keys"
+        },
+        "expiration" : {
+          "type" : "string",
+          "description" : "The optional expiration for the API key, provided as a duration (ex: '1d', '3h')"
         }
       },
       "description" : "The request payload that creates the API keys."
@@ -22326,6 +21050,10 @@
         "trust" : {
           "description" : "Configuration of trust with other clusters. When provided, trust settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all trust settings remain as they were set previously.",
           "$ref" : "#/definitions/ElasticsearchClusterTrustSettings"
+        },
+        "keystore_contents" : {
+          "description" : "The contents of the Elasticsearch keystore. It's a write only field.",
+          "$ref" : "#/definitions/KeystoreContents"
         }
       },
       "description" : "The settings for an Elasticsearch cluster."
@@ -22370,6 +21098,11 @@
           "type" : "string",
           "description" : "Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration."
         },
+        "instance_configuration_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in cluster or tier creates or if changing IC id, means most recent version. If unset in other updates, means keep the same version."
+        },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
         },
@@ -22387,6 +21120,10 @@
         },
         "topology_element_control" : {
           "$ref" : "#/definitions/TopologyElementControl"
+        },
+        "autoscaling_tier_override" : {
+          "type" : "boolean",
+          "description" : "Set to true to enable autoscaling for this topology element, even if the cluster-level 'autoscaling_enabled' field is false. Note that 'autoscaling_tier_override' cannot be set to false if cluster-level 'autoscaling_enabled' is true. Currently only supported for the 'ml' tier"
         }
       },
       "description" : "The topology of the Elasticsearch nodes, including the number, capacity, and type of nodes, and where they can be allocated."
@@ -23442,7 +22179,7 @@
       "properties" : {
         "elasticsearch_url" : {
           "type" : "string",
-          "description" : "Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
+          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nOptionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
         },
         "elasticsearch_username" : {
           "type" : "string",
@@ -23469,6 +22206,11 @@
         "instance_configuration_id" : {
           "type" : "string",
           "description" : "Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration."
+        },
+        "instance_configuration_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -23839,13 +22581,19 @@
           "type" : "string",
           "description" : "Display name for the instance configuration."
         },
+        "config_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "If the IC is configuration controlled, this field is the version either being read back (defaults to most recent), or the version to update. Cannot be used in creates."
+        },
         "description" : {
           "type" : "string",
           "description" : "Optional description for the instance configuration"
         },
         "instance_type" : {
           "type" : "string",
-          "description" : "The type of instance (elasticsearch, kibana)"
+          "description" : "The type of instance",
+          "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "node_types" : {
           "type" : "array",
@@ -23912,7 +22660,8 @@
         },
         "instance_type" : {
           "type" : "string",
-          "description" : "The type of instance (elasticsearch, kibana)"
+          "description" : "The type of instance",
+          "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "node_types" : {
           "type" : "array",
@@ -23934,6 +22683,10 @@
           "type" : "number",
           "format" : "double",
           "description" : "Settings for the instance CPU multiplier"
+        },
+        "metadata" : {
+          "type" : "object",
+          "description" : "Optional arbitrary metadata to associate with this template."
         },
         "max_zones" : {
           "type" : "integer",
@@ -23987,7 +22740,8 @@
       "properties" : {
         "instance_type" : {
           "type" : "string",
-          "description" : "Instance type, the key for this resource"
+          "description" : "Instance type, the key for this resource",
+          "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "name" : {
           "type" : "string",
@@ -24367,11 +23121,11 @@
       "properties" : {
         "elasticsearch_url" : {
           "type" : "string",
-          "description" : "Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
+          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nOptionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
         },
         "kibana_url" : {
           "type" : "string",
-          "description" : "Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
+          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nOptionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
         },
         "elasticsearch_username" : {
           "type" : "string",
@@ -24398,6 +23152,11 @@
         "instance_configuration_id" : {
           "type" : "string",
           "description" : "Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration."
+        },
+        "instance_configuration_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -24433,7 +23192,8 @@
         },
         "kind" : {
           "type" : "string",
-          "description" : "Kind of resource"
+          "description" : "Kind of resource",
+          "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "price" : {
           "type" : "number",
@@ -24719,6 +23479,11 @@
           "type" : "string",
           "description" : "Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration."
         },
+        "instance_configuration_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
+        },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
         },
@@ -24917,7 +23682,7 @@
       "properties" : {
         "elasticsearch_url" : {
           "type" : "string",
-          "description" : "Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
+          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nOptionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
         },
         "elasticsearch_username" : {
           "type" : "string",
@@ -26578,7 +25343,8 @@
       "properties" : {
         "allocations_type" : {
           "type" : "string",
-          "description" : "The type of proxy allocations (e.g. Elasticsearch, Kibana, APM)"
+          "description" : "The type of proxy allocations",
+          "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "counts" : {
           "description" : "Proxy allocation counts.",
@@ -26758,6 +25524,9 @@
           "additionalProperties" : {
             "$ref" : "#/definitions/RangeQuery"
           }
+        },
+        "simple_query_string" : {
+          "$ref" : "#/definitions/SimpleQueryStringQuery"
         }
       },
       "description" : "The container for all of the allowed Elasticsearch queries. Specify only one property each time."
@@ -26787,7 +25556,7 @@
           "description" : "When set, * or ? are allowed as the first character. Defaults to false."
         }
       },
-      "description" : "A query that uses the `SimpleQueryParser` for parsing."
+      "description" : "A query that uses the strict query string syntax for parsing. Will return an error for invalid syntax."
     },
     "RangeQuery" : {
       "type" : "object",
@@ -27841,6 +26610,70 @@
       },
       "description" : "A URL to access the service of a resource"
     },
+    "SimpleQueryStringQuery" : {
+      "type" : "object",
+      "required" : [ "query" ],
+      "properties" : {
+        "query" : {
+          "type" : "string",
+          "description" : "The query expressed in simple query string syntax."
+        },
+        "fields" : {
+          "type" : "array",
+          "description" : "Array of fields to search",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "default_operator" : {
+          "type" : "string",
+          "description" : "The boolean operator used to combine the terms of the query. Valid values are `OR` (default) and `AND`."
+        },
+        "analyze_wildcard" : {
+          "type" : "boolean",
+          "description" : "If `true`, the query attempts to analyze wildcard terms. Defaults to `false`."
+        },
+        "analyzer" : {
+          "type" : "string",
+          "description" : "The name of the analyzer to use to convert the query text into tokens."
+        },
+        "auto_generate_synonyms_phrase_query" : {
+          "type" : "boolean",
+          "description" : "If `true`, the parse creates a `match_phrase` uery for each multi-position token. Defaults to `true`."
+        },
+        "flags" : {
+          "type" : "string",
+          "description" : "List of enabled operators for the simple query string syntax. Defaults to `ALL`."
+        },
+        "fuzzy_max_expansions" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Maximum number of terms to which the query expands for fuzzy matching. Defaults to 50."
+        },
+        "fuzzy_prefix_length" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number of beginning characters left unchanged for fuzzy matching. Defaults to 0."
+        },
+        "fuzzy_transpositions" : {
+          "type" : "boolean",
+          "description" : "If `true`, edits for fuzzy matching include transpositions of two adjacent characters. Defaults to `false`."
+        },
+        "lenient" : {
+          "type" : "boolean",
+          "description" : "If `true`, format-based errors, such as providing a text value for a numeric field are ignored. Defaults to `false`."
+        },
+        "minimum_should_match" : {
+          "type" : "string",
+          "description" : "Minimum number of clauses that must match for a document to be returned."
+        },
+        "quote_field_suffix" : {
+          "type" : "string",
+          "description" : "Suffix appended to quoted text in the query string."
+        }
+      },
+      "description" : "A query that uses simple query string syntax. Will ignore invalid syntax."
+    },
     "SimplifiedLineItem" : {
       "type" : "object",
       "required" : [ "ecu_balance", "ecu_quantity", "end", "id", "start" ],
@@ -28662,6 +27495,14 @@
           "type" : "string",
           "description" : "The rule ID"
         },
+        "remote_cluster_org_id" : {
+          "type" : "string",
+          "description" : "The remote cluster organization ID"
+        },
+        "remote_cluster_id" : {
+          "type" : "string",
+          "description" : "The remote cluster ID"
+        },
         "description" : {
           "type" : "string",
           "description" : "Description of the rule"
@@ -29346,6 +28187,24 @@
         }
       },
       "description" : "The security realm the user belongs to"
+    },
+    "VersionedIdResponse" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The ID"
+        },
+        "config_version" : {
+          "type" : "object",
+          "description" : "The version, if the entity is configuration controlled"
+        },
+        "config_version_updated" : {
+          "type" : "object",
+          "description" : "Returns true if the update resulted in a new version of the configuration controlled entity"
+        }
+      }
     },
     "ZkAcl" : {
       "type" : "object",

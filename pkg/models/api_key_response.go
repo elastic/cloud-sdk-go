@@ -45,6 +45,10 @@ type APIKeyResponse struct {
 	// Required: true
 	Description *string `json:"description"`
 
+	// The date/time when the API key expires.
+	// Format: date-time
+	ExpirationDate strfmt.DateTime `json:"expiration_date,omitempty"`
+
 	// The API key ID.
 	// Required: true
 	ID *string `json:"id"`
@@ -65,6 +69,10 @@ func (m *APIKeyResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExpirationDate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -94,6 +102,18 @@ func (m *APIKeyResponse) validateCreationDate(formats strfmt.Registry) error {
 func (m *APIKeyResponse) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.Required("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *APIKeyResponse) validateExpirationDate(formats strfmt.Registry) error {
+	if swag.IsZero(m.ExpirationDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("expiration_date", "body", "date-time", m.ExpirationDate.String(), formats); err != nil {
 		return err
 	}
 
