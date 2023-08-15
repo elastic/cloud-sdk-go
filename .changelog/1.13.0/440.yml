@@ -1,0 +1,4 @@
+category: enhancement
+title: Update API spec to ECE 3.7.0 / ESS ms-96
+description: |
+    Updates the ECE generated Clients and models to the latest version.
