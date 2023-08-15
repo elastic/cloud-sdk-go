@@ -46,12 +46,6 @@ func (o *ResyncAllocatorReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewResyncAllocatorRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewResyncAllocatorInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -123,86 +117,6 @@ func (o *ResyncAllocatorOK) readResponse(response runtime.ClientResponse, consum
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewResyncAllocatorRetryWith creates a ResyncAllocatorRetryWith with default headers values
-func NewResyncAllocatorRetryWith() *ResyncAllocatorRetryWith {
-	return &ResyncAllocatorRetryWith{}
-}
-
-/*
-ResyncAllocatorRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type ResyncAllocatorRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this resync allocator retry with response has a 2xx status code
-func (o *ResyncAllocatorRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this resync allocator retry with response has a 3xx status code
-func (o *ResyncAllocatorRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this resync allocator retry with response has a 4xx status code
-func (o *ResyncAllocatorRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this resync allocator retry with response has a 5xx status code
-func (o *ResyncAllocatorRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this resync allocator retry with response a status code equal to that given
-func (o *ResyncAllocatorRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the resync allocator retry with response
-func (o *ResyncAllocatorRetryWith) Code() int {
-	return 449
-}
-
-func (o *ResyncAllocatorRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *ResyncAllocatorRetryWith) String() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *ResyncAllocatorRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ResyncAllocatorRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

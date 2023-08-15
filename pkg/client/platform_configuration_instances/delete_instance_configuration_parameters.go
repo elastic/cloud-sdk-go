@@ -87,7 +87,7 @@ type DeleteInstanceConfigurationParams struct {
 
 	/* Version.
 
-	   If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
+	   This is a database-level field, not related to the application-level 'config_version', except as described in the following docs. If specified, checks for conflicts against 'x-cloud-resource-version' from the GET request (the GET's 'config_version' should be left blank if the IC is configuration controlled, ie to get the latest configuration)
 	*/
 	Version *int64
 

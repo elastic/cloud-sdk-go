@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// QueryStringQuery A query that uses the `SimpleQueryParser` for parsing.
+// QueryStringQuery A query that uses the strict query string syntax for parsing. Will return an error for invalid syntax.
 //
 // swagger:model QueryStringQuery
 type QueryStringQuery struct {

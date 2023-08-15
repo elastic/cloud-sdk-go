@@ -79,6 +79,12 @@ GetInstanceConfigurationParams contains all the parameters to send to the API en
 */
 type GetInstanceConfigurationParams struct {
 
+	/* ConfigVersion.
+
+	   Optionally retrieve the specified config version of the IC (otherwise retrieves the latest/only version)
+	*/
+	ConfigVersion *int64
+
 	/* ID.
 
 	   ID of the instance configuration
@@ -161,6 +167,17 @@ func (o *GetInstanceConfigurationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithConfigVersion adds the configVersion to the get instance configuration params
+func (o *GetInstanceConfigurationParams) WithConfigVersion(configVersion *int64) *GetInstanceConfigurationParams {
+	o.SetConfigVersion(configVersion)
+	return o
+}
+
+// SetConfigVersion adds the configVersion to the get instance configuration params
+func (o *GetInstanceConfigurationParams) SetConfigVersion(configVersion *int64) {
+	o.ConfigVersion = configVersion
+}
+
 // WithID adds the id to the get instance configuration params
 func (o *GetInstanceConfigurationParams) WithID(id string) *GetInstanceConfigurationParams {
 	o.SetID(id)
@@ -201,6 +218,23 @@ func (o *GetInstanceConfigurationParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.ConfigVersion != nil {
+
+		// query param config_version
+		var qrConfigVersion int64
+
+		if o.ConfigVersion != nil {
+			qrConfigVersion = *o.ConfigVersion
+		}
+		qConfigVersion := swag.FormatInt64(qrConfigVersion)
+		if qConfigVersion != "" {
+
+			if err := r.SetQueryParam("config_version", qConfigVersion); err != nil {
+				return err
+			}
+		}
+	}
 
 	// path param id
 	if err := r.SetPathParam("id", o.ID); err != nil {

@@ -58,12 +58,6 @@ func (o *SetRunnerRolesReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewSetRunnerRolesRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -279,86 +273,6 @@ func (o *SetRunnerRolesNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *SetRunnerRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSetRunnerRolesRetryWith creates a SetRunnerRolesRetryWith with default headers values
-func NewSetRunnerRolesRetryWith() *SetRunnerRolesRetryWith {
-	return &SetRunnerRolesRetryWith{}
-}
-
-/*
-SetRunnerRolesRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type SetRunnerRolesRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this set runner roles retry with response has a 2xx status code
-func (o *SetRunnerRolesRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this set runner roles retry with response has a 3xx status code
-func (o *SetRunnerRolesRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this set runner roles retry with response has a 4xx status code
-func (o *SetRunnerRolesRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this set runner roles retry with response has a 5xx status code
-func (o *SetRunnerRolesRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this set runner roles retry with response a status code equal to that given
-func (o *SetRunnerRolesRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the set runner roles retry with response
-func (o *SetRunnerRolesRetryWith) Code() int {
-	return 449
-}
-
-func (o *SetRunnerRolesRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetRunnerRolesRetryWith) String() string {
-	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetRunnerRolesRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetRunnerRolesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

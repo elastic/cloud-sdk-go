@@ -46,12 +46,6 @@ func (o *GetEnrollmentTokensReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewGetEnrollmentTokensRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -116,74 +110,6 @@ func (o *GetEnrollmentTokensOK) GetPayload() *models.ListEnrollmentTokenReply {
 func (o *GetEnrollmentTokensOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ListEnrollmentTokenReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGetEnrollmentTokensRetryWith creates a GetEnrollmentTokensRetryWith with default headers values
-func NewGetEnrollmentTokensRetryWith() *GetEnrollmentTokensRetryWith {
-	return &GetEnrollmentTokensRetryWith{}
-}
-
-/*
-GetEnrollmentTokensRetryWith describes a response with status code 449, with default header values.
-
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
-*/
-type GetEnrollmentTokensRetryWith struct {
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this get enrollment tokens retry with response has a 2xx status code
-func (o *GetEnrollmentTokensRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this get enrollment tokens retry with response has a 3xx status code
-func (o *GetEnrollmentTokensRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this get enrollment tokens retry with response has a 4xx status code
-func (o *GetEnrollmentTokensRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this get enrollment tokens retry with response has a 5xx status code
-func (o *GetEnrollmentTokensRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this get enrollment tokens retry with response a status code equal to that given
-func (o *GetEnrollmentTokensRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the get enrollment tokens retry with response
-func (o *GetEnrollmentTokensRetryWith) Code() int {
-	return 449
-}
-
-func (o *GetEnrollmentTokensRetryWith) Error() string {
-	return fmt.Sprintf("[GET /platform/configuration/security/enrollment-tokens][%d] getEnrollmentTokensRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *GetEnrollmentTokensRetryWith) String() string {
-	return fmt.Sprintf("[GET /platform/configuration/security/enrollment-tokens][%d] getEnrollmentTokensRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *GetEnrollmentTokensRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetEnrollmentTokensRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

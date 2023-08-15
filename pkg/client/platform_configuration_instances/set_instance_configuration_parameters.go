@@ -81,6 +81,12 @@ SetInstanceConfigurationParams contains all the parameters to send to the API en
 */
 type SetInstanceConfigurationParams struct {
 
+	/* ConfigControl.
+
+	   If true, then an update that changes immutable fields will create a new version of the IC (leaving the previous ones accessible via 'config_version'). Otherwise such updates will fail.
+	*/
+	ConfigControl *bool
+
 	/* CreateOnly.
 
 	   If true, will fail if an instance configuration already exists at the given id
@@ -99,9 +105,21 @@ type SetInstanceConfigurationParams struct {
 	*/
 	Instance *models.InstanceConfiguration
 
+	/* StrictMode.
+
+	   If true, then allocator_filter and storage_multiplier cannot be changed in an existing IC. Defaults to false unless config_control is true (in which case a new version is created)
+	*/
+	StrictMode *bool
+
+	/* TestConfig.
+
+	   If true, The IC is added as a test version (set 'instance_config_version': -1 in the deployment request to reference), leaving the existing IC alone. Will error if the IC doesn't already exist.
+	*/
+	TestConfig *bool
+
 	/* Version.
 
-	   If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
+	   This is a database-level field, not related to the application-level 'config_version', except as described in the following docs. If specified, checks for conflicts against 'x-cloud-resource-version' from the GET request (where the 'config_version' in the GET should match the the 'configuration_version' in the PUT body if the IC is configuration controlled).
 	*/
 	Version *int64
 
@@ -158,6 +176,17 @@ func (o *SetInstanceConfigurationParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithConfigControl adds the configControl to the set instance configuration params
+func (o *SetInstanceConfigurationParams) WithConfigControl(configControl *bool) *SetInstanceConfigurationParams {
+	o.SetConfigControl(configControl)
+	return o
+}
+
+// SetConfigControl adds the configControl to the set instance configuration params
+func (o *SetInstanceConfigurationParams) SetConfigControl(configControl *bool) {
+	o.ConfigControl = configControl
+}
+
 // WithCreateOnly adds the createOnly to the set instance configuration params
 func (o *SetInstanceConfigurationParams) WithCreateOnly(createOnly *bool) *SetInstanceConfigurationParams {
 	o.SetCreateOnly(createOnly)
@@ -191,6 +220,28 @@ func (o *SetInstanceConfigurationParams) SetInstance(instance *models.InstanceCo
 	o.Instance = instance
 }
 
+// WithStrictMode adds the strictMode to the set instance configuration params
+func (o *SetInstanceConfigurationParams) WithStrictMode(strictMode *bool) *SetInstanceConfigurationParams {
+	o.SetStrictMode(strictMode)
+	return o
+}
+
+// SetStrictMode adds the strictMode to the set instance configuration params
+func (o *SetInstanceConfigurationParams) SetStrictMode(strictMode *bool) {
+	o.StrictMode = strictMode
+}
+
+// WithTestConfig adds the testConfig to the set instance configuration params
+func (o *SetInstanceConfigurationParams) WithTestConfig(testConfig *bool) *SetInstanceConfigurationParams {
+	o.SetTestConfig(testConfig)
+	return o
+}
+
+// SetTestConfig adds the testConfig to the set instance configuration params
+func (o *SetInstanceConfigurationParams) SetTestConfig(testConfig *bool) {
+	o.TestConfig = testConfig
+}
+
 // WithVersion adds the version to the set instance configuration params
 func (o *SetInstanceConfigurationParams) WithVersion(version *int64) *SetInstanceConfigurationParams {
 	o.SetVersion(version)
@@ -209,6 +260,23 @@ func (o *SetInstanceConfigurationParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.ConfigControl != nil {
+
+		// query param config_control
+		var qrConfigControl bool
+
+		if o.ConfigControl != nil {
+			qrConfigControl = *o.ConfigControl
+		}
+		qConfigControl := swag.FormatBool(qrConfigControl)
+		if qConfigControl != "" {
+
+			if err := r.SetQueryParam("config_control", qConfigControl); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.CreateOnly != nil {
 
@@ -234,6 +302,40 @@ func (o *SetInstanceConfigurationParams) WriteToRequest(r runtime.ClientRequest,
 	if o.Instance != nil {
 		if err := r.SetBodyParam(o.Instance); err != nil {
 			return err
+		}
+	}
+
+	if o.StrictMode != nil {
+
+		// query param strict_mode
+		var qrStrictMode bool
+
+		if o.StrictMode != nil {
+			qrStrictMode = *o.StrictMode
+		}
+		qStrictMode := swag.FormatBool(qrStrictMode)
+		if qStrictMode != "" {
+
+			if err := r.SetQueryParam("strict_mode", qStrictMode); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TestConfig != nil {
+
+		// query param test_config
+		var qrTestConfig bool
+
+		if o.TestConfig != nil {
+			qrTestConfig = *o.TestConfig
+		}
+		qTestConfig := swag.FormatBool(qrTestConfig)
+		if qTestConfig != "" {
+
+			if err := r.SetQueryParam("test_config", qTestConfig); err != nil {
+				return err
+			}
 		}
 	}
 

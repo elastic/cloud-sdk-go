@@ -41,6 +41,9 @@ type ElasticsearchClusterSettings struct {
 	// Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive. When provided the threshold setting is updated. A `null` value removes the field. Otherwise, the setting remains as it was set previously.
 	DedicatedMastersThreshold int32 `json:"dedicated_masters_threshold,omitempty"`
 
+	// The contents of the Elasticsearch keystore. It's a write only field.
+	KeystoreContents *KeystoreContents `json:"keystore_contents,omitempty"`
+
 	// metadata
 	Metadata *ClusterMetadataSettings `json:"metadata,omitempty"`
 
@@ -62,6 +65,10 @@ func (m *ElasticsearchClusterSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCuration(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKeystoreContents(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -102,6 +109,25 @@ func (m *ElasticsearchClusterSettings) validateCuration(formats strfmt.Registry)
 				return ve.ValidateName("curation")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("curation")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterSettings) validateKeystoreContents(formats strfmt.Registry) error {
+	if swag.IsZero(m.KeystoreContents) { // not required
+		return nil
+	}
+
+	if m.KeystoreContents != nil {
+		if err := m.KeystoreContents.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("keystore_contents")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("keystore_contents")
 			}
 			return err
 		}
@@ -213,6 +239,10 @@ func (m *ElasticsearchClusterSettings) ContextValidate(ctx context.Context, form
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateKeystoreContents(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateMetadata(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -247,6 +277,22 @@ func (m *ElasticsearchClusterSettings) contextValidateCuration(ctx context.Conte
 				return ve.ValidateName("curation")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("curation")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterSettings) contextValidateKeystoreContents(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.KeystoreContents != nil {
+		if err := m.KeystoreContents.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("keystore_contents")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("keystore_contents")
 			}
 			return err
 		}

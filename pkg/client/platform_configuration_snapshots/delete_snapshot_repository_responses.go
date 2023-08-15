@@ -52,12 +52,6 @@ func (o *DeleteSnapshotRepositoryReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewDeleteSnapshotRepositoryRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewDeleteSnapshotRepositoryInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -195,74 +189,6 @@ func (o *DeleteSnapshotRepositoryAccepted) readResponse(response runtime.ClientR
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteSnapshotRepositoryRetryWith creates a DeleteSnapshotRepositoryRetryWith with default headers values
-func NewDeleteSnapshotRepositoryRetryWith() *DeleteSnapshotRepositoryRetryWith {
-	return &DeleteSnapshotRepositoryRetryWith{}
-}
-
-/*
-DeleteSnapshotRepositoryRetryWith describes a response with status code 449, with default header values.
-
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
-*/
-type DeleteSnapshotRepositoryRetryWith struct {
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this delete snapshot repository retry with response has a 2xx status code
-func (o *DeleteSnapshotRepositoryRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete snapshot repository retry with response has a 3xx status code
-func (o *DeleteSnapshotRepositoryRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete snapshot repository retry with response has a 4xx status code
-func (o *DeleteSnapshotRepositoryRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete snapshot repository retry with response has a 5xx status code
-func (o *DeleteSnapshotRepositoryRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete snapshot repository retry with response a status code equal to that given
-func (o *DeleteSnapshotRepositoryRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the delete snapshot repository retry with response
-func (o *DeleteSnapshotRepositoryRetryWith) Code() int {
-	return 449
-}
-
-func (o *DeleteSnapshotRepositoryRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteSnapshotRepositoryRetryWith) String() string {
-	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteSnapshotRepositoryRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteSnapshotRepositoryRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

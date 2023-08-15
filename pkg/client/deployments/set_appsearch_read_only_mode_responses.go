@@ -52,12 +52,6 @@ func (o *SetAppsearchReadOnlyModeReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewSetAppsearchReadOnlyModeRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewSetAppsearchReadOnlyModeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -199,86 +193,6 @@ func (o *SetAppsearchReadOnlyModeNotFound) GetPayload() *models.BasicFailedReply
 }
 
 func (o *SetAppsearchReadOnlyModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSetAppsearchReadOnlyModeRetryWith creates a SetAppsearchReadOnlyModeRetryWith with default headers values
-func NewSetAppsearchReadOnlyModeRetryWith() *SetAppsearchReadOnlyModeRetryWith {
-	return &SetAppsearchReadOnlyModeRetryWith{}
-}
-
-/*
-SetAppsearchReadOnlyModeRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type SetAppsearchReadOnlyModeRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this set appsearch read only mode retry with response has a 2xx status code
-func (o *SetAppsearchReadOnlyModeRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this set appsearch read only mode retry with response has a 3xx status code
-func (o *SetAppsearchReadOnlyModeRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this set appsearch read only mode retry with response has a 4xx status code
-func (o *SetAppsearchReadOnlyModeRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this set appsearch read only mode retry with response has a 5xx status code
-func (o *SetAppsearchReadOnlyModeRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this set appsearch read only mode retry with response a status code equal to that given
-func (o *SetAppsearchReadOnlyModeRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the set appsearch read only mode retry with response
-func (o *SetAppsearchReadOnlyModeRetryWith) Code() int {
-	return 449
-}
-
-func (o *SetAppsearchReadOnlyModeRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] setAppsearchReadOnlyModeRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetAppsearchReadOnlyModeRetryWith) String() string {
-	return fmt.Sprintf("[PUT /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] setAppsearchReadOnlyModeRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetAppsearchReadOnlyModeRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetAppsearchReadOnlyModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

@@ -45,6 +45,10 @@ type AllocatorCapacity struct {
 	// memory
 	// Required: true
 	Memory *AllocatorCapacityMemory `json:"memory"`
+
+	// The storage capacity of the allocator.
+	// Required: true
+	Storage *AllocatorCapacityStorage `json:"storage"`
 }
 
 // Validate validates this allocator capacity
@@ -52,6 +56,10 @@ func (m *AllocatorCapacity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMemory(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStorage(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -81,11 +89,35 @@ func (m *AllocatorCapacity) validateMemory(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *AllocatorCapacity) validateStorage(formats strfmt.Registry) error {
+
+	if err := validate.Required("storage", "body", m.Storage); err != nil {
+		return err
+	}
+
+	if m.Storage != nil {
+		if err := m.Storage.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("storage")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("storage")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this allocator capacity based on the context it is used
 func (m *AllocatorCapacity) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateMemory(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStorage(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -103,6 +135,22 @@ func (m *AllocatorCapacity) contextValidateMemory(ctx context.Context, formats s
 				return ve.ValidateName("memory")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("memory")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AllocatorCapacity) contextValidateStorage(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Storage != nil {
+		if err := m.Storage.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("storage")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("storage")
 			}
 			return err
 		}

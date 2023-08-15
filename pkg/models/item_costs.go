@@ -24,6 +24,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -46,6 +47,7 @@ type ItemCosts struct {
 
 	// Kind of resource
 	// Required: true
+	// Enum: [elasticsearch kibana apm integrations_server appsearch enterprise_search]
 	Kind *string `json:"kind"`
 
 	// Resource name
@@ -129,9 +131,55 @@ func (m *ItemCosts) validateInstanceCount(formats strfmt.Registry) error {
 	return nil
 }
 
+var itemCostsTypeKindPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["elasticsearch","kibana","apm","integrations_server","appsearch","enterprise_search"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		itemCostsTypeKindPropEnum = append(itemCostsTypeKindPropEnum, v)
+	}
+}
+
+const (
+
+	// ItemCostsKindElasticsearch captures enum value "elasticsearch"
+	ItemCostsKindElasticsearch string = "elasticsearch"
+
+	// ItemCostsKindKibana captures enum value "kibana"
+	ItemCostsKindKibana string = "kibana"
+
+	// ItemCostsKindApm captures enum value "apm"
+	ItemCostsKindApm string = "apm"
+
+	// ItemCostsKindIntegrationsServer captures enum value "integrations_server"
+	ItemCostsKindIntegrationsServer string = "integrations_server"
+
+	// ItemCostsKindAppsearch captures enum value "appsearch"
+	ItemCostsKindAppsearch string = "appsearch"
+
+	// ItemCostsKindEnterpriseSearch captures enum value "enterprise_search"
+	ItemCostsKindEnterpriseSearch string = "enterprise_search"
+)
+
+// prop value enum
+func (m *ItemCosts) validateKindEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, itemCostsTypeKindPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *ItemCosts) validateKind(formats strfmt.Registry) error {
 
 	if err := validate.Required("kind", "body", m.Kind); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateKindEnum("kind", "body", *m.Kind); err != nil {
 		return err
 	}
 

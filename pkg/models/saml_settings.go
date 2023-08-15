@@ -65,6 +65,9 @@ type SamlSettings struct {
 	// Required: true
 	Name *string `json:"name"`
 
+	// The NameID format. If not specified the IdP default is used. Example: 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'
+	NameidFormat string `json:"nameid_format,omitempty"`
+
 	// The order that the security realm is evaluated
 	Order int32 `json:"order,omitempty"`
 

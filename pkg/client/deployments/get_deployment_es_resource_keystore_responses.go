@@ -52,12 +52,6 @@ func (o *GetDeploymentEsResourceKeystoreReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewGetDeploymentEsResourceKeystoreRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewGetDeploymentEsResourceKeystoreInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -77,7 +71,7 @@ func NewGetDeploymentEsResourceKeystoreOK() *GetDeploymentEsResourceKeystoreOK {
 /*
 GetDeploymentEsResourceKeystoreOK describes a response with status code 200, with default header values.
 
-The contents of the Elasticsearch keystore
+The contents of the Elasticsearch keystore, with values redacted
 */
 type GetDeploymentEsResourceKeystoreOK struct {
 	Payload *models.KeystoreContents
@@ -201,86 +195,6 @@ func (o *GetDeploymentEsResourceKeystoreNotFound) GetPayload() *models.BasicFail
 }
 
 func (o *GetDeploymentEsResourceKeystoreNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGetDeploymentEsResourceKeystoreRetryWith creates a GetDeploymentEsResourceKeystoreRetryWith with default headers values
-func NewGetDeploymentEsResourceKeystoreRetryWith() *GetDeploymentEsResourceKeystoreRetryWith {
-	return &GetDeploymentEsResourceKeystoreRetryWith{}
-}
-
-/*
-GetDeploymentEsResourceKeystoreRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type GetDeploymentEsResourceKeystoreRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this get deployment es resource keystore retry with response has a 2xx status code
-func (o *GetDeploymentEsResourceKeystoreRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this get deployment es resource keystore retry with response has a 3xx status code
-func (o *GetDeploymentEsResourceKeystoreRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this get deployment es resource keystore retry with response has a 4xx status code
-func (o *GetDeploymentEsResourceKeystoreRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this get deployment es resource keystore retry with response has a 5xx status code
-func (o *GetDeploymentEsResourceKeystoreRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this get deployment es resource keystore retry with response a status code equal to that given
-func (o *GetDeploymentEsResourceKeystoreRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the get deployment es resource keystore retry with response
-func (o *GetDeploymentEsResourceKeystoreRetryWith) Code() int {
-	return 449
-}
-
-func (o *GetDeploymentEsResourceKeystoreRetryWith) Error() string {
-	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *GetDeploymentEsResourceKeystoreRetryWith) String() string {
-	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *GetDeploymentEsResourceKeystoreRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetDeploymentEsResourceKeystoreRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

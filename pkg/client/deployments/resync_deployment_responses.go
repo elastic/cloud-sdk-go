@@ -46,12 +46,6 @@ func (o *ResyncDeploymentReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewResyncDeploymentRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewResyncDeploymentInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -122,86 +116,6 @@ func (o *ResyncDeploymentOK) GetPayload() *models.IndexSynchronizationResults {
 func (o *ResyncDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.IndexSynchronizationResults)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewResyncDeploymentRetryWith creates a ResyncDeploymentRetryWith with default headers values
-func NewResyncDeploymentRetryWith() *ResyncDeploymentRetryWith {
-	return &ResyncDeploymentRetryWith{}
-}
-
-/*
-ResyncDeploymentRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type ResyncDeploymentRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this resync deployment retry with response has a 2xx status code
-func (o *ResyncDeploymentRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this resync deployment retry with response has a 3xx status code
-func (o *ResyncDeploymentRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this resync deployment retry with response has a 4xx status code
-func (o *ResyncDeploymentRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this resync deployment retry with response has a 5xx status code
-func (o *ResyncDeploymentRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this resync deployment retry with response a status code equal to that given
-func (o *ResyncDeploymentRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the resync deployment retry with response
-func (o *ResyncDeploymentRetryWith) Code() int {
-	return 449
-}
-
-func (o *ResyncDeploymentRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *ResyncDeploymentRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *ResyncDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ResyncDeploymentRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

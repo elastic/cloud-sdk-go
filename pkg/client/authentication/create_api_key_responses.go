@@ -52,12 +52,6 @@ func (o *CreateAPIKeyReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCreateAPIKeyRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -193,86 +187,6 @@ func (o *CreateAPIKeyBadRequest) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *CreateAPIKeyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateAPIKeyRetryWith creates a CreateAPIKeyRetryWith with default headers values
-func NewCreateAPIKeyRetryWith() *CreateAPIKeyRetryWith {
-	return &CreateAPIKeyRetryWith{}
-}
-
-/*
-CreateAPIKeyRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type CreateAPIKeyRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this create Api key retry with response has a 2xx status code
-func (o *CreateAPIKeyRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this create Api key retry with response has a 3xx status code
-func (o *CreateAPIKeyRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this create Api key retry with response has a 4xx status code
-func (o *CreateAPIKeyRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this create Api key retry with response has a 5xx status code
-func (o *CreateAPIKeyRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this create Api key retry with response a status code equal to that given
-func (o *CreateAPIKeyRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the create Api key retry with response
-func (o *CreateAPIKeyRetryWith) Code() int {
-	return 449
-}
-
-func (o *CreateAPIKeyRetryWith) Error() string {
-	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CreateAPIKeyRetryWith) String() string {
-	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CreateAPIKeyRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CreateAPIKeyRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

@@ -134,7 +134,7 @@ func TestJSONFormatFunc(t *testing.T) {
 				errors.New("some"),
 				errors.New("some 2"),
 				errors.New("some 3"),
-				&deployments.DeleteDeploymentStatelessResourceRetryWith{
+				&deployments.DeleteDeploymentStatelessResourceBadRequest{
 					Payload: &models.BasicFailedReply{
 						Errors: []*models.BasicFailedReplyElement{
 							{

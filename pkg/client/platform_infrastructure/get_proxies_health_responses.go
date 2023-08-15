@@ -52,12 +52,6 @@ func (o *GetProxiesHealthReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewGetProxiesHealthRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -190,86 +184,6 @@ func (o *GetProxiesHealthExpectationFailed) GetPayload() *models.ProxiesHealth {
 func (o *GetProxiesHealthExpectationFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProxiesHealth)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGetProxiesHealthRetryWith creates a GetProxiesHealthRetryWith with default headers values
-func NewGetProxiesHealthRetryWith() *GetProxiesHealthRetryWith {
-	return &GetProxiesHealthRetryWith{}
-}
-
-/*
-GetProxiesHealthRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type GetProxiesHealthRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this get proxies health retry with response has a 2xx status code
-func (o *GetProxiesHealthRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this get proxies health retry with response has a 3xx status code
-func (o *GetProxiesHealthRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this get proxies health retry with response has a 4xx status code
-func (o *GetProxiesHealthRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this get proxies health retry with response has a 5xx status code
-func (o *GetProxiesHealthRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this get proxies health retry with response a status code equal to that given
-func (o *GetProxiesHealthRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the get proxies health retry with response
-func (o *GetProxiesHealthRetryWith) Code() int {
-	return 449
-}
-
-func (o *GetProxiesHealthRetryWith) Error() string {
-	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *GetProxiesHealthRetryWith) String() string {
-	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *GetProxiesHealthRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetProxiesHealthRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -147,6 +147,8 @@ type ClientService interface {
 
 	PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutConfigStoreOptionOK, error)
 
+	ReindexAdminconsoles(params *ReindexAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReindexAdminconsolesAccepted, error)
+
 	ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorOK, error)
 
 	ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorsAccepted, error)
@@ -2265,6 +2267,47 @@ func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for put-config-store-option: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+ReindexAdminconsoles reindices region indices
+
+Start reindex of all regional indices.
+*/
+func (a *Client) ReindexAdminconsoles(params *ReindexAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReindexAdminconsolesAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReindexAdminconsolesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "reindex-adminconsoles",
+		Method:             "POST",
+		PathPattern:        "/platform/infrastructure/adminconsoles/_reindex",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ReindexAdminconsolesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ReindexAdminconsolesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for reindex-adminconsoles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

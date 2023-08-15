@@ -24,6 +24,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -46,8 +47,9 @@ type AllocatedInstanceStatus struct {
 	// Name of cluster this instance belongs, if available
 	ClusterName string `json:"cluster_name,omitempty"`
 
-	// Type of instance that is running. E.g. elasticsearch, kibana
+	// Type of instance that is running
 	// Required: true
+	// Enum: [elasticsearch kibana apm integrations_server appsearch enterprise_search]
 	ClusterType *string `json:"cluster_type"`
 
 	// The id of the deployment this cluster belongs to.
@@ -113,9 +115,55 @@ func (m *AllocatedInstanceStatus) validateClusterID(formats strfmt.Registry) err
 	return nil
 }
 
+var allocatedInstanceStatusTypeClusterTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["elasticsearch","kibana","apm","integrations_server","appsearch","enterprise_search"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		allocatedInstanceStatusTypeClusterTypePropEnum = append(allocatedInstanceStatusTypeClusterTypePropEnum, v)
+	}
+}
+
+const (
+
+	// AllocatedInstanceStatusClusterTypeElasticsearch captures enum value "elasticsearch"
+	AllocatedInstanceStatusClusterTypeElasticsearch string = "elasticsearch"
+
+	// AllocatedInstanceStatusClusterTypeKibana captures enum value "kibana"
+	AllocatedInstanceStatusClusterTypeKibana string = "kibana"
+
+	// AllocatedInstanceStatusClusterTypeApm captures enum value "apm"
+	AllocatedInstanceStatusClusterTypeApm string = "apm"
+
+	// AllocatedInstanceStatusClusterTypeIntegrationsServer captures enum value "integrations_server"
+	AllocatedInstanceStatusClusterTypeIntegrationsServer string = "integrations_server"
+
+	// AllocatedInstanceStatusClusterTypeAppsearch captures enum value "appsearch"
+	AllocatedInstanceStatusClusterTypeAppsearch string = "appsearch"
+
+	// AllocatedInstanceStatusClusterTypeEnterpriseSearch captures enum value "enterprise_search"
+	AllocatedInstanceStatusClusterTypeEnterpriseSearch string = "enterprise_search"
+)
+
+// prop value enum
+func (m *AllocatedInstanceStatus) validateClusterTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, allocatedInstanceStatusTypeClusterTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *AllocatedInstanceStatus) validateClusterType(formats strfmt.Registry) error {
 
 	if err := validate.Required("cluster_type", "body", m.ClusterType); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateClusterTypeEnum("cluster_type", "body", *m.ClusterType); err != nil {
 		return err
 	}
 

@@ -24,6 +24,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -50,6 +51,7 @@ type InstanceTypeResource struct {
 
 	// Instance type, the key for this resource
 	// Required: true
+	// Enum: [elasticsearch kibana apm integrations_server appsearch enterprise_search]
 	InstanceType *string `json:"instance_type"`
 
 	// Instance type name
@@ -127,9 +129,55 @@ func (m *InstanceTypeResource) validateDescription(formats strfmt.Registry) erro
 	return nil
 }
 
+var instanceTypeResourceTypeInstanceTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["elasticsearch","kibana","apm","integrations_server","appsearch","enterprise_search"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		instanceTypeResourceTypeInstanceTypePropEnum = append(instanceTypeResourceTypeInstanceTypePropEnum, v)
+	}
+}
+
+const (
+
+	// InstanceTypeResourceInstanceTypeElasticsearch captures enum value "elasticsearch"
+	InstanceTypeResourceInstanceTypeElasticsearch string = "elasticsearch"
+
+	// InstanceTypeResourceInstanceTypeKibana captures enum value "kibana"
+	InstanceTypeResourceInstanceTypeKibana string = "kibana"
+
+	// InstanceTypeResourceInstanceTypeApm captures enum value "apm"
+	InstanceTypeResourceInstanceTypeApm string = "apm"
+
+	// InstanceTypeResourceInstanceTypeIntegrationsServer captures enum value "integrations_server"
+	InstanceTypeResourceInstanceTypeIntegrationsServer string = "integrations_server"
+
+	// InstanceTypeResourceInstanceTypeAppsearch captures enum value "appsearch"
+	InstanceTypeResourceInstanceTypeAppsearch string = "appsearch"
+
+	// InstanceTypeResourceInstanceTypeEnterpriseSearch captures enum value "enterprise_search"
+	InstanceTypeResourceInstanceTypeEnterpriseSearch string = "enterprise_search"
+)
+
+// prop value enum
+func (m *InstanceTypeResource) validateInstanceTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, instanceTypeResourceTypeInstanceTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (m *InstanceTypeResource) validateInstanceType(formats strfmt.Registry) error {
 
 	if err := validate.Required("instance_type", "body", m.InstanceType); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateInstanceTypeEnum("instance_type", "body", *m.InstanceType); err != nil {
 		return err
 	}
 

@@ -39,6 +39,9 @@ type CreateAPIKeyRequest struct {
 	// API key description. Useful if there are multiple keys
 	// Required: true
 	Description *string `json:"description"`
+
+	// The optional expiration for the API key, provided as a duration (ex: '1d', '3h')
+	Expiration string `json:"expiration,omitempty"`
 }
 
 // Validate validates this create Api key request

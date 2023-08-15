@@ -345,7 +345,7 @@ func NewSetDeploymentResourceRawMetadataRetryWith() *SetDeploymentResourceRawMet
 /*
 SetDeploymentResourceRawMetadataRetryWith describes a response with status code 449, with default header values.
 
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
+Please retry. (code: `deployments.metadata_internal_error`)
 */
 type SetDeploymentResourceRawMetadataRetryWith struct {
 

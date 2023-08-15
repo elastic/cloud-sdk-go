@@ -52,12 +52,6 @@ func (o *DeleteVersionStackReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteVersionStackRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -191,86 +185,6 @@ func (o *DeleteVersionStackNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *DeleteVersionStackNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteVersionStackRetryWith creates a DeleteVersionStackRetryWith with default headers values
-func NewDeleteVersionStackRetryWith() *DeleteVersionStackRetryWith {
-	return &DeleteVersionStackRetryWith{}
-}
-
-/*
-DeleteVersionStackRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeleteVersionStackRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this delete version stack retry with response has a 2xx status code
-func (o *DeleteVersionStackRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete version stack retry with response has a 3xx status code
-func (o *DeleteVersionStackRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete version stack retry with response has a 4xx status code
-func (o *DeleteVersionStackRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete version stack retry with response has a 5xx status code
-func (o *DeleteVersionStackRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete version stack retry with response a status code equal to that given
-func (o *DeleteVersionStackRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the delete version stack retry with response
-func (o *DeleteVersionStackRetryWith) Code() int {
-	return 449
-}
-
-func (o *DeleteVersionStackRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteVersionStackRetryWith) String() string {
-	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteVersionStackRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteVersionStackRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
