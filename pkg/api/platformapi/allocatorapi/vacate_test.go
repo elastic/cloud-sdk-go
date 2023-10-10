@@ -845,6 +845,41 @@ func TestVacateCluster(t *testing.T) {
 			),
 		},
 		{
+			name: "Succeeds with an allocator down",
+			args: args{
+				buf: new(bytes.Buffer),
+				params: &VacateClusterParams{
+					ID:             "someID",
+					Region:         "us-east-1",
+					ClusterID:      "3ee11eb40eda22cac0cce259625c6734",
+					Kind:           "elasticsearch",
+					Output:         new(output.Device),
+					TrackFrequency: time.Nanosecond,
+					OutputFormat:   "text",
+					MaxPollRetries: 1,
+					AllocatorDown:  ec.Bool(true),
+					API: discardResponses(newElasticsearchVacateMoveAllocatorDown(t, "someID", vacateCaseClusterConfig{
+						ID: "3ee11eb40eda22cac0cce259625c6734",
+						steps: [][]*models.ClusterPlanStepInfo{
+							{
+								newPlanStep("step1", "success"),
+								newPlanStep("step2", "pending"),
+							},
+						},
+						plan: []*models.ClusterPlanStepInfo{
+							newPlanStep("step1", "success"),
+							newPlanStep("step2", "success"),
+							newPlanStep("plan-completed", "success"),
+						},
+					}, "us-east-1")),
+				},
+			},
+			want: newOutputResponses(
+				`Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][3ee11eb40eda22cac0cce259625c6734]: running step "step2" (Plan duration )...`,
+				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][3ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
+			),
+		},
+		{
 			name: "Succeeds with an elasticsearch cluster with no tracking",
 			args: args{
 				buf: new(bytes.Buffer),

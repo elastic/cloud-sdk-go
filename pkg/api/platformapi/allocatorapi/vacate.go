@@ -268,7 +268,7 @@ func addAllocatorMovesToPool(params addAllocatorMovesToPoolParams) ([]pool.Valid
 }
 
 func newVacateClusterParams(params addAllocatorMovesToPoolParams, id, kind string) *VacateClusterParams {
-	return &VacateClusterParams{
+	clusterParams := VacateClusterParams{
 		API:                 params.VacateParams.API,
 		ID:                  params.ID,
 		Kind:                kind,
@@ -284,6 +284,12 @@ func newVacateClusterParams(params addAllocatorMovesToPoolParams, id, kind strin
 		MoveOnly:            params.VacateParams.MoveOnly,
 		PlanOverrides:       params.VacateParams.PlanOverrides,
 	}
+
+	if params.VacateParams.AllocatorDown != nil {
+		clusterParams.AllocatorDown = params.VacateParams.AllocatorDown
+	}
+
+	return &clusterParams
 }
 
 // VacateClusterInPool vacates a resource from an allocator, complying
