@@ -846,6 +846,85 @@ func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfi
 	return api.NewMock(responses...), responses
 }
 
+func newElasticsearchVacateMoveAllocatorDown(t *testing.T, alloc string, move vacateCaseClusterConfig, region string) (*api.API, []mock.Response) {
+	var responses = make([]mock.Response, 0, 4)
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newElasticsearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"true"},
+				"validate_only":  {"true"},
+			},
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				ElasticsearchClusters: []*models.MoveElasticsearchClusterConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
+		},
+	})
+
+	// do the actual cluster move from the calculated plan
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newElasticsearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/elasticsearch/_move", region, alloc,
+			),
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":[{"cluster_ids":["%s"],"plan_override":{"plan_configuration":{"move_allocators":[{"from":"%s","to":null}],"move_instances":null,"preferred_allocators":null}}}],"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
+					move.ID, alloc,
+				),
+			),
+			Query: url.Values{
+				"allocator_down": {"true"},
+			},
+		},
+	}, newDeploymentDiscovery())
+
+	// Define steps
+	for iii := range move.steps {
+		var step = move.steps[iii]
+		responses = append(responses, mock.Response{Response: http.Response{
+			StatusCode: 200,
+			Body: newPollerBody(t, move.ID,
+				&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: step},
+				nil,
+			),
+		}})
+	}
+
+	// Plan finished
+	responses = append(responses,
+		testutils.PlanNotFound,
+		testutils.PlanNotFound,
+		mock.Response{Response: http.Response{
+			StatusCode: 200,
+			Body: newPollerBody(t, move.ID,
+				nil,
+				&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: move.plan},
+			),
+		}},
+	)
+
+	return api.NewMock(responses...), responses
+}
+
 func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, region string) (*api.API, []mock.Response) {
 	var responses = make([]mock.Response, 0, 4)
 	responses = append(responses, mock.Response{
