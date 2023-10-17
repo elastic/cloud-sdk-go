@@ -37,6 +37,9 @@ import (
 // swagger:model ClusterInstanceConfigurationInfo
 type ClusterInstanceConfigurationInfo struct {
 
+	// If the IC is configuration controlled, this field is the version either being read back (reads return the latest IC unless specified by the 'config_version' URL param), or the version to update. Cannot be used in creates. For unversioned IC reads it is left empty.
+	ConfigVersion int32 `json:"config_version,omitempty"`
+
 	// The id of the configuration used to create the instance
 	// Required: true
 	ID *string `json:"id"`

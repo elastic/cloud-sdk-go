@@ -24,6 +24,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -46,6 +47,9 @@ type DeploymentGetResponse struct {
 	// A randomly-generated id of this Deployment
 	// Required: true
 	ID *string `json:"id"`
+
+	// List of instance configurations used in the deployment.
+	InstanceConfigurations []*InstanceConfigurationInfo `json:"instance_configurations"`
 
 	// Additional information about this deployment
 	Metadata *DeploymentMetadata `json:"metadata,omitempty"`
@@ -74,6 +78,10 @@ func (m *DeploymentGetResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInstanceConfigurations(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -116,6 +124,32 @@ func (m *DeploymentGetResponse) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DeploymentGetResponse) validateInstanceConfigurations(formats strfmt.Registry) error {
+	if swag.IsZero(m.InstanceConfigurations) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.InstanceConfigurations); i++ {
+		if swag.IsZero(m.InstanceConfigurations[i]) { // not required
+			continue
+		}
+
+		if m.InstanceConfigurations[i] != nil {
+			if err := m.InstanceConfigurations[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -211,6 +245,10 @@ func (m *DeploymentGetResponse) validateSettings(formats strfmt.Registry) error 
 func (m *DeploymentGetResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateInstanceConfigurations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateMetadata(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -230,6 +268,26 @@ func (m *DeploymentGetResponse) ContextValidate(ctx context.Context, formats str
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DeploymentGetResponse) contextValidateInstanceConfigurations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.InstanceConfigurations); i++ {
+
+		if m.InstanceConfigurations[i] != nil {
+			if err := m.InstanceConfigurations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

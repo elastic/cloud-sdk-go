@@ -37,6 +37,9 @@ import (
 // swagger:model InstanceConfigurationInfo
 type InstanceConfigurationInfo struct {
 
+	// If the IC is configuration controlled, this field is the version either being read back (reads return the latest IC unless specified by the 'config_version' URL param), or the version to update. Cannot be used in creates. For unversioned IC reads it is left empty.
+	ConfigVersion int32 `json:"config_version,omitempty"`
+
 	// Settings for the instance CPU multiplier
 	CPUMultiplier float64 `json:"cpu_multiplier,omitempty"`
 
