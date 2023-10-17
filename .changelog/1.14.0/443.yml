@@ -1,0 +1,5 @@
+category: bug
+title: Properly support `AllocatorDown` parameter for the `VacateCluster` command.
+description: |
+    The vacate parameter `AllocatorDown` was ignored and not passed through to the actual request. 
+    This has now been fixed and the parameter can be used when calling `VacateCluster`.

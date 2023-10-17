@@ -1,0 +1,4 @@
+category: enhancement
+title: Update API spec to ESS ms-98
+description: |
+    Updates the generated clients and models to match the latest API available in Elastic cloud.
