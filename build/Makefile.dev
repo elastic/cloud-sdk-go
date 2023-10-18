@@ -17,6 +17,7 @@ unit: _report_path
 format: deps
 	@ echo "-> Formatting Go files..."
 	@ $(GOBIN)/go-licenser -license ASL2 .
+	@ go list -m -json all | $(GOBIN)/go-licence-detector -noticeOut=NOTICE -noticeTemplate build/NOTICE.tmpl -includeIndirect
 	@ $(GOBIN)/golangci-lint run --fix
 	@ echo "-> Done."
 
