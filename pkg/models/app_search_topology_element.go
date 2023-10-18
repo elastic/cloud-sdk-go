@@ -41,7 +41,7 @@ type AppSearchTopologyElement struct {
 	// Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration.
 	InstanceConfigurationID string `json:"instance_configuration_id,omitempty"`
 
-	// The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version.
+	// The version of the Instance Configuration Id. If it is unset, the meaning depends on read vs writes. For deployment reads, it is equivalent to version 0 (or the IC is unversioned); for deployment creates and deployment template use, it is equivalent to 'the latest version'; and for deployment updates, it is equivalent to 'retain the current version'.
 	InstanceConfigurationVersion int32 `json:"instance_configuration_version,omitempty"`
 
 	// Defines the AppSearch node type

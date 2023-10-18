@@ -322,6 +322,19 @@
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
+          "429" : {
+            "description" : "Too many requests. (code: `billing_service.rate_limited`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.rate_limited" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "500" : {
             "description" : "Error fetching the itemized costs for the organization. (code: `billing_service.failed_request`)",
             "headers" : {
@@ -518,6 +531,19 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "429" : {
+            "description" : "Too many requests. (code: `billing_service.rate_limited`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.rate_limited" ]
               }
             },
             "schema" : {
@@ -2265,6 +2291,13 @@
           "required" : false,
           "type" : "boolean",
           "default" : false
+        }, {
+          "name" : "show_instance_configurations",
+          "in" : "query",
+          "description" : "If true, will return details for each instance configuration referenced by the deployment.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
         }, {
           "name" : "enrich_with_template",
           "in" : "query",
@@ -6700,7 +6733,7 @@
         "instance_configuration_version" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
+          "description" : "The version of the Instance Configuration Id. If it is unset, the meaning depends on read vs writes. For deployment reads, it is equivalent to version 0 (or the IC is unversioned); for deployment creates and deployment template use, it is equivalent to 'the latest version'; and for deployment updates, it is equivalent to 'retain the current version'."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -7118,7 +7151,7 @@
         "instance_configuration_version" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
+          "description" : "The version of the Instance Configuration Id. If it is unset, the meaning depends on read vs writes. For deployment reads, it is equivalent to version 0 (or the IC is unversioned); for deployment creates and deployment template use, it is equivalent to 'the latest version'; and for deployment updates, it is equivalent to 'retain the current version'."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -7422,6 +7455,11 @@
           "type" : "string",
           "description" : "The name of the configuration used to create the instance"
         },
+        "config_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "If the IC is configuration controlled, this field is the version either being read back (reads return the latest IC unless specified by the 'config_version' URL param), or the version to update. Cannot be used in creates. For unversioned IC reads it is left empty."
+        },
         "resource" : {
           "type" : "string",
           "description" : "The resource type of the instance configuration",
@@ -7511,6 +7549,10 @@
             "type" : "string",
             "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "data_frozen", "remote_cluster_client", "transform", "voting_only" ]
           }
+        },
+        "instance_overrides" : {
+          "description" : "Instance overrides",
+          "$ref" : "#/definitions/InstanceOverrides"
         }
       },
       "description" : "Information about each Kibana instance and APM Server in the Elasticsearch cluster."
@@ -8210,6 +8252,13 @@
         "observability" : {
           "description" : "The observability information for this deployment",
           "$ref" : "#/definitions/DeploymentObservability"
+        },
+        "instance_configurations" : {
+          "type" : "array",
+          "description" : "List of instance configurations used in the deployment.",
+          "items" : {
+            "$ref" : "#/definitions/InstanceConfigurationInfo"
+          }
         }
       },
       "description" : "Describes a given Deployment"
@@ -9455,7 +9504,7 @@
         "instance_configuration_version" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in cluster or tier creates or if changing IC id, means most recent version. If unset in other updates, means keep the same version."
+          "description" : "The version of the Instance Configuration Id. If it is unset, the meaning depends on read vs writes. For deployment reads, it is equivalent to version 0 (or the IC is unversioned); for deployment creates and deployment template use, it is equivalent to 'the latest version'; and for deployment updates, it is equivalent to 'retain the current version'."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -10474,7 +10523,7 @@
         "instance_configuration_version" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
+          "description" : "The version of the Instance Configuration Id. If it is unset, the meaning depends on read vs writes. For deployment reads, it is equivalent to version 0 (or the IC is unversioned); for deployment creates and deployment template use, it is equivalent to 'the latest version'; and for deployment updates, it is equivalent to 'retain the current version'."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -10700,6 +10749,11 @@
           "type" : "string",
           "description" : "Display name for the instance configuration."
         },
+        "config_version" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "If the IC is configuration controlled, this field is the version either being read back (reads return the latest IC unless specified by the 'config_version' URL param), or the version to update. Cannot be used in creates. For unversioned IC reads it is left empty."
+        },
         "description" : {
           "type" : "string",
           "description" : "Optional description for the instance configuration"
@@ -10764,6 +10818,21 @@
         }
       },
       "description" : "The request that specifies the Elasticsearch instances, Kibana instances, and APM Servers to move to allocators as part of the upgrade plan."
+    },
+    "InstanceOverrides" : {
+      "type" : "object",
+      "properties" : {
+        "capacity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Sets the memory capacity for the instances container. Requires a restart to take effect."
+        },
+        "storage_multiplier" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Overrides the disk quota multiplier for the instance"
+        }
+      }
     },
     "IntegrationsServer" : {
       "type" : "object",
@@ -11123,7 +11192,7 @@
         "instance_configuration_version" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
+          "description" : "The version of the Instance Configuration Id. If it is unset, the meaning depends on read vs writes. For deployment reads, it is equivalent to version 0 (or the IC is unversioned); for deployment creates and deployment template use, it is equivalent to 'the latest version'; and for deployment updates, it is equivalent to 'retain the current version'."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
@@ -11439,7 +11508,7 @@
         "instance_configuration_version" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The version of the Instance Configuration Id. Unset for unversioned Instance Configurations on read. If unset in creates, means most recent version. If unset in updates, means keep the same version."
+          "description" : "The version of the Instance Configuration Id. If it is unset, the meaning depends on read vs writes. For deployment reads, it is equivalent to version 0 (or the IC is unversioned); for deployment creates and deployment template use, it is equivalent to 'the latest version'; and for deployment updates, it is equivalent to 'retain the current version'."
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"

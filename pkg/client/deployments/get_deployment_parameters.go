@@ -109,6 +109,14 @@ type GetDeploymentParams struct {
 	*/
 	ForceAllPlanHistory *bool
 
+	/* ShowInstanceConfigurations.
+
+	   If true, will return details for each instance configuration referenced by the deployment.
+
+	   Default: true
+	*/
+	ShowInstanceConfigurations *bool
+
 	/* ShowMetadata.
 
 	   Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials
@@ -188,6 +196,8 @@ func (o *GetDeploymentParams) SetDefaults() {
 
 		forceAllPlanHistoryDefault = bool(false)
 
+		showInstanceConfigurationsDefault = bool(true)
+
 		showMetadataDefault = bool(false)
 
 		showPlanDefaultsDefault = bool(false)
@@ -206,17 +216,18 @@ func (o *GetDeploymentParams) SetDefaults() {
 	)
 
 	val := GetDeploymentParams{
-		ConvertLegacyPlans:  &convertLegacyPlansDefault,
-		EnrichWithTemplate:  &enrichWithTemplateDefault,
-		ForceAllPlanHistory: &forceAllPlanHistoryDefault,
-		ShowMetadata:        &showMetadataDefault,
-		ShowPlanDefaults:    &showPlanDefaultsDefault,
-		ShowPlanHistory:     &showPlanHistoryDefault,
-		ShowPlanLogs:        &showPlanLogsDefault,
-		ShowPlans:           &showPlansDefault,
-		ShowSecurity:        &showSecurityDefault,
-		ShowSettings:        &showSettingsDefault,
-		ShowSystemAlerts:    &showSystemAlertsDefault,
+		ConvertLegacyPlans:         &convertLegacyPlansDefault,
+		EnrichWithTemplate:         &enrichWithTemplateDefault,
+		ForceAllPlanHistory:        &forceAllPlanHistoryDefault,
+		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
+		ShowMetadata:               &showMetadataDefault,
+		ShowPlanDefaults:           &showPlanDefaultsDefault,
+		ShowPlanHistory:            &showPlanHistoryDefault,
+		ShowPlanLogs:               &showPlanLogsDefault,
+		ShowPlans:                  &showPlansDefault,
+		ShowSecurity:               &showSecurityDefault,
+		ShowSettings:               &showSettingsDefault,
+		ShowSystemAlerts:           &showSystemAlertsDefault,
 	}
 
 	val.timeout = o.timeout
@@ -300,6 +311,17 @@ func (o *GetDeploymentParams) WithForceAllPlanHistory(forceAllPlanHistory *bool)
 // SetForceAllPlanHistory adds the forceAllPlanHistory to the get deployment params
 func (o *GetDeploymentParams) SetForceAllPlanHistory(forceAllPlanHistory *bool) {
 	o.ForceAllPlanHistory = forceAllPlanHistory
+}
+
+// WithShowInstanceConfigurations adds the showInstanceConfigurations to the get deployment params
+func (o *GetDeploymentParams) WithShowInstanceConfigurations(showInstanceConfigurations *bool) *GetDeploymentParams {
+	o.SetShowInstanceConfigurations(showInstanceConfigurations)
+	return o
+}
+
+// SetShowInstanceConfigurations adds the showInstanceConfigurations to the get deployment params
+func (o *GetDeploymentParams) SetShowInstanceConfigurations(showInstanceConfigurations *bool) {
+	o.ShowInstanceConfigurations = showInstanceConfigurations
 }
 
 // WithShowMetadata adds the showMetadata to the get deployment params
@@ -449,6 +471,23 @@ func (o *GetDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qForceAllPlanHistory != "" {
 
 			if err := r.SetQueryParam("force_all_plan_history", qForceAllPlanHistory); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ShowInstanceConfigurations != nil {
+
+		// query param show_instance_configurations
+		var qrShowInstanceConfigurations bool
+
+		if o.ShowInstanceConfigurations != nil {
+			qrShowInstanceConfigurations = *o.ShowInstanceConfigurations
+		}
+		qShowInstanceConfigurations := swag.FormatBool(qrShowInstanceConfigurations)
+		if qShowInstanceConfigurations != "" {
+
+			if err := r.SetQueryParam("show_instance_configurations", qShowInstanceConfigurations); err != nil {
 				return err
 			}
 		}

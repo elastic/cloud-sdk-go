@@ -59,6 +59,9 @@ type ClusterInstanceInfo struct {
 	// Required: true
 	InstanceName *string `json:"instance_name"`
 
+	// Instance overrides
+	InstanceOverrides *InstanceOverrides `json:"instance_overrides,omitempty"`
+
 	// Whether the service is is maintenance mode (meaning that the proxy is not routing external traffic to it)
 	// Required: true
 	MaintenanceMode *bool `json:"maintenance_mode"`
@@ -104,6 +107,10 @@ func (m *ClusterInstanceInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateInstanceName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInstanceOverrides(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -194,6 +201,25 @@ func (m *ClusterInstanceInfo) validateInstanceName(formats strfmt.Registry) erro
 	return nil
 }
 
+func (m *ClusterInstanceInfo) validateInstanceOverrides(formats strfmt.Registry) error {
+	if swag.IsZero(m.InstanceOverrides) { // not required
+		return nil
+	}
+
+	if m.InstanceOverrides != nil {
+		if err := m.InstanceOverrides.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("instance_overrides")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("instance_overrides")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *ClusterInstanceInfo) validateMaintenanceMode(formats strfmt.Registry) error {
 
 	if err := validate.Required("maintenance_mode", "body", m.MaintenanceMode); err != nil {
@@ -279,6 +305,10 @@ func (m *ClusterInstanceInfo) ContextValidate(ctx context.Context, formats strfm
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateInstanceOverrides(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateMemory(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -313,6 +343,22 @@ func (m *ClusterInstanceInfo) contextValidateInstanceConfiguration(ctx context.C
 				return ve.ValidateName("instance_configuration")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("instance_configuration")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInstanceInfo) contextValidateInstanceOverrides(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.InstanceOverrides != nil {
+		if err := m.InstanceOverrides.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("instance_overrides")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("instance_overrides")
 			}
 			return err
 		}
