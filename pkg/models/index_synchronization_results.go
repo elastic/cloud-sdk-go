@@ -44,6 +44,10 @@ type IndexSynchronizationResults struct {
 	// Required: true
 	Deleted []string `json:"deleted"`
 
+	// The regions where document synchronization may have failed
+	// Required: true
+	Errors []string `json:"errors"`
+
 	// The ids of documents updated in the index by index version
 	// Required: true
 	Updated []string `json:"updated"`
@@ -58,6 +62,10 @@ func (m *IndexSynchronizationResults) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDeleted(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateErrors(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -83,6 +91,15 @@ func (m *IndexSynchronizationResults) validateCreated(formats strfmt.Registry) e
 func (m *IndexSynchronizationResults) validateDeleted(formats strfmt.Registry) error {
 
 	if err := validate.Required("deleted", "body", m.Deleted); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *IndexSynchronizationResults) validateErrors(formats strfmt.Registry) error {
+
+	if err := validate.Required("errors", "body", m.Errors); err != nil {
 		return err
 	}
 
