@@ -84,6 +84,14 @@ type CaptureDeploymentResourceDiagnosticsParams struct {
 	*/
 	DeploymentID string
 
+	/* Mode.
+
+	   Capture mode - whether to obtain all the diagnostics data or the lightweight, essential-only subset of it. Applicable only to Elasticsearch, ignored for any other components which have just one capture mode implemented.
+
+	   Default: "Full"
+	*/
+	Mode *string
+
 	/* RefID.
 
 	   User-specified RefId for the Resource (or '_main' if there is only one).
@@ -113,7 +121,18 @@ func (o *CaptureDeploymentResourceDiagnosticsParams) WithDefaults() *CaptureDepl
 //
 // All values with no default are reset to their zero value.
 func (o *CaptureDeploymentResourceDiagnosticsParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		modeDefault = string("Full")
+	)
+
+	val := CaptureDeploymentResourceDiagnosticsParams{
+		Mode: &modeDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the capture deployment resource diagnostics params
@@ -160,6 +179,17 @@ func (o *CaptureDeploymentResourceDiagnosticsParams) SetDeploymentID(deploymentI
 	o.DeploymentID = deploymentID
 }
 
+// WithMode adds the mode to the capture deployment resource diagnostics params
+func (o *CaptureDeploymentResourceDiagnosticsParams) WithMode(mode *string) *CaptureDeploymentResourceDiagnosticsParams {
+	o.SetMode(mode)
+	return o
+}
+
+// SetMode adds the mode to the capture deployment resource diagnostics params
+func (o *CaptureDeploymentResourceDiagnosticsParams) SetMode(mode *string) {
+	o.Mode = mode
+}
+
 // WithRefID adds the refID to the capture deployment resource diagnostics params
 func (o *CaptureDeploymentResourceDiagnosticsParams) WithRefID(refID string) *CaptureDeploymentResourceDiagnosticsParams {
 	o.SetRefID(refID)
@@ -193,6 +223,23 @@ func (o *CaptureDeploymentResourceDiagnosticsParams) WriteToRequest(r runtime.Cl
 	// path param deployment_id
 	if err := r.SetPathParam("deployment_id", o.DeploymentID); err != nil {
 		return err
+	}
+
+	if o.Mode != nil {
+
+		// query param mode
+		var qrMode string
+
+		if o.Mode != nil {
+			qrMode = *o.Mode
+		}
+		qMode := qrMode
+		if qMode != "" {
+
+			if err := r.SetQueryParam("mode", qMode); err != nil {
+				return err
+			}
+		}
 	}
 
 	// path param ref_id

@@ -64,7 +64,7 @@ func TestGet(t *testing.T) {
 				ID:                "data.highstorage",
 				Description:       "Instance configuration to be used for a higher disk/memory ratio",
 				Name:              ec.String("data.highstorage"),
-				InstanceType:      ec.String("elasticsearch"),
+				InstanceType:      "elasticsearch",
 				StorageMultiplier: float64(32),
 				NodeTypes:         []string{"data", "ingest", "master"},
 				DiscreteSizes: &models.DiscreteSizes{
@@ -106,7 +106,7 @@ func TestGet(t *testing.T) {
 				ID:                "kibana",
 				Description:       "Instance configuration to be used for Kibana",
 				Name:              ec.String("kibana"),
-				InstanceType:      ec.String("kibana"),
+				InstanceType:      "kibana",
 				StorageMultiplier: float64(4),
 				DiscreteSizes: &models.DiscreteSizes{
 					DefaultSize: ec.Int32(1024),

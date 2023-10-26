@@ -10739,7 +10739,7 @@
     },
     "InstanceConfigurationInfo" : {
       "type" : "object",
-      "required" : [ "discrete_sizes", "instance_type", "name" ],
+      "required" : [ "discrete_sizes", "name" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -10760,12 +10760,12 @@
         },
         "instance_type" : {
           "type" : "string",
-          "description" : "The type of instance",
+          "description" : "The type of instance. For instance configurations where the type is specified in the 'id', the default value of 'instance_type' will be automatically inferred.",
           "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "node_types" : {
           "type" : "array",
-          "description" : "Node types (master, data) for the instance",
+          "description" : "Node types (master, data) for the instance. For instance configurations where the type (and tier) is specified in the 'id', the default value of 'node_types' will be automatically inferred.",
           "items" : {
             "type" : "string"
           }
@@ -10817,7 +10817,7 @@
           "description" : "Tells the infrastructure that the instance should be considered as permanently down when deciding how to migrate data to new nodes. If left blank then the system will automatically decide (currently: will treat the instances as up)"
         }
       },
-      "description" : "The request that specifies the Elasticsearch instances, Kibana instances, and APM Servers to move to allocators as part of the upgrade plan."
+      "description" : "The request that specifies the Elasticsearch or stateless (eg Kibana) instances to move to allocators as part of the upgrade plan. When used in conjunction with '\\_\\_all\\_\\_' (roll all instances as a single unit) strategy, these instances are not restarted, which can sometimes enable recovery plans when these instances are boot-looping."
     },
     "InstanceOverrides" : {
       "type" : "object",

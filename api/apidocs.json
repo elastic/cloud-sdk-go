@@ -4546,7 +4546,7 @@
           "description" : "When `true`, moves the specified instances and ignores the changes for the cluster state.",
           "required" : false,
           "type" : "boolean",
-          "default" : false
+          "default" : true
         }, {
           "name" : "force_move",
           "in" : "query",
@@ -5735,6 +5735,14 @@
           "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "description" : "Capture mode - whether to obtain all the diagnostics data or the lightweight, essential-only subset of it. Applicable only to Elasticsearch, ignored for any other components which have just one capture mode implemented.",
+          "required" : false,
+          "type" : "string",
+          "default" : "Full",
+          "enum" : [ "full", "light" ]
         } ],
         "responses" : {
           "200" : {
@@ -22655,7 +22663,7 @@
     },
     "InstanceConfiguration" : {
       "type" : "object",
-      "required" : [ "discrete_sizes", "instance_type", "name" ],
+      "required" : [ "discrete_sizes", "name" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -22676,12 +22684,12 @@
         },
         "instance_type" : {
           "type" : "string",
-          "description" : "The type of instance",
+          "description" : "The type of instance. For instance configurations where the type is specified in the 'id', the default value of 'instance_type' will be automatically inferred.",
           "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "node_types" : {
           "type" : "array",
-          "description" : "Node types (master, data) for the instance",
+          "description" : "Node types (master, data) for the instance. For instance configurations where the type (and tier) is specified in the 'id', the default value of 'node_types' will be automatically inferred.",
           "items" : {
             "type" : "string"
           }
@@ -22728,7 +22736,7 @@
     },
     "InstanceConfigurationInfo" : {
       "type" : "object",
-      "required" : [ "discrete_sizes", "instance_type", "name" ],
+      "required" : [ "discrete_sizes", "name" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -22749,12 +22757,12 @@
         },
         "instance_type" : {
           "type" : "string",
-          "description" : "The type of instance",
+          "description" : "The type of instance. For instance configurations where the type is specified in the 'id', the default value of 'instance_type' will be automatically inferred.",
           "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "node_types" : {
           "type" : "array",
-          "description" : "Node types (master, data) for the instance",
+          "description" : "Node types (master, data) for the instance. For instance configurations where the type (and tier) is specified in the 'id', the default value of 'node_types' will be automatically inferred.",
           "items" : {
             "type" : "string"
           }
@@ -22806,7 +22814,7 @@
           "description" : "Tells the infrastructure that the instance should be considered as permanently down when deciding how to migrate data to new nodes. If left blank then the system will automatically decide (currently: will treat the instances as up)"
         }
       },
-      "description" : "The request that specifies the Elasticsearch instances, Kibana instances, and APM Servers to move to allocators as part of the upgrade plan."
+      "description" : "The request that specifies the Elasticsearch or stateless (eg Kibana) instances to move to allocators as part of the upgrade plan. When used in conjunction with '\\_\\_all\\_\\_' (roll all instances as a single unit) strategy, these instances are not restarted, which can sometimes enable recovery plans when these instances are boot-looping."
     },
     "InstanceOverrides" : {
       "type" : "object",
@@ -27471,11 +27479,16 @@
     },
     "TokenResponse" : {
       "type" : "object",
-      "required" : [ "token" ],
+      "required" : [ "session_expiration_time", "token" ],
       "properties" : {
         "token" : {
           "type" : "string",
           "description" : "The authorization bearer token that you use in subsequent requests"
+        },
+        "session_expiration_time" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The time that the session token will expire"
         }
       },
       "description" : "The response value after a login without redirect configured, or after elevated permissions are enabled or disabled."

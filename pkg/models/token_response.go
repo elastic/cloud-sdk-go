@@ -36,6 +36,11 @@ import (
 // swagger:model TokenResponse
 type TokenResponse struct {
 
+	// The time that the session token will expire
+	// Required: true
+	// Format: date-time
+	SessionExpirationTime *strfmt.DateTime `json:"session_expiration_time"`
+
 	// The authorization bearer token that you use in subsequent requests
 	// Required: true
 	Token *string `json:"token"`
@@ -45,6 +50,10 @@ type TokenResponse struct {
 func (m *TokenResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateSessionExpirationTime(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateToken(formats); err != nil {
 		res = append(res, err)
 	}
@@ -52,6 +61,19 @@ func (m *TokenResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *TokenResponse) validateSessionExpirationTime(formats strfmt.Registry) error {
+
+	if err := validate.Required("session_expiration_time", "body", m.SessionExpirationTime); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("session_expiration_time", "body", "date-time", m.SessionExpirationTime.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

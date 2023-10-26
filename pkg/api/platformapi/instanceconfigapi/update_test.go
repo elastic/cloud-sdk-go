@@ -63,7 +63,7 @@ func TestUpdate(t *testing.T) {
 					ID:                "kibana",
 					Description:       "Instance configuration to be used for Kibana",
 					Name:              ec.String("kibana"),
-					InstanceType:      ec.String("kibana"),
+					InstanceType:      "kibana",
 					StorageMultiplier: float64(4),
 					NodeTypes:         []string{},
 					DiscreteSizes: &models.DiscreteSizes{
@@ -88,7 +88,7 @@ func TestUpdate(t *testing.T) {
 					ID:                "kibana",
 					Description:       "Instance configuration to be used for Kibana",
 					Name:              ec.String("kibana"),
-					InstanceType:      ec.String("kibana"),
+					InstanceType:      "kibana",
 					StorageMultiplier: float64(4),
 					NodeTypes:         []string{},
 					DiscreteSizes: &models.DiscreteSizes{

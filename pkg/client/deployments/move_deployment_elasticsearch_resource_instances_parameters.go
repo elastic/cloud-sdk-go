@@ -126,6 +126,8 @@ type MoveDeploymentElasticsearchResourceInstancesParams struct {
 	/* MoveOnly.
 
 	   When `true`, moves the specified instances and ignores the changes for the cluster state.
+
+	   Default: true
 	*/
 	MoveOnly *bool
 
@@ -167,7 +169,7 @@ func (o *MoveDeploymentElasticsearchResourceInstancesParams) SetDefaults() {
 
 		instancesDownDefault = bool(false)
 
-		moveOnlyDefault = bool(false)
+		moveOnlyDefault = bool(true)
 
 		validateOnlyDefault = bool(false)
 	)
