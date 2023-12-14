@@ -39,7 +39,7 @@ type IntegrationsServerTopologyElement struct {
 	InstanceConfigurationID string `json:"instance_configuration_id,omitempty"`
 
 	// The version of the Instance Configuration Id. If it is unset, the meaning depends on read vs writes. For deployment reads, it is equivalent to version 0 (or the IC is unversioned); for deployment creates and deployment template use, it is equivalent to 'the latest version'; and for deployment updates, it is equivalent to 'retain the current version'.
-	InstanceConfigurationVersion int32 `json:"instance_configuration_version,omitempty"`
+	InstanceConfigurationVersion *int32 `json:"instance_configuration_version,omitempty"`
 
 	// integrations server
 	IntegrationsServer *IntegrationsServerConfiguration `json:"integrations_server,omitempty"`
