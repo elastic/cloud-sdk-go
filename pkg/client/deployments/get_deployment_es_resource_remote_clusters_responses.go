@@ -65,7 +65,7 @@ func NewGetDeploymentEsResourceRemoteClustersOK() *GetDeploymentEsResourceRemote
 /*
 GetDeploymentEsResourceRemoteClustersOK describes a response with status code 200, with default header values.
 
-List of remote clusters for the resource
+List of certificate based remote clusters for the resource
 */
 type GetDeploymentEsResourceRemoteClustersOK struct {
 	Payload *models.RemoteResources

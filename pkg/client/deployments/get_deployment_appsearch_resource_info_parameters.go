@@ -79,6 +79,12 @@ GetDeploymentAppsearchResourceInfoParams contains all the parameters to send to 
 */
 type GetDeploymentAppsearchResourceInfoParams struct {
 
+	/* ClearTransient.
+
+	   If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update
+	*/
+	ClearTransient *bool
+
 	/* DeploymentID.
 
 	   Identifier for the Deployment
@@ -147,6 +153,8 @@ func (o *GetDeploymentAppsearchResourceInfoParams) WithDefaults() *GetDeployment
 // All values with no default are reset to their zero value.
 func (o *GetDeploymentAppsearchResourceInfoParams) SetDefaults() {
 	var (
+		clearTransientDefault = bool(false)
+
 		showMetadataDefault = bool(false)
 
 		showPlanDefaultsDefault = bool(false)
@@ -161,6 +169,7 @@ func (o *GetDeploymentAppsearchResourceInfoParams) SetDefaults() {
 	)
 
 	val := GetDeploymentAppsearchResourceInfoParams{
+		ClearTransient:   &clearTransientDefault,
 		ShowMetadata:     &showMetadataDefault,
 		ShowPlanDefaults: &showPlanDefaultsDefault,
 		ShowPlanHistory:  &showPlanHistoryDefault,
@@ -206,6 +215,17 @@ func (o *GetDeploymentAppsearchResourceInfoParams) WithHTTPClient(client *http.C
 // SetHTTPClient adds the HTTPClient to the get deployment appsearch resource info params
 func (o *GetDeploymentAppsearchResourceInfoParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithClearTransient adds the clearTransient to the get deployment appsearch resource info params
+func (o *GetDeploymentAppsearchResourceInfoParams) WithClearTransient(clearTransient *bool) *GetDeploymentAppsearchResourceInfoParams {
+	o.SetClearTransient(clearTransient)
+	return o
+}
+
+// SetClearTransient adds the clearTransient to the get deployment appsearch resource info params
+func (o *GetDeploymentAppsearchResourceInfoParams) SetClearTransient(clearTransient *bool) {
+	o.ClearTransient = clearTransient
 }
 
 // WithDeploymentID adds the deploymentID to the get deployment appsearch resource info params
@@ -303,6 +323,23 @@ func (o *GetDeploymentAppsearchResourceInfoParams) WriteToRequest(r runtime.Clie
 		return err
 	}
 	var res []error
+
+	if o.ClearTransient != nil {
+
+		// query param clear_transient
+		var qrClearTransient bool
+
+		if o.ClearTransient != nil {
+			qrClearTransient = *o.ClearTransient
+		}
+		qClearTransient := swag.FormatBool(qrClearTransient)
+		if qClearTransient != "" {
+
+			if err := r.SetQueryParam("clear_transient", qClearTransient); err != nil {
+				return err
+			}
+		}
+	}
 
 	// path param deployment_id
 	if err := r.SetPathParam("deployment_id", o.DeploymentID); err != nil {

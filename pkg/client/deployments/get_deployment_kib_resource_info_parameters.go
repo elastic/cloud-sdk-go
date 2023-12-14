@@ -79,6 +79,12 @@ GetDeploymentKibResourceInfoParams contains all the parameters to send to the AP
 */
 type GetDeploymentKibResourceInfoParams struct {
 
+	/* ClearTransient.
+
+	   If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update
+	*/
+	ClearTransient *bool
+
 	/* ConvertLegacyPlans.
 
 	   If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true').
@@ -153,6 +159,8 @@ func (o *GetDeploymentKibResourceInfoParams) WithDefaults() *GetDeploymentKibRes
 // All values with no default are reset to their zero value.
 func (o *GetDeploymentKibResourceInfoParams) SetDefaults() {
 	var (
+		clearTransientDefault = bool(false)
+
 		convertLegacyPlansDefault = bool(false)
 
 		showMetadataDefault = bool(false)
@@ -169,6 +177,7 @@ func (o *GetDeploymentKibResourceInfoParams) SetDefaults() {
 	)
 
 	val := GetDeploymentKibResourceInfoParams{
+		ClearTransient:     &clearTransientDefault,
 		ConvertLegacyPlans: &convertLegacyPlansDefault,
 		ShowMetadata:       &showMetadataDefault,
 		ShowPlanDefaults:   &showPlanDefaultsDefault,
@@ -215,6 +224,17 @@ func (o *GetDeploymentKibResourceInfoParams) WithHTTPClient(client *http.Client)
 // SetHTTPClient adds the HTTPClient to the get deployment kib resource info params
 func (o *GetDeploymentKibResourceInfoParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithClearTransient adds the clearTransient to the get deployment kib resource info params
+func (o *GetDeploymentKibResourceInfoParams) WithClearTransient(clearTransient *bool) *GetDeploymentKibResourceInfoParams {
+	o.SetClearTransient(clearTransient)
+	return o
+}
+
+// SetClearTransient adds the clearTransient to the get deployment kib resource info params
+func (o *GetDeploymentKibResourceInfoParams) SetClearTransient(clearTransient *bool) {
+	o.ClearTransient = clearTransient
 }
 
 // WithConvertLegacyPlans adds the convertLegacyPlans to the get deployment kib resource info params
@@ -323,6 +343,23 @@ func (o *GetDeploymentKibResourceInfoParams) WriteToRequest(r runtime.ClientRequ
 		return err
 	}
 	var res []error
+
+	if o.ClearTransient != nil {
+
+		// query param clear_transient
+		var qrClearTransient bool
+
+		if o.ClearTransient != nil {
+			qrClearTransient = *o.ClearTransient
+		}
+		qClearTransient := swag.FormatBool(qrClearTransient)
+		if qClearTransient != "" {
+
+			if err := r.SetQueryParam("clear_transient", qClearTransient); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.ConvertLegacyPlans != nil {
 

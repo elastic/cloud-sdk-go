@@ -53,10 +53,9 @@ type InstanceConfigurationInfo struct {
 	// Unique identifier for the instance configuration
 	ID string `json:"id,omitempty"`
 
-	// The type of instance
-	// Required: true
+	// The type of instance. For instance configurations where the type is specified in the 'id', the default value of 'instance_type' will be automatically inferred.
 	// Enum: [elasticsearch kibana apm integrations_server appsearch enterprise_search]
-	InstanceType *string `json:"instance_type"`
+	InstanceType string `json:"instance_type,omitempty"`
 
 	// The maximum number of availability zones in which this instance configuration has allocators. This field will be missing unless explicitly requested with the show_max_zones parameter.
 	// Read Only: true
@@ -69,7 +68,7 @@ type InstanceConfigurationInfo struct {
 	// Required: true
 	Name *string `json:"name"`
 
-	// Node types (master, data) for the instance
+	// Node types (master, data) for the instance. For instance configurations where the type (and tier) is specified in the 'id', the default value of 'node_types' will be automatically inferred.
 	NodeTypes []string `json:"node_types"`
 
 	// Settings for the instance storage multiplier
@@ -160,13 +159,12 @@ func (m *InstanceConfigurationInfo) validateInstanceTypeEnum(path, location stri
 }
 
 func (m *InstanceConfigurationInfo) validateInstanceType(formats strfmt.Registry) error {
-
-	if err := validate.Required("instance_type", "body", m.InstanceType); err != nil {
-		return err
+	if swag.IsZero(m.InstanceType) { // not required
+		return nil
 	}
 
 	// value enum
-	if err := m.validateInstanceTypeEnum("instance_type", "body", *m.InstanceType); err != nil {
+	if err := m.validateInstanceTypeEnum("instance_type", "body", m.InstanceType); err != nil {
 		return err
 	}
 

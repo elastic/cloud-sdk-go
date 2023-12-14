@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InstanceMoveRequest The request that specifies the Elasticsearch instances, Kibana instances, and APM Servers to move to allocators as part of the upgrade plan.
+// InstanceMoveRequest The request that specifies the Elasticsearch or stateless (eg Kibana) instances to move to allocators as part of the upgrade plan. When used in conjunction with '\_\_all\_\_' (roll all instances as a single unit) strategy, these instances are not restarted, which can sometimes enable recovery plans when these instances are boot-looping.
 //
 // swagger:model InstanceMoveRequest
 type InstanceMoveRequest struct {
