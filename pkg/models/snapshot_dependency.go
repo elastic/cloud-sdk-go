@@ -31,30 +31,29 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// TokenResponse The response value after a login without redirect configured, or after elevated permissions are enabled or disabled.
+// SnapshotDependency The additional resource of Elasticsearch cluster.
 //
-// swagger:model TokenResponse
-type TokenResponse struct {
+// swagger:model SnapshotDependency
+type SnapshotDependency struct {
 
-	// The time that the session token will expire
+	// Client name that use to access additional resource
 	// Required: true
-	// Format: date-time
-	SessionExpirationTime *strfmt.DateTime `json:"session_expiration_time"`
+	ClientName *string `json:"client_name"`
 
-	// The authorization bearer token that you use in subsequent requests
+	// Resource (Elasticsearch cluster) id
 	// Required: true
-	Token *string `json:"token"`
+	ResourceID *string `json:"resource_id"`
 }
 
-// Validate validates this token response
-func (m *TokenResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this snapshot dependency
+func (m *SnapshotDependency) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateSessionExpirationTime(formats); err != nil {
+	if err := m.validateClientName(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateToken(formats); err != nil {
+	if err := m.validateResourceID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -64,35 +63,31 @@ func (m *TokenResponse) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *TokenResponse) validateSessionExpirationTime(formats strfmt.Registry) error {
+func (m *SnapshotDependency) validateClientName(formats strfmt.Registry) error {
 
-	if err := validate.Required("session_expiration_time", "body", m.SessionExpirationTime); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("session_expiration_time", "body", "date-time", m.SessionExpirationTime.String(), formats); err != nil {
+	if err := validate.Required("client_name", "body", m.ClientName); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *TokenResponse) validateToken(formats strfmt.Registry) error {
+func (m *SnapshotDependency) validateResourceID(formats strfmt.Registry) error {
 
-	if err := validate.Required("token", "body", m.Token); err != nil {
+	if err := validate.Required("resource_id", "body", m.ResourceID); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// ContextValidate validates this token response based on context it is used
-func (m *TokenResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this snapshot dependency based on context it is used
+func (m *SnapshotDependency) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *TokenResponse) MarshalBinary() ([]byte, error) {
+func (m *SnapshotDependency) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -100,8 +95,8 @@ func (m *TokenResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TokenResponse) UnmarshalBinary(b []byte) error {
-	var res TokenResponse
+func (m *SnapshotDependency) UnmarshalBinary(b []byte) error {
+	var res SnapshotDependency
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

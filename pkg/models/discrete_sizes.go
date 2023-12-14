@@ -38,13 +38,11 @@ import (
 type DiscreteSizes struct {
 
 	// The default size
-	// Required: true
-	DefaultSize *int32 `json:"default_size"`
+	DefaultSize int32 `json:"default_size,omitempty"`
 
-	// The unit that each size represents
-	// Required: true
+	// The unit that each size represents. If not specified, it will default to 'memory'.
 	// Enum: [memory storage]
-	Resource *string `json:"resource"`
+	Resource string `json:"resource,omitempty"`
 
 	// List of supported sizes
 	// Required: true
@@ -54,10 +52,6 @@ type DiscreteSizes struct {
 // Validate validates this discrete sizes
 func (m *DiscreteSizes) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateDefaultSize(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateResource(formats); err != nil {
 		res = append(res, err)
@@ -70,15 +64,6 @@ func (m *DiscreteSizes) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *DiscreteSizes) validateDefaultSize(formats strfmt.Registry) error {
-
-	if err := validate.Required("default_size", "body", m.DefaultSize); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -112,13 +97,12 @@ func (m *DiscreteSizes) validateResourceEnum(path, location string, value string
 }
 
 func (m *DiscreteSizes) validateResource(formats strfmt.Registry) error {
-
-	if err := validate.Required("resource", "body", m.Resource); err != nil {
-		return err
+	if swag.IsZero(m.Resource) { // not required
+		return nil
 	}
 
 	// value enum
-	if err := m.validateResourceEnum("resource", "body", *m.Resource); err != nil {
+	if err := m.validateResourceEnum("resource", "body", m.Resource); err != nil {
 		return err
 	}
 

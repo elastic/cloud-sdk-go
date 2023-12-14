@@ -82,7 +82,7 @@ type SetDeploymentEsResourceRemoteClustersParams struct {
 
 	/* Body.
 
-	   List of remote clusters for the resource
+	   List of certificate based remote clusters for the resource
 	*/
 	Body *models.RemoteResources
 

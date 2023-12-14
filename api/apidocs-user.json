@@ -2312,6 +2312,13 @@
           "required" : false,
           "type" : "boolean",
           "default" : false
+        }, {
+          "name" : "clear_transient",
+          "in" : "query",
+          "description" : "If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         } ],
         "responses" : {
           "200" : {
@@ -2651,6 +2658,13 @@
           "required" : false,
           "type" : "boolean",
           "default" : false
+        }, {
+          "name" : "clear_transient",
+          "in" : "query",
+          "description" : "If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         } ],
         "responses" : {
           "200" : {
@@ -2821,6 +2835,13 @@
           "name" : "show_settings",
           "in" : "query",
           "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "clear_transient",
+          "in" : "query",
+          "description" : "If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update",
           "required" : false,
           "type" : "boolean",
           "default" : false
@@ -3118,6 +3139,13 @@
           "required" : false,
           "type" : "boolean",
           "default" : true
+        }, {
+          "name" : "clear_transient",
+          "in" : "query",
+          "description" : "If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         } ],
         "responses" : {
           "200" : {
@@ -3799,8 +3827,8 @@
     "/deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters" : {
       "get" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Get remote clusters",
-        "description" : "Returns the list of remote clusters for the elasticsearch resource.",
+        "summary" : "Get certificate based remote clusters",
+        "description" : "Returns the list of certificate based remote clusters for the elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-remote-clusters",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -3818,7 +3846,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "List of remote clusters for the resource",
+            "description" : "List of certificate based remote clusters for the resource",
             "schema" : {
               "$ref" : "#/definitions/RemoteResources"
             }
@@ -3843,8 +3871,8 @@
       },
       "put" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Set remote clusters",
-        "description" : "Overwrites or creates the remote clusters for the elasticsearch resource.",
+        "summary" : "Set certificate based remote clusters",
+        "description" : "Overwrites or creates the list of certificate based remote clusters for the elasticsearch resource.",
         "operationId" : "set-deployment-es-resource-remote-clusters",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
@@ -3863,7 +3891,7 @@
         }, {
           "in" : "body",
           "name" : "body",
-          "description" : "List of remote clusters for the resource",
+          "description" : "List of certificate based remote clusters for the resource",
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/RemoteResources"
@@ -3892,6 +3920,130 @@
         },
         "x-doc" : {
           "tag" : "Deployment - Remote Clusters"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/snapshot/dependency" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get the depedencies of Elasticsearch resource snapshot",
+        "description" : "Fetches the current dependencies of the snapshot for the Elasticsearch resource.",
+        "operationId" : "get-deployment-es-resource-snapshot-dependency",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "List of snapshot dependency",
+            "schema" : {
+              "$ref" : "#/definitions/SnapshotDependencies"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.metadata_internal_error" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment Resources - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/snapshot/dependency/{resource_id}" : {
+      "delete" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Delete a dependency of Elasticsearch resource snapshot",
+        "description" : "Delete the dependency of a Elasticsearch resource snapshot. Doing so will cause the cloned snapshot to be inaccessible.",
+        "operationId" : "delete-deployment-es-resource-snapshot-dependency",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_id",
+          "in" : "path",
+          "description" : "System generated UUID for the Resource (Elasticsearch)",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.metadata_internal_error" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment Resources - CRUD"
         }
       }
     },
@@ -3953,6 +4105,13 @@
           "name" : "show_settings",
           "in" : "query",
           "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "clear_transient",
+          "in" : "query",
+          "description" : "If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update",
           "required" : false,
           "type" : "boolean",
           "default" : false
@@ -4054,6 +4213,13 @@
           "name" : "show_settings",
           "in" : "query",
           "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "clear_transient",
+          "in" : "query",
+          "description" : "If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update",
           "required" : false,
           "type" : "boolean",
           "default" : false
@@ -4162,6 +4328,13 @@
           "name" : "show_settings",
           "in" : "query",
           "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "clear_transient",
+          "in" : "query",
+          "description" : "If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update",
           "required" : false,
           "type" : "boolean",
           "default" : false
@@ -8991,7 +9164,7 @@
     },
     "DiscreteSizes" : {
       "type" : "object",
-      "required" : [ "default_size", "resource", "sizes" ],
+      "required" : [ "sizes" ],
       "properties" : {
         "sizes" : {
           "type" : "array",
@@ -9008,7 +9181,7 @@
         },
         "resource" : {
           "type" : "string",
-          "description" : "The unit that each size represents",
+          "description" : "The unit that each size represents. If not specified, it will default to 'memory'.",
           "enum" : [ "memory", "storage" ]
         }
       },
@@ -10739,7 +10912,7 @@
     },
     "InstanceConfigurationInfo" : {
       "type" : "object",
-      "required" : [ "discrete_sizes", "instance_type", "name" ],
+      "required" : [ "discrete_sizes", "name" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -10760,12 +10933,12 @@
         },
         "instance_type" : {
           "type" : "string",
-          "description" : "The type of instance",
+          "description" : "The type of instance. For instance configurations where the type is specified in the 'id', the default value of 'instance_type' will be automatically inferred.",
           "enum" : [ "elasticsearch", "kibana", "apm", "integrations_server", "appsearch", "enterprise_search" ]
         },
         "node_types" : {
           "type" : "array",
-          "description" : "Node types (master, data) for the instance",
+          "description" : "Node types (master, data) for the instance. For instance configurations where the type (and tier) is specified in the 'id', the default value of 'node_types' will be automatically inferred.",
           "items" : {
             "type" : "string"
           }
@@ -10817,7 +10990,7 @@
           "description" : "Tells the infrastructure that the instance should be considered as permanently down when deciding how to migrate data to new nodes. If left blank then the system will automatically decide (currently: will treat the instances as up)"
         }
       },
-      "description" : "The request that specifies the Elasticsearch instances, Kibana instances, and APM Servers to move to allocators as part of the upgrade plan."
+      "description" : "The request that specifies the Elasticsearch or stateless (eg Kibana) instances to move to allocators as part of the upgrade plan. When used in conjunction with '\\_\\_all\\_\\_' (roll all instances as a single unit) strategy, these instances are not restarted, which can sometimes enable recovery plans when these instances are boot-looping."
     },
     "InstanceOverrides" : {
       "type" : "object",
@@ -10958,7 +11131,7 @@
         "apm_server_mode" : {
           "type" : "string",
           "description" : "The mode APM is operating in.",
-          "enum" : [ "Standalone", "Managed" ]
+          "enum" : [ "standalone", "managed" ]
         }
       },
       "description" : "The overview information for the Integrations Server."
@@ -12603,6 +12776,35 @@
         }
       },
       "description" : "Line Item"
+    },
+    "SnapshotDependencies" : {
+      "type" : "object",
+      "required" : [ "resources" ],
+      "properties" : {
+        "resources" : {
+          "type" : "array",
+          "description" : "Client name that use to access additional resource",
+          "items" : {
+            "$ref" : "#/definitions/SnapshotDependency"
+          }
+        }
+      },
+      "description" : "The additional resource of Elasticsearch cluster."
+    },
+    "SnapshotDependency" : {
+      "type" : "object",
+      "required" : [ "client_name", "resource_id" ],
+      "properties" : {
+        "resource_id" : {
+          "type" : "string",
+          "description" : "Resource (Elasticsearch cluster) id"
+        },
+        "client_name" : {
+          "type" : "string",
+          "description" : "Client name that use to access additional resource"
+        }
+      },
+      "description" : "The additional resource of Elasticsearch cluster."
     },
     "SnapshotStatusInfo" : {
       "type" : "object",

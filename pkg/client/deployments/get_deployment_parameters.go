@@ -79,6 +79,12 @@ GetDeploymentParams contains all the parameters to send to the API endpoint
 */
 type GetDeploymentParams struct {
 
+	/* ClearTransient.
+
+	   If set (defaults to false) then removes the transient section from all child resources, making it safe to reapply via an update
+	*/
+	ClearTransient *bool
+
 	/* ConvertLegacyPlans.
 
 	   If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true')
@@ -190,6 +196,8 @@ func (o *GetDeploymentParams) WithDefaults() *GetDeploymentParams {
 // All values with no default are reset to their zero value.
 func (o *GetDeploymentParams) SetDefaults() {
 	var (
+		clearTransientDefault = bool(false)
+
 		convertLegacyPlansDefault = bool(false)
 
 		enrichWithTemplateDefault = bool(true)
@@ -216,6 +224,7 @@ func (o *GetDeploymentParams) SetDefaults() {
 	)
 
 	val := GetDeploymentParams{
+		ClearTransient:             &clearTransientDefault,
 		ConvertLegacyPlans:         &convertLegacyPlansDefault,
 		EnrichWithTemplate:         &enrichWithTemplateDefault,
 		ForceAllPlanHistory:        &forceAllPlanHistoryDefault,
@@ -267,6 +276,17 @@ func (o *GetDeploymentParams) WithHTTPClient(client *http.Client) *GetDeployment
 // SetHTTPClient adds the HTTPClient to the get deployment params
 func (o *GetDeploymentParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithClearTransient adds the clearTransient to the get deployment params
+func (o *GetDeploymentParams) WithClearTransient(clearTransient *bool) *GetDeploymentParams {
+	o.SetClearTransient(clearTransient)
+	return o
+}
+
+// SetClearTransient adds the clearTransient to the get deployment params
+func (o *GetDeploymentParams) SetClearTransient(clearTransient *bool) {
+	o.ClearTransient = clearTransient
 }
 
 // WithConvertLegacyPlans adds the convertLegacyPlans to the get deployment params
@@ -419,6 +439,23 @@ func (o *GetDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
+
+	if o.ClearTransient != nil {
+
+		// query param clear_transient
+		var qrClearTransient bool
+
+		if o.ClearTransient != nil {
+			qrClearTransient = *o.ClearTransient
+		}
+		qClearTransient := swag.FormatBool(qrClearTransient)
+		if qClearTransient != "" {
+
+			if err := r.SetQueryParam("clear_transient", qClearTransient); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.ConvertLegacyPlans != nil {
 
