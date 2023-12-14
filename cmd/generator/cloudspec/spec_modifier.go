@@ -70,6 +70,36 @@ func Modify(cloudSpec *spec.Swagger) {
 				cloudSpec.Definitions[k].Properties[kk] = prop
 			}
 
+			if k == "ApmTopologyElement" && kk == "instance_configuration_version" {
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
+
+			if k == "AppSearchTopologyElement" && kk == "instance_configuration_version" {
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
+
+			if k == "ElasticsearchClusterTopologyElement" && kk == "instance_configuration_version" {
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
+
+			if k == "EnterpriseSearchTopologyElement" && kk == "instance_configuration_version" {
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
+
+			if k == "IntegrationsServerTopologyElement" && kk == "instance_configuration_version" {
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
+
+			if k == "KibanaClusterTopologyElement" && kk == "instance_configuration_version" {
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
+
 			if k == "ElasticsearchConfiguration" {
 				if kk == "enabled_built_in_plugins" ||
 					kk == "user_bundles" ||
