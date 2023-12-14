@@ -1,0 +1,4 @@
+category: enhancement
+title: Update API spec to ESS MS-101
+description: |
+  Updates the generated clients and models to match the API available in Elastic cloud MS-101.
