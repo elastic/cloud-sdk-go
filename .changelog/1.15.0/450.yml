@@ -1,0 +1,5 @@
+category: bug
+title: Handle empty `instance_configuration_version`s in topology elements.
+description: |
+  We couldn't set `instance_configuration_version` to 0 because it would be considered as an empty value and it would be omitted during JSON marshalling.
+  This has now been fixed by updating the `instance_configuration_version` type to `*int32`.
