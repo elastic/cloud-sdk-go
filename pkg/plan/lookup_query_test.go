@@ -18,6 +18,7 @@
 package plan
 
 import (
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
 
@@ -30,6 +31,8 @@ func TestNewReverseLookupQuery(t *testing.T) {
 	var kibanaRandID = ec.RandomResourceID()
 	var apmRandID = ec.RandomResourceID()
 	var appsearchRandID = ec.RandomResourceID()
+	var enterprisesearchRandID = ec.RandomResourceID()
+	var integrationsserverRandID = ec.RandomResourceID()
 	type args struct {
 		resourceID string
 		kind       string
@@ -87,6 +90,30 @@ func TestNewReverseLookupQuery(t *testing.T) {
 				},
 			}},
 		},
+		{
+			name: "creates a lookup query for an Enterprise-Search resource",
+			args: args{resourceID: enterprisesearchRandID, kind: "enterprise_search"},
+			want: &models.SearchRequest{Query: &models.QueryContainer{
+				Nested: &models.NestedQuery{
+					Path: ec.String("resources.enterprise_search"),
+					Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+						"resources.enterprise_search.id": {Query: &enterprisesearchRandID},
+					}},
+				},
+			}},
+		},
+		{
+			name: "creates a lookup query for an integrations-server resource",
+			args: args{resourceID: integrationsserverRandID, kind: "integrations_server"},
+			want: &models.SearchRequest{Query: &models.QueryContainer{
+				Nested: &models.NestedQuery{
+					Path: ec.String("resources.integrations_server"),
+					Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+						"resources.integrations_server.id": {Query: &integrationsserverRandID},
+					}},
+				},
+			}},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -95,4 +122,66 @@ func TestNewReverseLookupQuery(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestLookupByResourceIdQuery(t *testing.T) {
+	id := "resource-id"
+	result := LookupByResourceIdQuery(id)
+
+	expected := &models.SearchRequest{Query: &models.QueryContainer{
+		Bool: &models.BoolQuery{
+			MinimumShouldMatch: 1,
+			Should: []*models.QueryContainer{
+				{
+					Nested: &models.NestedQuery{
+						Path: ec.String("resources.elasticsearch"),
+						Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+							"resources.elasticsearch.id": {Query: &id},
+						}},
+					},
+				},
+				{
+					Nested: &models.NestedQuery{
+						Path: ec.String("resources.kibana"),
+						Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+							"resources.kibana.id": {Query: &id},
+						}},
+					},
+				},
+				{
+					Nested: &models.NestedQuery{
+						Path: ec.String("resources.apm"),
+						Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+							"resources.apm.id": {Query: &id},
+						}},
+					},
+				},
+				{
+					Nested: &models.NestedQuery{
+						Path: ec.String("resources.appsearch"),
+						Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+							"resources.appsearch.id": {Query: &id},
+						}},
+					},
+				},
+				{
+					Nested: &models.NestedQuery{
+						Path: ec.String("resources.enterprise_search"),
+						Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+							"resources.enterprise_search.id": {Query: &id},
+						}},
+					},
+				},
+				{
+					Nested: &models.NestedQuery{
+						Path: ec.String("resources.integrations_server"),
+						Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+							"resources.integrations_server.id": {Query: &id},
+						}},
+					},
+				},
+			},
+		},
+	}}
+	assert.EqualValuesf(t, expected, result, "TestLookupByResourceIdQuery() failed")
 }

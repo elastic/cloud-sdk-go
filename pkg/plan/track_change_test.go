@@ -460,7 +460,7 @@ func TestTrackChange(t *testing.T) {
 				ResourceID: "cde7b6b605424a54ce9d56316eab13a1",
 				Kind:       "elasticsearch",
 			}},
-			err: "plan track change: couldn't find a deployment containing Kind elasticsearch with ID cde7b6b605424a54ce9d56316eab13a1",
+			err: "plan track change: couldn't find a deployment containing resource with ID cde7b6b605424a54ce9d56316eab13a1",
 		},
 		{
 			name: "looks up the deploymentID and tracks the change",

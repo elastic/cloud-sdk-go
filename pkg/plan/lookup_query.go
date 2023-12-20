@@ -36,3 +36,28 @@ func NewReverseLookupQuery(resourceID, kind string) *models.SearchRequest {
 		},
 	}}
 }
+
+// LookupByResourceIdQuery can be used to find a deployment by a resource-id (can be any kind e.g. elasticsearch, kibana, etc.)
+// (Builds a query that searches all possible kinds for the resource-id)
+func LookupByResourceIdQuery(resourceID string) *models.SearchRequest {
+	kinds := []string{"elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "integrations_server"}
+	queries := []*models.QueryContainer{}
+
+	for _, kind := range kinds {
+		queries = append(queries, &models.QueryContainer{
+			Nested: &models.NestedQuery{
+				Path: ec.String(fmt.Sprint("resources.", kind)),
+				Query: &models.QueryContainer{Match: map[string]models.MatchQuery{
+					fmt.Sprint("resources.", kind, ".id"): {Query: &resourceID},
+				}},
+			},
+		})
+	}
+
+	return &models.SearchRequest{Query: &models.QueryContainer{
+		Bool: &models.BoolQuery{
+			MinimumShouldMatch: 1,
+			Should:             queries,
+		},
+	}}
+}
