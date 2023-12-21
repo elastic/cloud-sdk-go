@@ -102,7 +102,7 @@ func trackChange(params TrackChangeParams, c chan<- TrackResponse, ticker *time.
 		for _, p := range plans {
 			changedResources = append(changedResources, p.ID)
 			p.DeploymentID = *res.Payload.ID
-			ignoreChange := params.Kind != p.Kind && params.IgnoreDownstream
+			ignoreChange := params.ResourceID != p.ID && params.IgnoreDownstream
 			if ignoreChange {
 				continue
 			}
@@ -167,7 +167,7 @@ func checkCurrentStatus(params TrackChangeParams, c chan<- TrackResponse, change
 
 	for _, trackResponse := range buildTrackResponse(res.Payload.Resources, true) {
 		trackResponse.DeploymentID = *res.Payload.ID
-		ignoreChange := params.Kind != trackResponse.Kind && params.IgnoreDownstream
+		ignoreChange := params.ResourceID != trackResponse.ID && params.IgnoreDownstream
 
 		// This conditional catches plans that failed but finished before the
 		// plan tracker had the chance to call the API, changedResources will be
