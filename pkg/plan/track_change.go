@@ -102,7 +102,7 @@ func trackChange(params TrackChangeParams, c chan<- TrackResponse, ticker *time.
 		for _, p := range plans {
 			changedResources = append(changedResources, p.ID)
 			p.DeploymentID = *res.Payload.ID
-			ignoreChange := params.Kind != p.Kind && params.IgnoreDownstream
+			ignoreChange := params.ResourceID != p.ID && params.IgnoreDownstream
 			if ignoreChange {
 				continue
 			}
@@ -122,7 +122,7 @@ func getDeploymentID(params TrackChangeParams) (string, error) {
 
 	res, err := params.V1API.Deployments.SearchDeployments(
 		deployments.NewSearchDeploymentsParams().
-			WithBody(NewReverseLookupQuery(params.ResourceID, params.Kind)),
+			WithBody(LookupByResourceIdQuery(params.ResourceID)),
 		params.AuthWriter,
 	)
 	if err != nil {
@@ -134,16 +134,16 @@ func getDeploymentID(params TrackChangeParams) (string, error) {
 	}
 
 	return "", fmt.Errorf(
-		"plan track change: couldn't find a deployment containing Kind %s with ID %s",
-		params.Kind, params.ResourceID,
+		"plan track change: couldn't find a deployment containing resource with ID %s", params.ResourceID,
 	)
 }
 
 // checkCurrentStatus is run after the deployment's resources pending plans
 // have finished. It's necessary for a couple of reasons:
-//   1. Catching any errors which might've happen in the pending plan but
-//      weren't caught because the plan finished in between polling periods.
-//   2. Posting the end result of the resource back to the channel.
+//  1. Catching any errors which might've happen in the pending plan but
+//     weren't caught because the plan finished in between polling periods.
+//  2. Posting the end result of the resource back to the channel.
+//
 // Additionally, changedResources is sent as a parameter to filter out any of
 // the deployment's resources which weren't involved in the plan change.
 func checkCurrentStatus(params TrackChangeParams, c chan<- TrackResponse, changedResources []string, retries int) {
@@ -167,7 +167,7 @@ func checkCurrentStatus(params TrackChangeParams, c chan<- TrackResponse, change
 
 	for _, trackResponse := range buildTrackResponse(res.Payload.Resources, true) {
 		trackResponse.DeploymentID = *res.Payload.ID
-		ignoreChange := params.Kind != trackResponse.Kind && params.IgnoreDownstream
+		ignoreChange := params.ResourceID != trackResponse.ID && params.IgnoreDownstream
 
 		// This conditional catches plans that failed but finished before the
 		// plan tracker had the chance to call the API, changedResources will be

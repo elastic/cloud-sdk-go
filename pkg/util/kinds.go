@@ -36,3 +36,5 @@ const (
 	// IntegrationsServer kind
 	IntegrationsServer = "integrations_server"
 )
+
+var AllKinds = []string{Elasticsearch, Kibana, Apm, Appsearch, EnterpriseSearch, IntegrationsServer}
