@@ -400,7 +400,7 @@ func TestTrackChange(t *testing.T) {
 		},
 		Kibana: []planmock.GeneratedResourceConfig{
 			{
-				ID: "cde7b6b605424a54ce9d56316eab13a1",
+				ID: "4de9b2b605424a54ce9d56316eab13a8",
 				CurrentLog: planmock.NewPlanStepLog(
 					planmock.NewPlanStep("something", "success"),
 					planmock.NewPlanStep(planCompleted, "success"),
@@ -686,7 +686,7 @@ func TestTrackChange(t *testing.T) {
 			}},
 			want: []TrackResponse{
 				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch", Step: "plan-completed", Finished: true, Err: errors.New("horrible failure")},
-				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "kibana", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
+				{ID: "4de9b2b605424a54ce9d56316eab13a8", Kind: "kibana", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 			},
 		},
 		{
