@@ -37,6 +37,7 @@ type UpdateParams struct {
 	// Optional values
 	SkipSnapshot      bool
 	HidePrunedOrphans bool
+	ValidateOnly      bool
 
 	// PayloadOverrides are used as a definition of values which want to
 	// be overridden within the resources themselves.
@@ -83,7 +84,8 @@ func Update(params UpdateParams) (*models.DeploymentUpdateResponse, error) {
 			WithDeploymentID(params.DeploymentID).
 			WithBody(params.Request).
 			WithSkipSnapshot(&params.SkipSnapshot).
-			WithHidePrunedOrphans(&params.HidePrunedOrphans),
+			WithHidePrunedOrphans(&params.HidePrunedOrphans).
+			WithValidateOnly(&params.ValidateOnly),
 		params.AuthWriter,
 	)
 
