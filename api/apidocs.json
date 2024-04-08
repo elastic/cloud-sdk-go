@@ -6,7 +6,7 @@
     "termsOfService" : ""
   },
   "host" : "{{hostname}}",
-  "basePath" : "/api/v1/",
+  "basePath" : "/api/v1",
   "tags" : [ {
     "name" : "Accounts"
   }, {
@@ -19,8 +19,6 @@
     "name" : "DeploymentTemplates"
   }, {
     "name" : "Deployments"
-  }, {
-    "name" : "DeploymentsNotes"
   }, {
     "name" : "DeploymentsTrafficFilter"
   }, {
@@ -5407,310 +5405,6 @@
         }
       }
     },
-    "/deployments/{deployment_id}/notes" : {
-      "get" : {
-        "tags" : [ "DeploymentsNotes" ],
-        "summary" : "Get deployment notes",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [List Comments](#Comments) instead.\n\nGet deployment notes.",
-        "operationId" : "get-deployment-notes",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the deployment",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The deployment notes were successfully returned",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/Notes"
-            }
-          },
-          "404" : {
-            "description" : "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployments - Notes"
-        }
-      },
-      "post" : {
-        "tags" : [ "DeploymentsNotes" ],
-        "summary" : "Create deployment note",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Create a Comment](#Comments) instead.\n\nCreate note for the running deployment.",
-        "operationId" : "create-deployment-note",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "If specified then checks for conflicts against the version of the deployment note",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "New deployment note",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/Note"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "List of deployment notes after the new deployment note has been added",
-            "schema" : {
-              "$ref" : "#/definitions/Notes"
-            }
-          },
-          "404" : {
-            "description" : "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployments - Notes"
-        }
-      }
-    },
-    "/deployments/{deployment_id}/notes/{note_id}" : {
-      "get" : {
-        "tags" : [ "DeploymentsNotes" ],
-        "summary" : "Get a deployment note",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Get Comment](#Comments) instead.\n\nGets a deployment note.",
-        "operationId" : "get-deployment-note",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "note_id",
-          "in" : "path",
-          "description" : "Identifier of the note to be fetched",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The deployment note was successfully returned",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/Note"
-            }
-          },
-          "404" : {
-            "description" : "* \"The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The note specified by {note_id} cannot be found. (code: `notes.note_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found", "notes.note_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployments - Notes"
-        }
-      },
-      "put" : {
-        "tags" : [ "DeploymentsNotes" ],
-        "summary" : "Update deployment note",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Update Comment](#Comments) instead.\n\nUpdate note for the running deployment.",
-        "operationId" : "update-deployment-note",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "note_id",
-          "in" : "path",
-          "description" : "Identifier of the note to be updated",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "If specified then checks for conflicts against the version of the deployment note",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "New content for deployment note",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/Note"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Updated deployment note",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/Note"
-            }
-          },
-          "404" : {
-            "description" : "* \"The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The note specified by {note_id} cannot be found. (code: `notes.note_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found", "notes.note_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployments - Notes"
-        }
-      },
-      "delete" : {
-        "tags" : [ "DeploymentsNotes" ],
-        "summary" : "Delete deployment note",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Delete Comment](#Comments) instead.\n\nDelete note for the running deployment.",
-        "operationId" : "delete-deployment-note",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "note_id",
-          "in" : "path",
-          "description" : "Identifier of the note to be deleted",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "If specified then checks for conflicts against the version of the deployment note",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "List of deployment notes after {note_id} has been deleted",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/Notes"
-            }
-          },
-          "404" : {
-            "description" : "* \"The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The note specified by {note_id} cannot be found. (code: `notes.note_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found", "notes.note_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployments - Notes"
-        }
-      }
-    },
     "/deployments/{deployment_id}/upgrade_assistant/status" : {
       "get" : {
         "tags" : [ "Deployments" ],
@@ -8664,6 +8358,13 @@
           "name" : "show_max_zones",
           "in" : "query",
           "description" : "If true, will populate the max_zones field of the instance configurations.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "include_versions",
+          "in" : "query",
+          "description" : "If true, will return all existing versions of each instance configuration.",
           "required" : false,
           "type" : "boolean",
           "default" : false
@@ -17046,6 +16747,10 @@
           "type" : "string",
           "description" : "The user ID."
         },
+        "organization_id" : {
+          "type" : "string",
+          "description" : "The organization ID linked to the API key"
+        },
         "description" : {
           "type" : "string",
           "description" : "The API key description. TIP: Useful when you have multiple API keys."
@@ -20780,8 +20485,8 @@
         },
         "type" : {
           "type" : "string",
-          "description" : "The type can either be ESS, ECE or generic. If none is specified, then generic is assumed.",
-          "enum" : [ "ECE", "ESS", "generic" ]
+          "description" : "The type can either be ESS, ECE, generic or proxy. If none is specified, then generic is assumed. If proxy is specified, trust_all should be false and trust_allowlist, scope_id and additional_node_names should be omitted.",
+          "enum" : [ "ECE", "ESS", "generic", "proxy" ]
         },
         "trust_all" : {
           "type" : "boolean",
@@ -22898,6 +22603,13 @@
           "format" : "double",
           "description" : "Settings for the instance CPU multiplier"
         },
+        "allowed_zones" : {
+          "type" : "array",
+          "description" : "The zones this instance configuration may exist in. Leaving out this parameter or specifying an empty list implies all zones are allowed. Normally not needed, but can be useful for exceptional infrastructure constraints.",
+          "items" : {
+            "type" : "string"
+          }
+        },
         "max_zones" : {
           "type" : "integer",
           "format" : "int32",
@@ -24806,44 +24518,6 @@
         }
       },
       "description" : "Information about the node type."
-    },
-    "Note" : {
-      "type" : "object",
-      "required" : [ "message" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "note id"
-        },
-        "message" : {
-          "type" : "string",
-          "description" : "Note message"
-        },
-        "user_id" : {
-          "type" : "string",
-          "description" : "Note author"
-        },
-        "timestamp" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "Note last modification timestamp"
-        }
-      },
-      "description" : "Deprecated: Note"
-    },
-    "Notes" : {
-      "type" : "object",
-      "required" : [ "notes" ],
-      "properties" : {
-        "notes" : {
-          "type" : "array",
-          "description" : "Notes",
-          "items" : {
-            "$ref" : "#/definitions/Note"
-          }
-        }
-      },
-      "description" : "Deprecated: User notes"
     },
     "ObservabilityAbsoluteDeployment" : {
       "type" : "object",
@@ -27005,15 +26679,15 @@
     },
     "SnapshotDependency" : {
       "type" : "object",
-      "required" : [ "client_name", "resource_id" ],
+      "required" : [ "cluster_id", "deployment_id" ],
       "properties" : {
-        "resource_id" : {
+        "cluster_id" : {
           "type" : "string",
-          "description" : "Resource (Elasticsearch cluster) id"
+          "description" : "Elasticsearch cluster id"
         },
-        "client_name" : {
+        "deployment_id" : {
           "type" : "string",
-          "description" : "Client name that use to access additional resource"
+          "description" : "Deployment id"
         }
       },
       "description" : "The additional resource of Elasticsearch cluster."

@@ -56,6 +56,9 @@ type APIKeyResponse struct {
 	// The API key. TIP: Since the API key is returned only once, save it in a safe place.
 	Key string `json:"key,omitempty"`
 
+	// The organization ID linked to the API key
+	OrganizationID string `json:"organization_id,omitempty"`
+
 	// The user ID.
 	UserID string `json:"user_id,omitempty"`
 }

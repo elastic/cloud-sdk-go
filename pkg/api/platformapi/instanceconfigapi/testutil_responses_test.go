@@ -42,7 +42,8 @@ const listInstanceConfigsSuccess = `[{
     "ingest",
     "master"
   ],
-  "storage_multiplier": 32
+  "storage_multiplier": 32,
+  "allowed_zones": null
 }, {
   "description": "Instance configuration to be used for Kibana",
   "discrete_sizes": {
@@ -59,7 +60,8 @@ const listInstanceConfigsSuccess = `[{
   "instance_type": "kibana",
   "name": "kibana",
   "node_types": null,
-  "storage_multiplier": 4
+  "storage_multiplier": 4,
+  "allowed_zones": null
 }]`
 
 const getInstanceConfigsSuccess = `{
@@ -87,7 +89,8 @@ const getInstanceConfigsSuccess = `{
     "ingest",
     "master"
   ],
-  "storage_multiplier": 32
+  "storage_multiplier": 32,
+  "allowed_zones": []
 }`
 
 const getInstanceConfigsSuccessKibana = `{
@@ -106,7 +109,8 @@ const getInstanceConfigsSuccessKibana = `{
   "instance_type": "kibana",
   "name": "kibana",
   "node_types": null,
-  "storage_multiplier": 4
+  "storage_multiplier": 4,
+  "allowed_zones": []
 }`
 
 const newConfigKibanaInstanceConfig = `{
@@ -125,5 +129,6 @@ const newConfigKibanaInstanceConfig = `{
   "instance_type": "kibana",
   "name": "kibana",
   "node_types": [],
-  "storage_multiplier": 4
+  "storage_multiplier": 4,
+  "allowed_zones": []
 }`

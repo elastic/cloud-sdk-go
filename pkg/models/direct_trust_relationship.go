@@ -60,8 +60,8 @@ type DirectTrustRelationship struct {
 	// The list of clusters with matching scope to trust. Only used when `trust_all` is false. Providing one or more clusters makes scope_id mandatory.
 	TrustAllowlist []string `json:"trust_allowlist"`
 
-	// The type can either be ESS, ECE or generic. If none is specified, then generic is assumed.
-	// Enum: [ECE ESS generic]
+	// The type can either be ESS, ECE, generic or proxy. If none is specified, then generic is assumed. If proxy is specified, trust_all should be false and trust_allowlist, scope_id and additional_node_names should be omitted.
+	// Enum: [ECE ESS generic proxy]
 	Type string `json:"type,omitempty"`
 
 	// Auto generated identifier for this trust, allows distinguishing between update vs remove and add.
@@ -143,7 +143,7 @@ var directTrustRelationshipTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["ECE","ESS","generic"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["ECE","ESS","generic","proxy"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -161,6 +161,9 @@ const (
 
 	// DirectTrustRelationshipTypeGeneric captures enum value "generic"
 	DirectTrustRelationshipTypeGeneric string = "generic"
+
+	// DirectTrustRelationshipTypeProxy captures enum value "proxy"
+	DirectTrustRelationshipTypeProxy string = "proxy"
 )
 
 // prop value enum

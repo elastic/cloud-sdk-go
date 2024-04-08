@@ -79,6 +79,12 @@ GetInstanceConfigurationsParams contains all the parameters to send to the API e
 */
 type GetInstanceConfigurationsParams struct {
 
+	/* IncludeVersions.
+
+	   If true, will return all existing versions of each instance configuration.
+	*/
+	IncludeVersions *bool
+
 	/* ShowDeleted.
 
 	   If true, instance configurations marked for deletions are also returned. Otherwise, only instance configurations not marked for deletion are returned
@@ -109,11 +115,14 @@ func (o *GetInstanceConfigurationsParams) WithDefaults() *GetInstanceConfigurati
 // All values with no default are reset to their zero value.
 func (o *GetInstanceConfigurationsParams) SetDefaults() {
 	var (
+		includeVersionsDefault = bool(false)
+
 		showMaxZonesDefault = bool(false)
 	)
 
 	val := GetInstanceConfigurationsParams{
-		ShowMaxZones: &showMaxZonesDefault,
+		IncludeVersions: &includeVersionsDefault,
+		ShowMaxZones:    &showMaxZonesDefault,
 	}
 
 	val.timeout = o.timeout
@@ -155,6 +164,17 @@ func (o *GetInstanceConfigurationsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithIncludeVersions adds the includeVersions to the get instance configurations params
+func (o *GetInstanceConfigurationsParams) WithIncludeVersions(includeVersions *bool) *GetInstanceConfigurationsParams {
+	o.SetIncludeVersions(includeVersions)
+	return o
+}
+
+// SetIncludeVersions adds the includeVersions to the get instance configurations params
+func (o *GetInstanceConfigurationsParams) SetIncludeVersions(includeVersions *bool) {
+	o.IncludeVersions = includeVersions
+}
+
 // WithShowDeleted adds the showDeleted to the get instance configurations params
 func (o *GetInstanceConfigurationsParams) WithShowDeleted(showDeleted *bool) *GetInstanceConfigurationsParams {
 	o.SetShowDeleted(showDeleted)
@@ -184,6 +204,23 @@ func (o *GetInstanceConfigurationsParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
+	if o.IncludeVersions != nil {
+
+		// query param include_versions
+		var qrIncludeVersions bool
+
+		if o.IncludeVersions != nil {
+			qrIncludeVersions = *o.IncludeVersions
+		}
+		qIncludeVersions := swag.FormatBool(qrIncludeVersions)
+		if qIncludeVersions != "" {
+
+			if err := r.SetQueryParam("include_versions", qIncludeVersions); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.ShowDeleted != nil {
 

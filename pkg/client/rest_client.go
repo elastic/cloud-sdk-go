@@ -33,7 +33,6 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/comments"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
-	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_notes"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_traffic_filter"
 	"github.com/elastic/cloud-sdk-go/pkg/client/extensions"
 	"github.com/elastic/cloud-sdk-go/pkg/client/organizations"
@@ -60,7 +59,7 @@ const (
 	DefaultHost string = "localhost"
 	// DefaultBasePath is the default BasePath
 	// found in Meta (info) section of spec file
-	DefaultBasePath string = "/api/v1/"
+	DefaultBasePath string = "/api/v1"
 )
 
 // DefaultSchemes are the default schemes found in Meta (info) section of spec file
@@ -99,7 +98,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 	cli.Comments = comments.New(transport, formats)
 	cli.DeploymentTemplates = deployment_templates.New(transport, formats)
 	cli.Deployments = deployments.New(transport, formats)
-	cli.DeploymentsNotes = deployments_notes.New(transport, formats)
 	cli.DeploymentsTrafficFilter = deployments_traffic_filter.New(transport, formats)
 	cli.Extensions = extensions.New(transport, formats)
 	cli.Organizations = organizations.New(transport, formats)
@@ -171,8 +169,6 @@ type Rest struct {
 
 	Deployments deployments.ClientService
 
-	DeploymentsNotes deployments_notes.ClientService
-
 	DeploymentsTrafficFilter deployments_traffic_filter.ClientService
 
 	Extensions extensions.ClientService
@@ -215,7 +211,6 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.Comments.SetTransport(transport)
 	c.DeploymentTemplates.SetTransport(transport)
 	c.Deployments.SetTransport(transport)
-	c.DeploymentsNotes.SetTransport(transport)
 	c.DeploymentsTrafficFilter.SetTransport(transport)
 	c.Extensions.SetTransport(transport)
 	c.Organizations.SetTransport(transport)
