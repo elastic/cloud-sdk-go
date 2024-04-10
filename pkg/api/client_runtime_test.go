@@ -136,7 +136,7 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 			args: args{op: &runtime.ClientOperation{
 				PathPattern: "/deployments",
 			}},
-			want: &runtimeclient.Runtime{BasePath: "/api/v1/"},
+			want: &runtimeclient.Runtime{BasePath: "/api/v1"},
 		},
 		{
 			name: "/deployment/someid/notes operation uses the region path",
@@ -233,7 +233,7 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 			args: args{op: &runtime.ClientOperation{
 				PathPattern: "/billing/costs",
 			}},
-			want: &runtimeclient.Runtime{BasePath: "/api/v1/"},
+			want: &runtimeclient.Runtime{BasePath: "/api/v1"},
 		},
 	}
 	for _, tt := range tests {

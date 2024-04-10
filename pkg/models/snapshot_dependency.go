@@ -36,24 +36,24 @@ import (
 // swagger:model SnapshotDependency
 type SnapshotDependency struct {
 
-	// Client name that use to access additional resource
+	// Elasticsearch cluster id
 	// Required: true
-	ClientName *string `json:"client_name"`
+	ClusterID *string `json:"cluster_id"`
 
-	// Resource (Elasticsearch cluster) id
+	// Deployment id
 	// Required: true
-	ResourceID *string `json:"resource_id"`
+	DeploymentID *string `json:"deployment_id"`
 }
 
 // Validate validates this snapshot dependency
 func (m *SnapshotDependency) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateClientName(formats); err != nil {
+	if err := m.validateClusterID(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateResourceID(formats); err != nil {
+	if err := m.validateDeploymentID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,18 +63,18 @@ func (m *SnapshotDependency) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SnapshotDependency) validateClientName(formats strfmt.Registry) error {
+func (m *SnapshotDependency) validateClusterID(formats strfmt.Registry) error {
 
-	if err := validate.Required("client_name", "body", m.ClientName); err != nil {
+	if err := validate.Required("cluster_id", "body", m.ClusterID); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *SnapshotDependency) validateResourceID(formats strfmt.Registry) error {
+func (m *SnapshotDependency) validateDeploymentID(formats strfmt.Registry) error {
 
-	if err := validate.Required("resource_id", "body", m.ResourceID); err != nil {
+	if err := validate.Required("deployment_id", "body", m.DeploymentID); err != nil {
 		return err
 	}
 

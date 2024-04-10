@@ -6,7 +6,7 @@
     "termsOfService" : ""
   },
   "host" : "api.elastic-cloud.com",
-  "basePath" : "/api/v1/",
+  "basePath" : "/api/v1",
   "tags" : [ {
     "name" : "Accounts"
   }, {
@@ -6477,6 +6477,10 @@
           "type" : "string",
           "description" : "The user ID."
         },
+        "organization_id" : {
+          "type" : "string",
+          "description" : "The organization ID linked to the API key"
+        },
         "description" : {
           "type" : "string",
           "description" : "The API key description. TIP: Useful when you have multiple API keys."
@@ -9126,8 +9130,8 @@
         },
         "type" : {
           "type" : "string",
-          "description" : "The type can either be ESS, ECE or generic. If none is specified, then generic is assumed.",
-          "enum" : [ "ECE", "ESS", "generic" ]
+          "description" : "The type can either be ESS, ECE, generic or proxy. If none is specified, then generic is assumed. If proxy is specified, trust_all should be false and trust_allowlist, scope_id and additional_node_names should be omitted.",
+          "enum" : [ "ECE", "ESS", "generic", "proxy" ]
         },
         "trust_all" : {
           "type" : "boolean",
@@ -12793,15 +12797,15 @@
     },
     "SnapshotDependency" : {
       "type" : "object",
-      "required" : [ "client_name", "resource_id" ],
+      "required" : [ "cluster_id", "deployment_id" ],
       "properties" : {
-        "resource_id" : {
+        "cluster_id" : {
           "type" : "string",
-          "description" : "Resource (Elasticsearch cluster) id"
+          "description" : "Elasticsearch cluster id"
         },
-        "client_name" : {
+        "deployment_id" : {
           "type" : "string",
-          "description" : "Client name that use to access additional resource"
+          "description" : "Deployment id"
         }
       },
       "description" : "The additional resource of Elasticsearch cluster."

@@ -1,5 +1,5 @@
 cloud-sdk-go
-Copyright 2019-2023 Elasticsearch B.V.
+Copyright 2019-2024 Elasticsearch B.V.
 
 This product includes software developed at Elasticsearch B.V. and
 third-party software developed by the licenses listed below.
@@ -2114,10 +2114,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------------
 
 Dependency : github.com/stretchr/testify
-Version: v1.8.4
+Version: v1.9.0
 Licence type (autodetected): MIT
 
-Contents of probable licence file $GOMODCACHE/github.com/stretchr/testify@v1.8.4/LICENSE:
+Contents of probable licence file $GOMODCACHE/github.com/stretchr/testify@v1.9.0/LICENSE:
 
 MIT License
 

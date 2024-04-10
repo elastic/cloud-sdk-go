@@ -86,6 +86,7 @@ func TestPullToDirectory(t *testing.T) {
 			}},
 			want: map[string]string{
 				"some-folder/data.highstorage.json": `{
+  "allowed_zones": null,
   "description": "Instance configuration to be used for a higher disk/memory ratio",
   "discrete_sizes": {
     "default_size": 1024,
@@ -114,6 +115,7 @@ func TestPullToDirectory(t *testing.T) {
 }
 `,
 				"some-folder/kibana.json": `{
+  "allowed_zones": null,
   "description": "Instance configuration to be used for Kibana",
   "discrete_sizes": {
     "default_size": 1024,

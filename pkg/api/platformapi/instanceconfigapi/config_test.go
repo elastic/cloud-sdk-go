@@ -60,6 +60,7 @@ func TestNewConfig(t *testing.T) {
 						8192,
 					},
 				},
+				AllowedZones: []string{},
 			},
 		},
 	}

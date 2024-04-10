@@ -82,6 +82,7 @@ func TestGet(t *testing.T) {
 						262144,
 					},
 				},
+				AllowedZones: []string{},
 			},
 		},
 		{
@@ -118,6 +119,7 @@ func TestGet(t *testing.T) {
 						8192,
 					},
 				},
+				AllowedZones: []string{},
 			},
 		},
 		{

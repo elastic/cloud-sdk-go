@@ -40,6 +40,9 @@ type InstanceConfiguration struct {
 	// Optional filter to match allocators against
 	AllocatorFilter *QueryContainer `json:"allocator_filter,omitempty"`
 
+	// The zones this instance configuration may exist in. Leaving out this parameter or specifying an empty list implies all zones are allowed. Normally not needed, but can be useful for exceptional infrastructure constraints.
+	AllowedZones []string `json:"allowed_zones"`
+
 	// If the IC is configuration controlled, this field is the version either being read back (reads return the latest IC unless specified by the 'config_version' URL param), or the version to update. Cannot be used in creates. For unversioned IC reads it is left empty.
 	ConfigVersion int32 `json:"config_version,omitempty"`
 
