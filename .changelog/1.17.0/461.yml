@@ -1,0 +1,9 @@
+category: enchancement
+title: Update to latest ECE 3.7.0 api
+description: |
+  Breaking: 
+   - The notes api is no more. Use the deployment comment api in stead.
+  Other: 
+   - The instance configurations can now specify allowed zones.
+   - The deployment update api can use the ValidateOnly flag
+  
