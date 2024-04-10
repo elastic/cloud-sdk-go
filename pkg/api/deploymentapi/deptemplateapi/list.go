@@ -39,6 +39,7 @@ type ListParams struct {
 
 	ShowHidden                 bool
 	HideInstanceConfigurations bool
+	ShowMaxZones               bool
 }
 
 // Validate ensures the parameters are usable by List.
@@ -90,7 +91,8 @@ func listParams(params ListParams) *deployment_templates.GetDeploymentTemplatesV
 	var apiParams = deployment_templates.NewGetDeploymentTemplatesV2Params().
 		WithShowInstanceConfigurations(ec.Bool(!params.HideInstanceConfigurations)).
 		WithShowHidden(&params.ShowHidden).
-		WithRegion(params.Region)
+		WithRegion(params.Region).
+		WithShowMaxZones(ec.Bool(params.ShowMaxZones))
 
 	if params.MetadataFilter != "" {
 		apiParams.SetMetadata(&params.MetadataFilter)
