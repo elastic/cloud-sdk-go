@@ -1,0 +1,4 @@
+category: enhancement
+title: Add `show_max_zones` parameter for deployment-templates API.
+description: |
+  This parameter adds the `max_zones` field to each instance-configuration. (Left empty by default).

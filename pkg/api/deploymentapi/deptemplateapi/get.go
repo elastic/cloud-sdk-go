@@ -37,6 +37,7 @@ type GetParams struct {
 	StackVersion string
 
 	HideInstanceConfigurations bool
+	ShowMaxZones               bool
 }
 
 // Validate ensures the parameters are usable by Get.
@@ -89,7 +90,8 @@ func getParams(params GetParams) *deployment_templates.GetDeploymentTemplateV2Pa
 	var apiParams = deployment_templates.NewGetDeploymentTemplateV2Params().
 		WithShowInstanceConfigurations(ec.Bool(!params.HideInstanceConfigurations)).
 		WithRegion(params.Region).
-		WithTemplateID(params.TemplateID)
+		WithTemplateID(params.TemplateID).
+		WithShowMaxZones(ec.Bool(params.ShowMaxZones))
 
 	if params.StackVersion != "" {
 		apiParams.SetStackVersion(&params.StackVersion)
