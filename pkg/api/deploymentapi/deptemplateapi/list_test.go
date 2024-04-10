@@ -72,7 +72,8 @@ func TestList(t *testing.T) {
 		{
 			name: "succeeds",
 			args: args{params: ListParams{
-				Region: "us-east-1",
+				Region:       "us-east-1",
+				ShowMaxZones: true,
 				API: api.NewMock(mock.New200ResponseAssertion(
 					&mock.RequestAssertion{
 						Header: api.DefaultReadMockHeaders,
@@ -83,7 +84,7 @@ func TestList(t *testing.T) {
 							"region":                       []string{"us-east-1"},
 							"show_instance_configurations": []string{"true"},
 							"show_hidden":                  []string{"false"},
-							"show_max_zones":               []string{"false"},
+							"show_max_zones":               []string{"true"},
 						},
 					},
 					mock.NewByteBody(listRawResp),
