@@ -73,8 +73,9 @@ func TestGet(t *testing.T) {
 		{
 			name: "succeeds",
 			args: args{params: GetParams{
-				Region:     "us-east-1",
-				TemplateID: "default",
+				Region:       "us-east-1",
+				TemplateID:   "default",
+				ShowMaxZones: true,
 				API: api.NewMock(mock.New200ResponseAssertion(
 					&mock.RequestAssertion{
 						Header: api.DefaultReadMockHeaders,
@@ -84,6 +85,7 @@ func TestGet(t *testing.T) {
 						Query: url.Values{
 							"region":                       []string{"us-east-1"},
 							"show_instance_configurations": []string{"true"},
+							"show_max_zones":               []string{"true"},
 						},
 					},
 					mock.NewByteBody(getRawResp),
@@ -107,6 +109,7 @@ func TestGet(t *testing.T) {
 							"region":                       []string{"us-east-1"},
 							"show_instance_configurations": []string{"true"},
 							"stack_version":                []string{"6.8.0"},
+							"show_max_zones":               []string{"false"},
 						},
 					},
 					mock.NewByteBody(getRawResp),
@@ -128,6 +131,7 @@ func TestGet(t *testing.T) {
 						Query: url.Values{
 							"region":                       []string{"us-east-1"},
 							"show_instance_configurations": []string{"true"},
+							"show_max_zones":               []string{"false"},
 						},
 					},
 					mock.SampleInternalError().Response.Body,
