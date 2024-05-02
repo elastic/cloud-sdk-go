@@ -3,7 +3,7 @@ module github.com/elastic/cloud-sdk-go
 go 1.19
 
 require (
-	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d
+	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/blang/semver/v4 v4.0.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/ghodss/yaml v1.0.0
