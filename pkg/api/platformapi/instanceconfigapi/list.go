@@ -31,7 +31,10 @@ import (
 // ListParams is used to list all of the available instance configurations.
 type ListParams struct {
 	*api.API
-	Region string
+	Region          string
+	ShowDeleted     bool
+	ShowMaxZones    bool
+	IncludeVersions bool
 }
 
 // Validate ensures that the parameters are correct.
@@ -54,9 +57,21 @@ func List(params ListParams) ([]*models.InstanceConfiguration, error) {
 		return nil, err
 	}
 
+	requestParams := platform_configuration_instances.NewGetInstanceConfigurationsParams().
+		WithContext(api.WithRegion(context.Background(), params.Region))
+
+	if params.ShowDeleted {
+		requestParams = requestParams.WithShowDeleted(ec.Bool(true))
+	}
+	if params.ShowMaxZones {
+		requestParams = requestParams.WithShowMaxZones(ec.Bool(true))
+	}
+	if params.IncludeVersions {
+		requestParams = requestParams.WithIncludeVersions(ec.Bool(true))
+	}
+
 	res, err := params.API.V1API.PlatformConfigurationInstances.GetInstanceConfigurations(
-		platform_configuration_instances.NewGetInstanceConfigurationsParams().
-			WithContext(api.WithRegion(context.Background(), params.Region)),
+		requestParams,
 		params.AuthWriter,
 	)
 
