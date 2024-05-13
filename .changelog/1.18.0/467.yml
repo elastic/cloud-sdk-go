@@ -1,0 +1,4 @@
+category: enhancement
+title: Add new parameter for instance-configuration API.
+description: |
+  Adds support for new parameters `show_deleted`, `show_max_zones` and `config_version` for get and list instance-configs.
