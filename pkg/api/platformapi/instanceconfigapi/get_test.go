@@ -20,6 +20,7 @@ package instanceconfigapi
 import (
 	"errors"
 	"net/http"
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -45,8 +46,11 @@ func TestGet(t *testing.T) {
 		{
 			name: "Get succeeds",
 			args: args{params: GetParams{
-				Region: "us-east-1",
-				ID:     "data.highstorage",
+				Region:        "us-east-1",
+				ID:            "data.highstorage",
+				ShowDeleted:   true,
+				ShowMaxZones:  true,
+				ConfigVersion: ec.Int64(3),
 				API: api.NewMock(mock.Response{
 					Response: http.Response{
 						Body:       mock.NewStringBody(getInstanceConfigsSuccess),
@@ -57,6 +61,11 @@ func TestGet(t *testing.T) {
 						Method: "GET",
 						Host:   api.DefaultMockHost,
 						Path:   "/api/v1/regions/us-east-1/platform/configuration/instances/data.highstorage",
+						Query: url.Values{
+							"show_deleted":   []string{"true"},
+							"show_max_zones": []string{"true"},
+							"config_version": []string{"3"},
+						},
 					},
 				}),
 			}},

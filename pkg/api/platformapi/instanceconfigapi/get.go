@@ -32,8 +32,11 @@ import (
 // GetParams is used to obtain an instance configuration from an ID.
 type GetParams struct {
 	*api.API
-	ID     string
-	Region string
+	ID            string
+	Region        string
+	ShowDeleted   bool
+	ShowMaxZones  bool
+	ConfigVersion *int64
 }
 
 // Validate ensures that the parameters are correct.
@@ -60,10 +63,20 @@ func Get(params GetParams) (*models.InstanceConfiguration, error) {
 		return nil, err
 	}
 
+	requestParams := platform_configuration_instances.NewGetInstanceConfigurationParams().
+		WithContext(api.WithRegion(context.Background(), params.Region)).
+		WithID(params.ID).
+		WithConfigVersion(params.ConfigVersion)
+
+	if params.ShowDeleted {
+		requestParams = requestParams.WithShowDeleted(ec.Bool(true))
+	}
+	if params.ShowMaxZones {
+		requestParams = requestParams.WithShowMaxZones(ec.Bool(true))
+	}
+
 	res, err := params.API.V1API.PlatformConfigurationInstances.GetInstanceConfiguration(
-		platform_configuration_instances.NewGetInstanceConfigurationParams().
-			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithID(params.ID),
+		requestParams,
 		params.AuthWriter,
 	)
 

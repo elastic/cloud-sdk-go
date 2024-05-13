@@ -20,6 +20,7 @@ package instanceconfigapi
 import (
 	"errors"
 	"net/http"
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -46,7 +47,10 @@ func TestList(t *testing.T) {
 			name: "List succeeds",
 			args: args{
 				params: ListParams{
-					Region: "us-east-1",
+					Region:          "us-east-1",
+					ShowDeleted:     true,
+					ShowMaxZones:    true,
+					IncludeVersions: true,
 					API: api.NewMock(mock.Response{
 						Response: http.Response{
 							Body:       mock.NewStringBody(listInstanceConfigsSuccess),
@@ -57,6 +61,11 @@ func TestList(t *testing.T) {
 							Method: "GET",
 							Host:   api.DefaultMockHost,
 							Path:   "/api/v1/regions/us-east-1/platform/configuration/instances",
+							Query: url.Values{
+								"show_deleted":     []string{"true"},
+								"show_max_zones":   []string{"true"},
+								"include_versions": []string{"true"},
+							},
 						},
 					}),
 				},
