@@ -97,13 +97,17 @@ func ValidateParams(params Validator) error {
 // provide common deployment parameter query settings.
 type QueryParams struct {
 	// Single part
-	ShowPlans        bool
-	ShowPlanDefaults bool
-	ShowPlanLogs     bool
-	ShowPlanHistory  bool
-	ShowMetadata     bool
-	ShowSettings     bool
-
+	ShowPlans                  bool
+	ShowPlanDefaults           bool
+	ShowPlanLogs               bool
+	ShowPlanHistory            bool
+	ShowMetadata               bool
+	ShowSettings               bool
+	ShowInstanceConfigurations bool
+	EnrichtWithTemplate        bool
+	ForceAllPlanHistory        bool
+	ClearTransient             bool
+	
 	// List part
 	ShowHidden bool
 	Query      string
