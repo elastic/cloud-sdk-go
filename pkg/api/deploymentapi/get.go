@@ -68,17 +68,31 @@ func Get(params GetParams) (*models.DeploymentGetResponse, error) {
 		return nil, err
 	}
 
+	requestParams := deployments.NewGetDeploymentParams().
+		WithDeploymentID(params.DeploymentID).
+		WithShowPlans(ec.Bool(params.ShowPlans)).
+		WithShowPlanDefaults(ec.Bool(params.ShowPlanDefaults)).
+		WithShowPlanLogs(ec.Bool(params.ShowPlanLogs)).
+		WithShowPlanHistory(ec.Bool(params.ShowPlanHistory)).
+		WithShowMetadata(ec.Bool(params.ShowMetadata)).
+		WithShowSettings(ec.Bool(params.ShowSettings)).
+		WithConvertLegacyPlans(ec.Bool(params.ConvertLegacyPlans)).
+		WithShowSystemAlerts(systemAlerts)
+	if params.ShowInstanceConfigurations {
+		requestParams = requestParams.WithShowInstanceConfigurations(ec.Bool(true))
+	}
+	if params.EnrichtWithTemplate {
+		requestParams = requestParams.WithEnrichWithTemplate(ec.Bool(true))
+	}
+	if params.ForceAllPlanHistory {
+		requestParams = requestParams.WithForceAllPlanHistory(ec.Bool(true))
+	}
+	if params.ClearTransient {
+		requestParams = requestParams.WithClearTransient(ec.Bool(true))
+	}
+
 	res, err := params.API.V1API.Deployments.GetDeployment(
-		deployments.NewGetDeploymentParams().
-			WithDeploymentID(params.DeploymentID).
-			WithShowPlans(ec.Bool(params.ShowPlans)).
-			WithShowPlanDefaults(ec.Bool(params.ShowPlanDefaults)).
-			WithShowPlanLogs(ec.Bool(params.ShowPlanLogs)).
-			WithShowPlanHistory(ec.Bool(params.ShowPlanHistory)).
-			WithShowMetadata(ec.Bool(params.ShowMetadata)).
-			WithShowSettings(ec.Bool(params.ShowSettings)).
-			WithConvertLegacyPlans(ec.Bool(params.ConvertLegacyPlans)).
-			WithShowSystemAlerts(systemAlerts),
+		requestParams,
 		params.AuthWriter,
 	)
 	if err != nil {

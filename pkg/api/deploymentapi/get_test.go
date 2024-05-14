@@ -124,6 +124,12 @@ func TestGet(t *testing.T) {
 			args: args{
 				params: GetParams{
 					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
+					QueryParams: deputil.QueryParams{
+						ShowInstanceConfigurations: true,
+						EnrichtWithTemplate:        true,
+						ForceAllPlanHistory:        true,
+						ClearTransient:             true,
+					},
 					API: api.NewMock(mock.Response{
 						Response: http.Response{
 							Body:       mock.NewStringBody(getResponse),
@@ -135,14 +141,18 @@ func TestGet(t *testing.T) {
 							Host:   api.DefaultMockHost,
 							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc",
 							Query: url.Values{
-								"convert_legacy_plans": {"false"},
-								"show_metadata":        {"false"},
-								"show_plan_defaults":   {"false"},
-								"show_plan_history":    {"false"},
-								"show_plan_logs":       {"false"},
-								"show_plans":           {"false"},
-								"show_settings":        {"false"},
-								"show_system_alerts":   {"5"},
+								"convert_legacy_plans":         {"false"},
+								"show_metadata":                {"false"},
+								"show_plan_defaults":           {"false"},
+								"show_plan_history":            {"false"},
+								"show_plan_logs":               {"false"},
+								"show_plans":                   {"false"},
+								"show_settings":                {"false"},
+								"show_system_alerts":           {"5"},
+								"show_instance_configurations": {"true"},
+								"enrich_with_template":         {"true"},
+								"force_all_plan_history":       {"true"},
+								"clear_transient":              {"true"},
 							},
 						},
 					}),
