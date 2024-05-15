@@ -1,0 +1,4 @@
+category: enhancement
+title: Add new parameter for deployment get.
+description: |
+  Adds support for parameters `show_instance_configurations`, `enrich_with_template`, `force_all_plan_history` and `clear_transient` when getting deployment info.
