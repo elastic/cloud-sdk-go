@@ -38,7 +38,7 @@ import (
 type DeploymentGetResponse struct {
 
 	// A user-defined deployment alias for user-friendly resource URLs
-	Alias string `json:"alias,omitempty"`
+	Alias *string `json:"alias,omitempty"`
 
 	// Whether the deployment is overall healthy or not (one or more of the resource info subsections will have healthy: false)
 	// Required: true

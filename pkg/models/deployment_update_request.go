@@ -37,7 +37,7 @@ import (
 type DeploymentUpdateRequest struct {
 
 	// A user-defined alias to use in place of Cluster IDs for user-friendly URLs
-	Alias string `json:"alias,omitempty"`
+	Alias *string `json:"alias,omitempty"`
 
 	// Any new information about the current deployment object. If there is no new information the value is unchanged.
 	Metadata *DeploymentUpdateMetadata `json:"metadata,omitempty"`

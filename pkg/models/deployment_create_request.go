@@ -36,7 +36,7 @@ import (
 type DeploymentCreateRequest struct {
 
 	// A user-defined alias to use in place of Cluster IDs for user-friendly URLs
-	Alias string `json:"alias,omitempty"`
+	Alias *string `json:"alias,omitempty"`
 
 	// Additional information about this deployment
 	Metadata *DeploymentCreateMetadata `json:"metadata,omitempty"`

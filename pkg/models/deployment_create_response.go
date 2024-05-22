@@ -38,7 +38,7 @@ import (
 type DeploymentCreateResponse struct {
 
 	// A user-defined deployment alias for user-friendly resource URLs
-	Alias string `json:"alias,omitempty"`
+	Alias *string `json:"alias,omitempty"`
 
 	// Whether or not the deployment was freshly created
 	// Required: true
