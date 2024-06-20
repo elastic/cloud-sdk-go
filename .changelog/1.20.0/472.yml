@@ -1,0 +1,4 @@
+category: bug
+title: Fix deployment API for updating deployment-alias.
+description: |
+  Fixes the deployment API (`DeploymentCreateRequest`, `DeploymentUpdateRequest`) so it is possible to remove the deployment-alias. An explicit empty String can now be passed to remove the alias.
