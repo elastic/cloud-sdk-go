@@ -236,7 +236,7 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 			want: &runtimeclient.Runtime{BasePath: "/api/v1"},
 		},
 		{
-			name: "/billing operation uses the regionless path",
+			name: "/organizations operation uses the regionless path",
 			fields: fields{
 				newRegionRuntime: mocknewRuntimeFunc,
 				runtime:          regionless,
