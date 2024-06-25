@@ -235,6 +235,17 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 			}},
 			want: &runtimeclient.Runtime{BasePath: "/api/v1"},
 		},
+		{
+			name: "/organizations operation uses the regionless path",
+			fields: fields{
+				newRegionRuntime: mocknewRuntimeFunc,
+				runtime:          regionless,
+			},
+			args: args{op: &runtime.ClientOperation{
+				PathPattern: "/organizations/1234123",
+			}},
+			want: &runtimeclient.Runtime{BasePath: "/api/v1"},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
