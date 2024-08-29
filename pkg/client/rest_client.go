@@ -47,6 +47,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
 	"github.com/elastic/cloud-sdk-go/pkg/client/telemetry"
 	"github.com/elastic/cloud-sdk-go/pkg/client/trusted_environments"
+	"github.com/elastic/cloud-sdk-go/pkg/client/user_role_assignments"
 	"github.com/elastic/cloud-sdk-go/pkg/client/users"
 )
 
@@ -112,6 +113,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 	cli.Stack = stack.New(transport, formats)
 	cli.Telemetry = telemetry.New(transport, formats)
 	cli.TrustedEnvironments = trusted_environments.New(transport, formats)
+	cli.UserRoleAssignments = user_role_assignments.New(transport, formats)
 	cli.Users = users.New(transport, formats)
 	return cli
 }
@@ -197,6 +199,8 @@ type Rest struct {
 
 	TrustedEnvironments trusted_environments.ClientService
 
+	UserRoleAssignments user_role_assignments.ClientService
+
 	Users users.ClientService
 
 	Transport runtime.ClientTransport
@@ -225,5 +229,6 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.Stack.SetTransport(transport)
 	c.Telemetry.SetTransport(transport)
 	c.TrustedEnvironments.SetTransport(transport)
+	c.UserRoleAssignments.SetTransport(transport)
 	c.Users.SetTransport(transport)
 }

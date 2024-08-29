@@ -42,6 +42,9 @@ type CreateAPIKeyRequest struct {
 
 	// The optional expiration for the API key, provided as a duration (ex: '1d', '3h')
 	Expiration string `json:"expiration,omitempty"`
+
+	// The optional roles for the API key. Takes the role of the creator if not specified. Currently unavailable in self-hosted ECE.
+	RoleAssignments *RoleAssignments `json:"role_assignments,omitempty"`
 }
 
 // Validate validates this create Api key request
@@ -49,6 +52,10 @@ func (m *CreateAPIKeyRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRoleAssignments(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -67,8 +74,52 @@ func (m *CreateAPIKeyRequest) validateDescription(formats strfmt.Registry) error
 	return nil
 }
 
-// ContextValidate validates this create Api key request based on context it is used
+func (m *CreateAPIKeyRequest) validateRoleAssignments(formats strfmt.Registry) error {
+	if swag.IsZero(m.RoleAssignments) { // not required
+		return nil
+	}
+
+	if m.RoleAssignments != nil {
+		if err := m.RoleAssignments.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_assignments")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_assignments")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this create Api key request based on the context it is used
 func (m *CreateAPIKeyRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRoleAssignments(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateAPIKeyRequest) contextValidateRoleAssignments(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RoleAssignments != nil {
+		if err := m.RoleAssignments.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_assignments")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_assignments")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

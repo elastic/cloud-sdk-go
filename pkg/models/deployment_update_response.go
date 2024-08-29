@@ -55,6 +55,9 @@ type DeploymentUpdateResponse struct {
 	// Required: true
 	Resources []*DeploymentResource `json:"resources"`
 
+	// Additional configuration for this Deployment
+	Settings *DeploymentSettings `json:"settings,omitempty"`
+
 	// List of resources that have been shut down
 	ShutdownResources *Orphaned `json:"shutdown_resources,omitempty"`
 }
@@ -76,6 +79,10 @@ func (m *DeploymentUpdateResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateResources(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSettings(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -153,6 +160,25 @@ func (m *DeploymentUpdateResponse) validateResources(formats strfmt.Registry) er
 	return nil
 }
 
+func (m *DeploymentUpdateResponse) validateSettings(formats strfmt.Registry) error {
+	if swag.IsZero(m.Settings) { // not required
+		return nil
+	}
+
+	if m.Settings != nil {
+		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *DeploymentUpdateResponse) validateShutdownResources(formats strfmt.Registry) error {
 	if swag.IsZero(m.ShutdownResources) { // not required
 		return nil
@@ -181,6 +207,10 @@ func (m *DeploymentUpdateResponse) ContextValidate(ctx context.Context, formats 
 	}
 
 	if err := m.contextValidateResources(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -225,6 +255,22 @@ func (m *DeploymentUpdateResponse) contextValidateResources(ctx context.Context,
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *DeploymentUpdateResponse) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
+			}
+			return err
+		}
 	}
 
 	return nil
