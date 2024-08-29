@@ -18,6 +18,7 @@
 package deploymentapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -31,6 +32,7 @@ import (
 type SearchParams struct {
 	*api.API
 
+	Context context.Context
 	Request *models.SearchRequest
 }
 
@@ -56,7 +58,8 @@ func Search(params SearchParams) (*models.DeploymentsSearchResponse, error) {
 
 	res, err := params.V1API.Deployments.SearchDeployments(
 		deployments.NewSearchDeploymentsParams().
-			WithBody(params.Request),
+			WithBody(params.Request).
+			WithContext(params.Context),
 		params.AuthWriter,
 	)
 	if err != nil {
