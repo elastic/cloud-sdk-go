@@ -1,0 +1,4 @@
+category: enhancement
+title: Update to latest Elastic cloud API
+description: |
+  Updates the generated clients and models to match the API available in Elastic cloud.

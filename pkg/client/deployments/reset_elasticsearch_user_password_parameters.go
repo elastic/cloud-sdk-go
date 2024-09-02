@@ -31,6 +31,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewResetElasticsearchUserPasswordParams creates a new ResetElasticsearchUserPasswordParams object,
@@ -78,6 +79,12 @@ ResetElasticsearchUserPasswordParams contains all the parameters to send to the 
 */
 type ResetElasticsearchUserPasswordParams struct {
 
+	/* CheckCompletion.
+
+	   If true, will not reset elastic user password and instead will return a status code signaling whether or not the current credentials are ready to use (eg from creation or the last call to _reset_password)
+	*/
+	CheckCompletion *bool
+
 	/* DeploymentID.
 
 	   Identifier for the Deployment.
@@ -107,7 +114,18 @@ func (o *ResetElasticsearchUserPasswordParams) WithDefaults() *ResetElasticsearc
 //
 // All values with no default are reset to their zero value.
 func (o *ResetElasticsearchUserPasswordParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		checkCompletionDefault = bool(false)
+	)
+
+	val := ResetElasticsearchUserPasswordParams{
+		CheckCompletion: &checkCompletionDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the reset elasticsearch user password params
@@ -143,6 +161,17 @@ func (o *ResetElasticsearchUserPasswordParams) SetHTTPClient(client *http.Client
 	o.HTTPClient = client
 }
 
+// WithCheckCompletion adds the checkCompletion to the reset elasticsearch user password params
+func (o *ResetElasticsearchUserPasswordParams) WithCheckCompletion(checkCompletion *bool) *ResetElasticsearchUserPasswordParams {
+	o.SetCheckCompletion(checkCompletion)
+	return o
+}
+
+// SetCheckCompletion adds the checkCompletion to the reset elasticsearch user password params
+func (o *ResetElasticsearchUserPasswordParams) SetCheckCompletion(checkCompletion *bool) {
+	o.CheckCompletion = checkCompletion
+}
+
 // WithDeploymentID adds the deploymentID to the reset elasticsearch user password params
 func (o *ResetElasticsearchUserPasswordParams) WithDeploymentID(deploymentID string) *ResetElasticsearchUserPasswordParams {
 	o.SetDeploymentID(deploymentID)
@@ -172,6 +201,23 @@ func (o *ResetElasticsearchUserPasswordParams) WriteToRequest(r runtime.ClientRe
 		return err
 	}
 	var res []error
+
+	if o.CheckCompletion != nil {
+
+		// query param check_completion
+		var qrCheckCompletion bool
+
+		if o.CheckCompletion != nil {
+			qrCheckCompletion = *o.CheckCompletion
+		}
+		qCheckCompletion := swag.FormatBool(qrCheckCompletion)
+		if qCheckCompletion != "" {
+
+			if err := r.SetQueryParam("check_completion", qCheckCompletion); err != nil {
+				return err
+			}
+		}
+	}
 
 	// path param deployment_id
 	if err := r.SetPathParam("deployment_id", o.DeploymentID); err != nil {

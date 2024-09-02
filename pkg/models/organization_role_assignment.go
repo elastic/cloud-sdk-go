@@ -31,29 +31,29 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// SnapshotDependency The additional resource of Elasticsearch cluster.
+// OrganizationRoleAssignment Assignment for a role with organization scope.
 //
-// swagger:model SnapshotDependency
-type SnapshotDependency struct {
+// swagger:model OrganizationRoleAssignment
+type OrganizationRoleAssignment struct {
 
-	// Elasticsearch cluster id
+	// The ID of the organization the role is scoped to.
 	// Required: true
-	ClusterID *string `json:"cluster_id"`
+	OrganizationID *string `json:"organization_id"`
 
-	// Deployment id
+	// The ID of the role that is assigned.
 	// Required: true
-	DeploymentID *string `json:"deployment_id"`
+	RoleID *string `json:"role_id"`
 }
 
-// Validate validates this snapshot dependency
-func (m *SnapshotDependency) Validate(formats strfmt.Registry) error {
+// Validate validates this organization role assignment
+func (m *OrganizationRoleAssignment) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateClusterID(formats); err != nil {
+	if err := m.validateOrganizationID(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateDeploymentID(formats); err != nil {
+	if err := m.validateRoleID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,31 +63,31 @@ func (m *SnapshotDependency) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SnapshotDependency) validateClusterID(formats strfmt.Registry) error {
+func (m *OrganizationRoleAssignment) validateOrganizationID(formats strfmt.Registry) error {
 
-	if err := validate.Required("cluster_id", "body", m.ClusterID); err != nil {
+	if err := validate.Required("organization_id", "body", m.OrganizationID); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *SnapshotDependency) validateDeploymentID(formats strfmt.Registry) error {
+func (m *OrganizationRoleAssignment) validateRoleID(formats strfmt.Registry) error {
 
-	if err := validate.Required("deployment_id", "body", m.DeploymentID); err != nil {
+	if err := validate.Required("role_id", "body", m.RoleID); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// ContextValidate validates this snapshot dependency based on context it is used
-func (m *SnapshotDependency) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this organization role assignment based on context it is used
+func (m *OrganizationRoleAssignment) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *SnapshotDependency) MarshalBinary() ([]byte, error) {
+func (m *OrganizationRoleAssignment) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -95,8 +95,8 @@ func (m *SnapshotDependency) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *SnapshotDependency) UnmarshalBinary(b []byte) error {
-	var res SnapshotDependency
+func (m *OrganizationRoleAssignment) UnmarshalBinary(b []byte) error {
+	var res OrganizationRoleAssignment
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

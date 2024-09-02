@@ -86,6 +86,12 @@ type SearchDeploymentsParams struct {
 	*/
 	Body *models.SearchRequest
 
+	/* MinimalMetadata.
+
+	   Comma separated list of attributes to include in response for deployments found. Useful for reducing response size when retrieving many deployments. Use of this parameter moves the result to the minimal_metadata section of the response.
+	*/
+	MinimalMetadata *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -150,6 +156,17 @@ func (o *SearchDeploymentsParams) SetBody(body *models.SearchRequest) {
 	o.Body = body
 }
 
+// WithMinimalMetadata adds the minimalMetadata to the search deployments params
+func (o *SearchDeploymentsParams) WithMinimalMetadata(minimalMetadata *string) *SearchDeploymentsParams {
+	o.SetMinimalMetadata(minimalMetadata)
+	return o
+}
+
+// SetMinimalMetadata adds the minimalMetadata to the search deployments params
+func (o *SearchDeploymentsParams) SetMinimalMetadata(minimalMetadata *string) {
+	o.MinimalMetadata = minimalMetadata
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *SearchDeploymentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -160,6 +177,23 @@ func (o *SearchDeploymentsParams) WriteToRequest(r runtime.ClientRequest, reg st
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
+		}
+	}
+
+	if o.MinimalMetadata != nil {
+
+		// query param minimal_metadata
+		var qrMinimalMetadata string
+
+		if o.MinimalMetadata != nil {
+			qrMinimalMetadata = *o.MinimalMetadata
+		}
+		qMinimalMetadata := qrMinimalMetadata
+		if qMinimalMetadata != "" {
+
+			if err := r.SetQueryParam("minimal_metadata", qMinimalMetadata); err != nil {
+				return err
+			}
 		}
 	}
 

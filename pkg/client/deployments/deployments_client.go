@@ -59,8 +59,6 @@ type ClientService interface {
 
 	DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentOK, error)
 
-	DeleteDeploymentEsResourceSnapshotDependency(params *DeleteDeploymentEsResourceSnapshotDependencyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentEsResourceSnapshotDependencyOK, error)
-
 	DeleteDeploymentResourceProxyRequests(params *DeleteDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentResourceProxyRequestsOK, error)
 
 	DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentStatelessResourceOK, error)
@@ -94,8 +92,6 @@ type ClientService interface {
 	GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceKeystoreOK, error)
 
 	GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceRemoteClustersOK, error)
-
-	GetDeploymentEsResourceSnapshotDependency(params *GetDeploymentEsResourceSnapshotDependencyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceSnapshotDependencyOK, error)
 
 	GetDeploymentHeapDumps(params *GetDeploymentHeapDumpsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentHeapDumpsOK, error)
 
@@ -424,47 +420,6 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for delete-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-DeleteDeploymentEsResourceSnapshotDependency deletes a dependency of elasticsearch resource snapshot
-
-Delete the dependency of a Elasticsearch resource snapshot. Doing so will cause the cloned snapshot to be inaccessible.
-*/
-func (a *Client) DeleteDeploymentEsResourceSnapshotDependency(params *DeleteDeploymentEsResourceSnapshotDependencyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentEsResourceSnapshotDependencyOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteDeploymentEsResourceSnapshotDependencyParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "delete-deployment-es-resource-snapshot-dependency",
-		Method:             "DELETE",
-		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/snapshot/dependency/{resource_id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &DeleteDeploymentEsResourceSnapshotDependencyReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DeleteDeploymentEsResourceSnapshotDependencyOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for delete-deployment-es-resource-snapshot-dependency: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1162,47 +1117,6 @@ func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsRe
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-remote-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-GetDeploymentEsResourceSnapshotDependency gets the depedencies of elasticsearch resource snapshot
-
-Fetches the current dependencies of the snapshot for the Elasticsearch resource.
-*/
-func (a *Client) GetDeploymentEsResourceSnapshotDependency(params *GetDeploymentEsResourceSnapshotDependencyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceSnapshotDependencyOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetDeploymentEsResourceSnapshotDependencyParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "get-deployment-es-resource-snapshot-dependency",
-		Method:             "GET",
-		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/snapshot/dependency",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetDeploymentEsResourceSnapshotDependencyReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetDeploymentEsResourceSnapshotDependencyOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-snapshot-dependency: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

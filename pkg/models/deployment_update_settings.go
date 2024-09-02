@@ -35,6 +35,9 @@ import (
 // swagger:model DeploymentUpdateSettings
 type DeploymentUpdateSettings struct {
 
+	// See AutoOps integration status for this deployment.
+	AutoOps *AutoOpsSettings `json:"auto_ops,omitempty"`
+
 	// Enable autoscaling for this deployment.
 	AutoscalingEnabled *bool `json:"autoscaling_enabled,omitempty"`
 
@@ -46,6 +49,10 @@ type DeploymentUpdateSettings struct {
 func (m *DeploymentUpdateSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAutoOps(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateObservability(formats); err != nil {
 		res = append(res, err)
 	}
@@ -53,6 +60,25 @@ func (m *DeploymentUpdateSettings) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DeploymentUpdateSettings) validateAutoOps(formats strfmt.Registry) error {
+	if swag.IsZero(m.AutoOps) { // not required
+		return nil
+	}
+
+	if m.AutoOps != nil {
+		if err := m.AutoOps.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("auto_ops")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("auto_ops")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -79,6 +105,10 @@ func (m *DeploymentUpdateSettings) validateObservability(formats strfmt.Registry
 func (m *DeploymentUpdateSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateAutoOps(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateObservability(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -86,6 +116,22 @@ func (m *DeploymentUpdateSettings) ContextValidate(ctx context.Context, formats 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DeploymentUpdateSettings) contextValidateAutoOps(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AutoOps != nil {
+		if err := m.AutoOps.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("auto_ops")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("auto_ops")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
