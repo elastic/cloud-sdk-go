@@ -59,6 +59,9 @@ type APIKeyResponse struct {
 	// The organization ID linked to the API key
 	OrganizationID string `json:"organization_id,omitempty"`
 
+	// The optional roles for the API key. Currently unavailable in self-hosted ECE.
+	RoleAssignments *RoleAssignments `json:"role_assignments,omitempty"`
+
 	// The user ID.
 	UserID string `json:"user_id,omitempty"`
 }
@@ -80,6 +83,10 @@ func (m *APIKeyResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRoleAssignments(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -132,8 +139,52 @@ func (m *APIKeyResponse) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this Api key response based on context it is used
+func (m *APIKeyResponse) validateRoleAssignments(formats strfmt.Registry) error {
+	if swag.IsZero(m.RoleAssignments) { // not required
+		return nil
+	}
+
+	if m.RoleAssignments != nil {
+		if err := m.RoleAssignments.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_assignments")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_assignments")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this Api key response based on the context it is used
 func (m *APIKeyResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRoleAssignments(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *APIKeyResponse) contextValidateRoleAssignments(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RoleAssignments != nil {
+		if err := m.RoleAssignments.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_assignments")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_assignments")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

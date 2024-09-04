@@ -220,6 +220,5 @@ func newProxyBody(req *http.Request, code int) io.ReadCloser {
 }
 
 func backoff(d time.Duration) time.Duration {
-	rand.Seed(time.Now().UnixNano())
 	return d / time.Duration(rand.Float32()*10+1)
 }

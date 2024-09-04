@@ -37,6 +37,10 @@ import (
 // swagger:model DeploymentMetadata
 type DeploymentMetadata struct {
 
+	// Indicates if the Deployment is BYOK enabled or not
+	// Read Only: true
+	ByokEnabled *bool `json:"byok_enabled,omitempty"`
+
 	// Whether or not this deployment is hidden from the normal deployment list
 	// Read Only: true
 	Hidden *bool `json:"hidden,omitempty"`
@@ -145,6 +149,10 @@ func (m *DeploymentMetadata) validateTags(formats strfmt.Registry) error {
 func (m *DeploymentMetadata) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateByokEnabled(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateHidden(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -164,6 +172,15 @@ func (m *DeploymentMetadata) ContextValidate(ctx context.Context, formats strfmt
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DeploymentMetadata) contextValidateByokEnabled(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "byok_enabled", "body", m.ByokEnabled); err != nil {
+		return err
+	}
+
 	return nil
 }
 

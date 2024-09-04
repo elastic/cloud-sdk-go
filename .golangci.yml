@@ -4,11 +4,9 @@ linters:
     - lll
     - gochecknoglobals
     - gochecknoinits
-    - scopelint
     - funlen
     - wsl
     - gomnd
-    - maligned
 linters-settings:
   govet:
     check-shadowing: false
@@ -54,7 +52,7 @@ issues:
         - gocognit
 
 output:
-  format: tab
+  formats: tab
 
 run:
   tests: false

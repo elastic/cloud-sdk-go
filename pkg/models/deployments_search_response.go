@@ -37,6 +37,9 @@ import (
 // swagger:model DeploymentsSearchResponse
 type DeploymentsSearchResponse struct {
 
+	// To retrieve the next batch of deployments from this search, specify this value in the cursor field of the next search request. For paginated searches, it is recommended to sort on a static and unique field, like deployment or cluster id. A static and unique sort avoids concurrent updates causing a deployment to move across pages and becoming a duplicate or lost entry. The default sort of rank and modified date is often good for getting a particular deployment into the first page, but if a not yet seen deployment is modified in between page requests, then it would be left out from the next page.
+	Cursor string `json:"cursor,omitempty"`
+
 	// deployments
 	// Required: true
 	Deployments []*DeploymentSearchResponse `json:"deployments"`
@@ -44,7 +47,10 @@ type DeploymentsSearchResponse struct {
 	// If a query is supplied, then the total number of deployments that matched
 	MatchCount int32 `json:"match_count,omitempty"`
 
-	// The number of deployments actually returned
+	// minimal metadata
+	MinimalMetadata []interface{} `json:"minimal_metadata"`
+
+	// The number of deployments actually returned, either as deployment instances or as minimalMetadata objects
 	// Required: true
 	ReturnCount *int32 `json:"return_count"`
 }

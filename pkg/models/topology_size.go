@@ -37,7 +37,7 @@ import (
 // swagger:model TopologySize
 type TopologySize struct {
 
-	// Type of resource
+	// Type of resource. In ESS the resource used should always be `memory`.
 	// Required: true
 	// Enum: [memory storage]
 	Resource *string `json:"resource"`

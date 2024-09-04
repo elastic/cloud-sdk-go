@@ -35,10 +35,10 @@ import (
 // swagger:model SearchRequest
 type SearchRequest struct {
 
-	// source
-	Source interface{} `json:"_source,omitempty"`
+	// To retrieve the next page of hits, set this to the cursor value of the previous response. When set, all other fields are ignored.
+	Cursor string `json:"cursor,omitempty"`
 
-	// from
+	// Deprecated, use cursor for a more scalable approach to paging.
 	From int32 `json:"from,omitempty"`
 
 	// query
@@ -47,7 +47,7 @@ type SearchRequest struct {
 	// The maximum number of search results to return.
 	Size int32 `json:"size,omitempty"`
 
-	// An array of fields to sort the search results by.
+	// An array of fields to sort the search results by. Defaults to query rank and last modified date descending.
 	Sort []interface{} `json:"sort"`
 }
 
