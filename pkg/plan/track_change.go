@@ -122,7 +122,8 @@ func getDeploymentID(params TrackChangeParams) (string, error) {
 
 	res, err := params.V1API.Deployments.SearchDeployments(
 		deployments.NewSearchDeploymentsParams().
-			WithBody(LookupByResourceIdQuery(params.ResourceID)),
+			WithBody(LookupByResourceIdQuery(params.ResourceID)).
+			WithContext(params.Context),
 		params.AuthWriter,
 	)
 	if err != nil {
