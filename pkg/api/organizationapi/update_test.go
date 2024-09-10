@@ -117,11 +117,12 @@ func TestUpdateOrganization(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			got, err := Update(test.params)
-			if err != nil && !assert.EqualError(t, err, test.err) {
-				t.Error(err)
-			}
-			if !assert.Equal(t, test.want, got) {
-				t.Error(err)
+			if test.err != "" {
+				assert.EqualError(t, err, test.err)
+				assert.Nil(t, got)
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, test.want, got)
 			}
 		})
 	}

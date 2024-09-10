@@ -89,11 +89,12 @@ func TestRemoveRoleAssignments(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			got, err := RemoveRoleAssignments(test.params)
-			if err != nil && !assert.EqualError(t, err, test.err) {
-				t.Error(err)
-			}
-			if got != nil && !assert.Equal(t, test.want, *got) {
-				t.Error(err)
+			if test.err != "" {
+				assert.EqualError(t, err, test.err)
+				assert.Nil(t, got)
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, test.want, *got)
 			}
 		})
 	}

@@ -69,11 +69,12 @@ func TestDeleteInvitation(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			got, err := DeleteInvitation(test.params)
-			if err != nil && !assert.EqualError(t, err, test.err) {
-				t.Error(err)
-			}
-			if err == nil && !assert.NotNil(t, got) {
-				t.Error(err)
+			if test.err != "" {
+				assert.EqualError(t, err, test.err)
+				assert.Nil(t, got)
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, got)
 			}
 		})
 	}
