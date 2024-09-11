@@ -18,6 +18,7 @@
 package plan
 
 import (
+	"context"
 	"errors"
 	"time"
 
@@ -30,6 +31,8 @@ import (
 // DeploymentID and ResourceID with Kind cannot be used at the same time.
 type TrackChangeParams struct {
 	*api.API
+
+	Context context.Context
 
 	// DeploymentID to track its resource changes. Incompatible with ResourceID
 	// and Kind.
