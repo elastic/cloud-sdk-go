@@ -1,0 +1,4 @@
+category: enhancement
+title: Add the ESS-only organizations API.
+description: |
+  Adds support for the organizations API (https://www.elastic.co/guide/en/cloud/current/Organizations.html). This API is currently unavailable in self-hosted ECE and can only be used against the Elastic cloud service.
