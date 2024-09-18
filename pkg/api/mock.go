@@ -85,3 +85,19 @@ func NewDebugMock(o io.Writer, res ...mock.Response) *API {
 
 	return api
 }
+
+// NewMockMatchingByEndpoint creates a new api.API from a list of Responses, matching by endpoint.
+// Defaults to a dummy APIKey for authentication, which is not checked
+func NewMockMatchingByEndpoint(res map[string][]mock.Response) *API {
+	api, err := NewAPI(Config{
+		Client:     mock.NewMatchingByEndpointClient(res),
+		Host:       mockSchemaHost,
+		AuthWriter: auth.APIKey("dummy"),
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	return api
+}
