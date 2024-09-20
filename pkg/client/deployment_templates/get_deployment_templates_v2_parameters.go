@@ -79,6 +79,12 @@ GetDeploymentTemplatesV2Params contains all the parameters to send to the API en
 */
 type GetDeploymentTemplatesV2Params struct {
 
+	/* HideDeprecated.
+
+	   If true, templates flagged as deprecated will NOT be returned.
+	*/
+	HideDeprecated *bool
+
 	/* Metadata.
 
 	   An optional key/value pair in the form of (key:value) that will act as a filter and exclude any templates that do not have a matching metadata item associated.
@@ -135,6 +141,8 @@ func (o *GetDeploymentTemplatesV2Params) WithDefaults() *GetDeploymentTemplatesV
 // All values with no default are reset to their zero value.
 func (o *GetDeploymentTemplatesV2Params) SetDefaults() {
 	var (
+		hideDeprecatedDefault = bool(false)
+
 		showHiddenDefault = bool(false)
 
 		showInstanceConfigurationsDefault = bool(true)
@@ -143,6 +151,7 @@ func (o *GetDeploymentTemplatesV2Params) SetDefaults() {
 	)
 
 	val := GetDeploymentTemplatesV2Params{
+		HideDeprecated:             &hideDeprecatedDefault,
 		ShowHidden:                 &showHiddenDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 		ShowMaxZones:               &showMaxZonesDefault,
@@ -185,6 +194,17 @@ func (o *GetDeploymentTemplatesV2Params) WithHTTPClient(client *http.Client) *Ge
 // SetHTTPClient adds the HTTPClient to the get deployment templates v2 params
 func (o *GetDeploymentTemplatesV2Params) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithHideDeprecated adds the hideDeprecated to the get deployment templates v2 params
+func (o *GetDeploymentTemplatesV2Params) WithHideDeprecated(hideDeprecated *bool) *GetDeploymentTemplatesV2Params {
+	o.SetHideDeprecated(hideDeprecated)
+	return o
+}
+
+// SetHideDeprecated adds the hideDeprecated to the get deployment templates v2 params
+func (o *GetDeploymentTemplatesV2Params) SetHideDeprecated(hideDeprecated *bool) {
+	o.HideDeprecated = hideDeprecated
 }
 
 // WithMetadata adds the metadata to the get deployment templates v2 params
@@ -260,6 +280,23 @@ func (o *GetDeploymentTemplatesV2Params) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.HideDeprecated != nil {
+
+		// query param hide_deprecated
+		var qrHideDeprecated bool
+
+		if o.HideDeprecated != nil {
+			qrHideDeprecated = *o.HideDeprecated
+		}
+		qHideDeprecated := swag.FormatBool(qrHideDeprecated)
+		if qHideDeprecated != "" {
+
+			if err := r.SetQueryParam("hide_deprecated", qHideDeprecated); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Metadata != nil {
 
