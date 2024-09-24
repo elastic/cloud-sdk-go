@@ -1436,6 +1436,13 @@
           "required" : false,
           "type" : "string"
         }, {
+          "name" : "hide_deprecated",
+          "in" : "query",
+          "description" : "If true, templates flagged as deprecated will NOT be returned.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
           "name" : "region",
           "in" : "query",
           "description" : "Region of the deployment templates",

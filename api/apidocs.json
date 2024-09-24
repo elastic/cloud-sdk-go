@@ -1894,6 +1894,13 @@
           "required" : false,
           "type" : "string"
         }, {
+          "name" : "hide_deprecated",
+          "in" : "query",
+          "description" : "If true, templates flagged as deprecated will NOT be returned.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
           "name" : "show_hidden",
           "in" : "query",
           "description" : "If true, templates flagged as hidden will be returned.",
@@ -8467,6 +8474,12 @@
           "description" : "This is a database-level field, not related to the application-level 'config_version', except as described in the following docs. If specified, checks for conflicts against 'x-cloud-resource-version' from the GET request (the GET's 'config_version' should be left blank if the IC is configuration controlled, ie to get the latest configuration)",
           "required" : false,
           "type" : "integer"
+        }, {
+          "name" : "only_test_version",
+          "in" : "query",
+          "description" : "If true, the testing version (version -1) will be permanently deleted but the latest IC version will remain untouched. Defaults to false",
+          "required" : false,
+          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {

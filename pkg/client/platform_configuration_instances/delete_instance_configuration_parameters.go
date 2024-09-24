@@ -85,6 +85,12 @@ type DeleteInstanceConfigurationParams struct {
 	*/
 	ID string
 
+	/* OnlyTestVersion.
+
+	   If true, the testing version (version -1) will be permanently deleted but the latest IC version will remain untouched. Defaults to false
+	*/
+	OnlyTestVersion *bool
+
 	/* Version.
 
 	   This is a database-level field, not related to the application-level 'config_version', except as described in the following docs. If specified, checks for conflicts against 'x-cloud-resource-version' from the GET request (the GET's 'config_version' should be left blank if the IC is configuration controlled, ie to get the latest configuration)
@@ -155,6 +161,17 @@ func (o *DeleteInstanceConfigurationParams) SetID(id string) {
 	o.ID = id
 }
 
+// WithOnlyTestVersion adds the onlyTestVersion to the delete instance configuration params
+func (o *DeleteInstanceConfigurationParams) WithOnlyTestVersion(onlyTestVersion *bool) *DeleteInstanceConfigurationParams {
+	o.SetOnlyTestVersion(onlyTestVersion)
+	return o
+}
+
+// SetOnlyTestVersion adds the onlyTestVersion to the delete instance configuration params
+func (o *DeleteInstanceConfigurationParams) SetOnlyTestVersion(onlyTestVersion *bool) {
+	o.OnlyTestVersion = onlyTestVersion
+}
+
 // WithVersion adds the version to the delete instance configuration params
 func (o *DeleteInstanceConfigurationParams) WithVersion(version *int64) *DeleteInstanceConfigurationParams {
 	o.SetVersion(version)
@@ -177,6 +194,23 @@ func (o *DeleteInstanceConfigurationParams) WriteToRequest(r runtime.ClientReque
 	// path param id
 	if err := r.SetPathParam("id", o.ID); err != nil {
 		return err
+	}
+
+	if o.OnlyTestVersion != nil {
+
+		// query param only_test_version
+		var qrOnlyTestVersion bool
+
+		if o.OnlyTestVersion != nil {
+			qrOnlyTestVersion = *o.OnlyTestVersion
+		}
+		qOnlyTestVersion := swag.FormatBool(qrOnlyTestVersion)
+		if qOnlyTestVersion != "" {
+
+			if err := r.SetQueryParam("only_test_version", qOnlyTestVersion); err != nil {
+				return err
+			}
+		}
 	}
 
 	if o.Version != nil {
