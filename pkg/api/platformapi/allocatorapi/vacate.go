@@ -126,6 +126,7 @@ func moveNodes(id string, params *VacateParams, p *pool.Pool) ([]pool.Validator,
 		platform_infrastructure.NewMoveClustersParams().
 			WithAllocatorID(id).
 			WithMoveOnly(params.MoveOnly).
+			WithForceMove(params.ForceMove).
 			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithValidateOnly(ec.Bool(true)),
 		params.AuthWriter,
@@ -282,6 +283,7 @@ func newVacateClusterParams(params addAllocatorMovesToPoolParams, id, kind strin
 		Output:              params.VacateParams.Output,
 		OutputFormat:        params.VacateParams.OutputFormat,
 		MoveOnly:            params.VacateParams.MoveOnly,
+		ForceMove:           params.VacateParams.ForceMove,
 		PlanOverrides:       params.VacateParams.PlanOverrides,
 	}
 
@@ -391,6 +393,7 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 		platform_infrastructure.NewMoveClustersParams().
 			WithAllocatorDown(params.AllocatorDown).
 			WithMoveOnly(params.MoveOnly).
+			WithForceMove(params.ForceMove).
 			WithAllocatorID(params.ID).
 			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithValidateOnly(ec.Bool(true)).

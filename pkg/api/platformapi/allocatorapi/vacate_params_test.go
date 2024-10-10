@@ -211,6 +211,7 @@ func TestVacateClusterParamsValidate(t *testing.T) {
 		TrackFrequency time.Duration
 		AllocatorDown  *bool
 		MoveOnly       *bool
+		ForceMove      *bool
 		Output         *output.Device
 		OutputFormat   string
 		MaxPollRetries uint8
