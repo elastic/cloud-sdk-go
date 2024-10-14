@@ -1295,13 +1295,11 @@ func Test_newMoveClusterParams(t *testing.T) {
 				Kind:          "elasticsearch",
 				Output:        output.NewDevice(new(bytes.Buffer)),
 				AllocatorDown: ec.Bool(false),
-				ForceMove:     ec.Bool(true),
 			}},
 			want: platform_infrastructure.NewMoveClustersByTypeParams().
 				WithAllocatorID("allocator-1").
 				WithClusterType(util.Elasticsearch).
 				WithAllocatorDown(ec.Bool(false)).
-				WithForceMove(ec.Bool(true)).
 				WithContext(api.WithRegion(context.Background(), "us-east-1")).
 				WithBody(&models.MoveClustersRequest{
 					ElasticsearchClusters: []*models.MoveElasticsearchClusterConfiguration{

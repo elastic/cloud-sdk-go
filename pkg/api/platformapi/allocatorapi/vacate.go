@@ -420,7 +420,6 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 		WithAllocatorID(params.ID).
 		WithAllocatorDown(params.AllocatorDown).
 		WithContext(api.WithRegion(context.Background(), params.Region)).
-		WithForceMove(params.ForceMove).
 		WithBody(req)
 
 	if len(req.ElasticsearchClusters) > 0 {
