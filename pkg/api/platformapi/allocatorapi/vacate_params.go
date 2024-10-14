@@ -226,4 +226,5 @@ type PlanOverrides struct {
 	SkipSnapshot      *bool
 	SkipDataMigration *bool
 	OverrideFailsafe  *bool
+	ForceMove         *bool
 }

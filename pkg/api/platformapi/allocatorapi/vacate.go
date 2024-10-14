@@ -127,7 +127,7 @@ func moveNodes(id string, params *VacateParams, p *pool.Pool) ([]pool.Validator,
 			WithAllocatorID(id).
 			WithMoveOnly(params.MoveOnly).
 			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithForceMove(params.ForceMove).
+			//WithForceMove(params.ForceMove).
 			WithValidateOnly(ec.Bool(true)),
 		params.AuthWriter,
 	)
@@ -419,6 +419,7 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 	var moveParams = platform_infrastructure.NewMoveClustersByTypeParams().
 		WithAllocatorID(params.ID).
 		WithAllocatorDown(params.AllocatorDown).
+		WithForceMove(params.ForceMove).
 		WithContext(api.WithRegion(context.Background(), params.Region)).
 		WithBody(req)
 
@@ -656,6 +657,10 @@ func ComputeVacateRequest(pr *models.MoveClustersDetails, resources, to []string
 
 		if overrides.OverrideFailsafe != nil {
 			c.CalculatedPlan.PlanConfiguration.OverrideFailsafe = overrides.OverrideFailsafe
+		}
+
+		if overrides.ForceMove != nil {
+			c.CalculatedPlan.PlanConfiguration.ForceMove = overrides.ForceMove
 		}
 
 		c.CalculatedPlan.PlanConfiguration.PreferredAllocators = to
