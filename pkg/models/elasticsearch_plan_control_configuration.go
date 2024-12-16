@@ -84,6 +84,9 @@ type ElasticsearchPlanControlConfiguration struct {
 	// If true (default: false), does not take (or require) a successful snapshot to be taken before performing any potentially destructive changes to this cluster
 	SkipSnapshot *bool `json:"skip_snapshot,omitempty"`
 
+	// If false (default: true), will run standard vacate
+	ForceMove *bool `json:"force_move,omitempty"`
+
 	// If false (the default), the cluster will perform a snapshot after a major version upgrade takes place
 	SkipSnapshotPostMajorUpgrade *bool `json:"skip_snapshot_post_major_upgrade,omitempty"`
 
