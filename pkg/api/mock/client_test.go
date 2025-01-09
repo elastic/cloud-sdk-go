@@ -27,6 +27,361 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
+func TestMatchingByEndpointRoundTripper_RoundTrip(t *testing.T) {
+	validURL1, err := url.Parse("https://cloud.elastic.co/some/path")
+	urlMatch1 := "/some/path"
+	validURL2, err := url.Parse("https://cloud.elastic.co/other/path")
+	urlMatch2 := "/other/path"
+	if err != nil {
+		t.Fatal(err)
+	}
+	type fields struct {
+		ResponsesByEndpoint map[string]*RoundTripper
+	}
+	type args struct {
+		req []*http.Request
+	}
+	type want struct {
+		want *http.Response
+		err  error
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+		want   []want
+	}{
+		{
+			name: "Single request mock with no body",
+			fields: fields{ResponsesByEndpoint: map[string]*RoundTripper{
+				urlMatch1: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something"),
+							},
+						},
+					},
+				}},
+			},
+			args: args{req: []*http.Request{
+				{URL: validURL1},
+			}},
+			want: []want{
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something"),
+					},
+				},
+			},
+		},
+		{
+			name: "Single request mock with body",
+			fields: fields{ResponsesByEndpoint: map[string]*RoundTripper{
+				urlMatch1: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something"),
+							},
+						},
+					},
+				}},
+			},
+			args: args{req: []*http.Request{
+				{URL: validURL1, Body: NewStringBody(`{"some":"body"}`)},
+			}},
+			want: []want{
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something"),
+					},
+				},
+			},
+		},
+		{
+			name: "Single request mock with body returns an error",
+			fields: fields{ResponsesByEndpoint: map[string]*RoundTripper{
+				urlMatch1: {
+					Responses: []Response{
+						{
+							Error: errors.New("some error"),
+						},
+					},
+				}},
+			},
+			args: args{req: []*http.Request{
+				{URL: validURL1, Body: NewStringBody(`{"some":"body"}`)},
+			}},
+			want: []want{
+				{err: errors.New("some error")},
+			},
+		},
+		{
+			name: "Multiple request mock with no body",
+			fields: fields{ResponsesByEndpoint: map[string]*RoundTripper{
+				urlMatch1: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something"),
+							},
+						},
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something something something"),
+							},
+						},
+					},
+				},
+				urlMatch2: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something something"),
+							},
+						},
+					},
+				}},
+			},
+			args: args{req: []*http.Request{
+				{URL: validURL1},
+				{URL: validURL2},
+				{URL: validURL1},
+			}},
+			want: []want{
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something"),
+					},
+				},
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something something"),
+					},
+				},
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something something something"),
+					},
+				},
+			},
+		},
+		{
+			name: "Multiple request mock with body",
+			fields: fields{ResponsesByEndpoint: map[string]*RoundTripper{
+				urlMatch1: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something"),
+							},
+						},
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something something something"),
+							},
+						},
+					},
+				},
+				urlMatch2: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something something"),
+							},
+						},
+					},
+				}},
+			},
+			args: args{req: []*http.Request{
+				{URL: validURL1, Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL2, Body: NewStringBody(`{"some":"other body"}`)},
+				{URL: validURL1, Body: NewStringBody(`{"some":"other other body"}`)},
+			}},
+			want: []want{
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something"),
+					},
+				},
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something something"),
+					},
+				},
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something something something"),
+					},
+				},
+			},
+		},
+		{
+			name: "Multiple request mock with body returns an error",
+			fields: fields{ResponsesByEndpoint: map[string]*RoundTripper{
+				urlMatch1: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something"),
+							},
+						},
+						{
+							Error: errors.New("some error"),
+						},
+					},
+				},
+				urlMatch2: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something something"),
+							},
+						},
+					},
+				}},
+			},
+			args: args{req: []*http.Request{
+				{URL: validURL1, Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL2, Body: NewStringBody(`{"some":"other body"}`)},
+				{URL: validURL1, Body: NewStringBody(`{"some":"other other body"}`)},
+			}},
+			want: []want{
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something"),
+					},
+				},
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something something"),
+					},
+				},
+				{err: errors.New("some error")},
+			},
+		},
+		{
+			name: "Multiple request mock when there's no match for URL return an error",
+			fields: fields{ResponsesByEndpoint: map[string]*RoundTripper{
+				urlMatch1: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something"),
+							},
+						},
+					},
+				},
+				urlMatch2: {
+					Responses: []Response{
+						{
+							Response: http.Response{
+								Status:     http.StatusText(http.StatusOK),
+								StatusCode: http.StatusOK,
+								Body:       NewStringBody("something something"),
+							},
+						},
+					},
+				}},
+			},
+			args: args{req: []*http.Request{
+				{URL: validURL1, Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL2, Body: NewStringBody(`{"some":"other body"}`)},
+				{
+					Body:   NewStringBody(`{"some":"other other body"}`),
+					Method: "POST",
+					URL: &url.URL{
+						Scheme: "https",
+						Host:   "localhost",
+						Path:   "/unknown/path",
+					},
+				},
+			}},
+			want: []want{
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something"),
+					},
+				},
+				{
+					want: &http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something something"),
+					},
+				},
+				{err: errors.New("failed to obtain response for request: POST https://localhost/unknown/path")},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			rt := &MatchingByEndpointRoundTripper{
+				ResponsesByEndpoint: tt.fields.ResponsesByEndpoint,
+			}
+			var gotRes []want
+			for _, req := range tt.args.req {
+				got, err := rt.RoundTrip(req)
+				if got != nil {
+					defer got.Body.Close()
+				}
+				gotRes = append(gotRes, want{
+					want: got,
+					err:  err,
+				})
+			}
+			if !reflect.DeepEqual(gotRes, tt.want) {
+				t.Errorf("MatchingByEndpointRoundTripper.RoundTrip() = %v, want %v", gotRes, tt.want)
+			}
+		})
+	}
+}
+
 func TestRoundTripper_RoundTrip(t *testing.T) {
 	validURL, err := url.Parse("https://cloud.elastic.co/somepath")
 	if err != nil {

@@ -53,15 +53,17 @@ var DefaultBasePath = client.DefaultBasePath
 // Strictly, there's no need for a `"key":false` to be present in the map, but
 // it does make it explicit and nicer to maintain.
 var globalPath = map[string]bool{
-	"clusters":    false,
-	"comments":    false,
-	"deployments": true,
-	"phone-home":  true,
-	"platform":    false,
-	"stack":       false,
-	"user":        true,
-	"users":       true,
-	"billing":     true,
+	"clusters":      false,
+	"comments":      false,
+	"deployments":   true,
+	"phone-home":    true,
+	"platform":      false,
+	"stack":         false,
+	"user":          true,
+	"users":         true,
+	"billing":       true,
+	"organizations": true,
+	"saas":          true,
 }
 
 type newRuntimeFunc func(region string) *runtimeclient.Runtime

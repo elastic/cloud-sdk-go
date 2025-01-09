@@ -28,12 +28,17 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DeploymentSettings Additional configuration about the current deployment object.
 //
 // swagger:model DeploymentSettings
 type DeploymentSettings struct {
+
+	// See AutoOps integration status for this deployment.
+	// Required: true
+	AutoOps *AutoOpsSettings `json:"auto_ops"`
 
 	// If autoscaling is enabled for this deployment.
 	AutoscalingEnabled *bool `json:"autoscaling_enabled,omitempty"`
@@ -49,6 +54,10 @@ type DeploymentSettings struct {
 func (m *DeploymentSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAutoOps(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateObservability(formats); err != nil {
 		res = append(res, err)
 	}
@@ -60,6 +69,26 @@ func (m *DeploymentSettings) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DeploymentSettings) validateAutoOps(formats strfmt.Registry) error {
+
+	if err := validate.Required("auto_ops", "body", m.AutoOps); err != nil {
+		return err
+	}
+
+	if m.AutoOps != nil {
+		if err := m.AutoOps.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("auto_ops")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("auto_ops")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -105,6 +134,10 @@ func (m *DeploymentSettings) validateTrafficFilterSettings(formats strfmt.Regist
 func (m *DeploymentSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateAutoOps(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateObservability(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -116,6 +149,22 @@ func (m *DeploymentSettings) ContextValidate(ctx context.Context, formats strfmt
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DeploymentSettings) contextValidateAutoOps(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AutoOps != nil {
+		if err := m.AutoOps.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("auto_ops")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("auto_ops")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

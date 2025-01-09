@@ -100,6 +100,15 @@ func Modify(cloudSpec *spec.Swagger) {
 				cloudSpec.Definitions[k].Properties[kk] = prop
 			}
 
+			addExtension := func(model string, field string, key string, value interface{}) {
+				if k == model && kk == field {
+					prop.AddExtension(key, value)
+					cloudSpec.Definitions[k].Properties[kk] = prop
+				}
+			}
+			addExtension("DeploymentCreateRequest", "alias", nullableKey, true)
+			addExtension("DeploymentUpdateRequest", "alias", nullableKey, true)
+
 			if k == "ElasticsearchConfiguration" {
 				if kk == "enabled_built_in_plugins" ||
 					kk == "user_bundles" ||

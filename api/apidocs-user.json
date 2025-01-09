@@ -29,6 +29,8 @@
     "name" : "Stack"
   }, {
     "name" : "TrustedEnvironments"
+  }, {
+    "name" : "UserRoleAssignments"
   } ],
   "schemes" : [ "https" ],
   "security" : [ {
@@ -884,6 +886,12 @@
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
+          "name" : "minimal_metadata",
+          "in" : "query",
+          "description" : "Comma separated list of attributes to include in response for deployments found. Useful for reducing response size when retrieving many deployments. Use of this parameter moves the result to the minimal_metadata section of the response.",
+          "required" : false,
+          "type" : "string"
+        }, {
           "in" : "body",
           "name" : "body",
           "description" : "(Optional) The search query to run. When not specified, all of the deployments are matched.",
@@ -1427,6 +1435,13 @@
           "description" : "If present, it will cause the returned deployment templates to be adapted to return only the elements allowed in that version.",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "hide_deprecated",
+          "in" : "query",
+          "description" : "If true, templates flagged as deprecated will NOT be returned.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         }, {
           "name" : "region",
           "in" : "query",
@@ -3399,6 +3414,13 @@
           "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "check_completion",
+          "in" : "query",
+          "description" : "If true, will not reset elastic user password and instead will return a status code signaling whether or not the current credentials are ready to use (eg from creation or the last call to _reset_password)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         } ],
         "responses" : {
           "200" : {
@@ -3920,130 +3942,6 @@
         },
         "x-doc" : {
           "tag" : "Deployment - Remote Clusters"
-        }
-      }
-    },
-    "/deployments/{deployment_id}/elasticsearch/{ref_id}/snapshot/dependency" : {
-      "get" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Get the depedencies of Elasticsearch resource snapshot",
-        "description" : "Fetches the current dependencies of the snapshot for the Elasticsearch resource.",
-        "operationId" : "get-deployment-es-resource-snapshot-dependency",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "ref_id",
-          "in" : "path",
-          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "List of snapshot dependency",
-            "schema" : {
-              "$ref" : "#/definitions/SnapshotDependencies"
-            }
-          },
-          "404" : {
-            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "500" : {
-            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.metadata_internal_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployment Resources - CRUD"
-        }
-      }
-    },
-    "/deployments/{deployment_id}/elasticsearch/{ref_id}/snapshot/dependency/{resource_id}" : {
-      "delete" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Delete a dependency of Elasticsearch resource snapshot",
-        "description" : "Delete the dependency of a Elasticsearch resource snapshot. Doing so will cause the cloned snapshot to be inaccessible.",
-        "operationId" : "delete-deployment-es-resource-snapshot-dependency",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "ref_id",
-          "in" : "path",
-          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "resource_id",
-          "in" : "path",
-          "description" : "System generated UUID for the Resource (Elasticsearch)",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "404" : {
-            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "500" : {
-            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.metadata_internal_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployment Resources - CRUD"
         }
       }
     },
@@ -5574,7 +5472,7 @@
     },
     "/organizations" : {
       "get" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "List organizations",
         "description" : "Fetch organizations available to the current user. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organizations",
@@ -5608,7 +5506,7 @@
     },
     "/organizations/invitations/{invitation_token}" : {
       "get" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "Get organization invitation",
         "description" : "Gets a single invitation to an organization by token. Currently unavailable in self-hosted ECE.",
         "operationId" : "get-organization-invitation",
@@ -5648,7 +5546,7 @@
     },
     "/organizations/invitations/{invitation_token}/_accept" : {
       "post" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "Accept an organization invitation",
         "description" : "Accepts an organization invitation. Currently unavailable in self-hosted ECE.",
         "operationId" : "accept-organization-invitation",
@@ -5714,7 +5612,7 @@
     },
     "/organizations/{organization_id}" : {
       "get" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "Fetch organization information",
         "description" : "Fetch a single organization by id. Currently unavailable in self-hosted ECE.",
         "operationId" : "get-organization",
@@ -5778,7 +5676,7 @@
         }
       },
       "put" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "Update organization",
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nUpdates an existing organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "update-organization",
@@ -5859,7 +5757,7 @@
     },
     "/organizations/{organization_id}/invitations" : {
       "get" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "List organization invitations",
         "description" : "Fetch open invitations to the selected organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organization-invitations",
@@ -5897,7 +5795,7 @@
         }
       },
       "post" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "Create organization invitations",
         "description" : "Creates or refreshes organization invitations. Currently unavailable in self-hosted ECE.",
         "operationId" : "create-organization-invitations",
@@ -5985,7 +5883,7 @@
     },
     "/organizations/{organization_id}/invitations/{invitation_tokens}" : {
       "delete" : {
-        "tags" : [ "Organizations" ],
+        "tags" : [ "Organizations", "IamService" ],
         "summary" : "Delete organization invitations",
         "description" : "Deletes one or more organization invitations. Currently unavailable in self-hosted ECE.",
         "operationId" : "delete-organization-invitations",
@@ -6206,7 +6104,7 @@
     },
     "/users/auth/keys" : {
       "get" : {
-        "tags" : [ "Authentication" ],
+        "tags" : [ "Authentication", "IamService" ],
         "summary" : "Get all API keys",
         "description" : "Retrieves the metadata for all of the API keys that the user generated.",
         "operationId" : "get-api-keys",
@@ -6225,7 +6123,7 @@
         }
       },
       "post" : {
-        "tags" : [ "Authentication" ],
+        "tags" : [ "Authentication", "IamService" ],
         "summary" : "Create API key",
         "description" : "Creates a new API key.",
         "operationId" : "create-api-key",
@@ -6266,7 +6164,7 @@
         }
       },
       "delete" : {
-        "tags" : [ "Authentication" ],
+        "tags" : [ "Authentication", "IamService" ],
         "summary" : "Delete API keys",
         "description" : "Delete or invalidate API keys.",
         "operationId" : "delete-api-keys",
@@ -6296,7 +6194,7 @@
     },
     "/users/auth/keys/{api_key_id}" : {
       "get" : {
-        "tags" : [ "Authentication" ],
+        "tags" : [ "Authentication", "IamService" ],
         "summary" : "Get API key",
         "description" : "Retrieves the metadata for an API key.",
         "operationId" : "get-api-key",
@@ -6334,7 +6232,7 @@
         }
       },
       "delete" : {
-        "tags" : [ "Authentication" ],
+        "tags" : [ "Authentication", "IamService" ],
         "summary" : "Delete API key",
         "description" : "Delete or invalidate the API key.",
         "operationId" : "delete-api-key",
@@ -6369,6 +6267,154 @@
         },
         "x-doc" : {
           "tag" : "Authentication"
+        }
+      }
+    },
+    "/users/{user_id}/role_assignments" : {
+      "post" : {
+        "tags" : [ "UserRoleAssignments", "IamService" ],
+        "summary" : "Add Role Assignments",
+        "description" : "Adds a set of RoleAssignments to the specified User. Currently unavailable in self-hosted ECE.",
+        "operationId" : "add-role-assignments",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "description" : "Identifier for the user; include realm name and id if required",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The Role Assignments to add",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/RoleAssignments"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role Assignments were successfully added to the target User",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "400" : {
+            "description" : "The target user Id is invalid. (code: `role_assignments.invalid_target_user_id`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "role_assignments.invalid_target_user_id" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "Credentials were invalid. (code: `root.unauthorized`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "You are not authorised to add the specified RoleAssignments. (code: `role_assignments.unauthorized_role_assignments`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "role_assignments.unauthorized_role_assignments" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Users - Role Assignments"
+        }
+      },
+      "delete" : {
+        "tags" : [ "UserRoleAssignments", "IamService" ],
+        "summary" : "Remove Role Assignments",
+        "description" : "Removes a set of RoleAssignments from the specified User. Currently unavailable in self-hosted ECE.",
+        "operationId" : "remove-role-assignments",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "description" : "Identifier for the user; include realm name and id if required",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The Role Assignments to remove",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/RoleAssignments"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role Assignments were successfully removed from the target User",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "400" : {
+            "description" : "The target user Id is invalid. (code: `role_assignments.invalid_target_user_id`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "role_assignments.invalid_target_user_id" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "Credentials were invalid. (code: `root.unauthorized`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "You are not authorised to remove the specified RoleAssignments. (code: `role_assignments.unauthorized_role_assignments`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "role_assignments.unauthorized_role_assignments" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Users - Role Assignments"
         }
       }
     }
@@ -6498,6 +6544,10 @@
           "type" : "string",
           "format" : "date-time",
           "description" : "The date/time when the API key expires."
+        },
+        "role_assignments" : {
+          "description" : "The optional roles for the API key. Currently unavailable in self-hosted ECE.",
+          "$ref" : "#/definitions/RoleAssignments"
         }
       },
       "description" : "The response model for an API key."
@@ -7344,6 +7394,18 @@
       },
       "description" : "Defines the topology of the AppSearch nodes (eg number/capacity of nodes, and where they can be allocated)"
     },
+    "AutoOpsSettings" : {
+      "type" : "object",
+      "required" : [ "status" ],
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "description" : "See AutoOps integration status for this deployment.",
+          "enum" : [ "connected", "not_connected", "excluded" ]
+        }
+      },
+      "description" : "AutoOps settings for this deployment."
+    },
     "AutodetectStrategyConfig" : {
       "type" : "object",
       "description" : "A strategy that lets constructor choose the most optimal way to execute the plan."
@@ -8111,6 +8173,10 @@
         "expiration" : {
           "type" : "string",
           "description" : "The optional expiration for the API key, provided as a duration (ex: '1d', '3h')"
+        },
+        "role_assignments" : {
+          "description" : "The optional roles for the API key. Takes the role of the creator if not specified. Currently unavailable in self-hosted ECE.",
+          "$ref" : "#/definitions/RoleAssignments"
         }
       },
       "description" : "The request payload that creates the API keys."
@@ -8485,6 +8551,11 @@
           "items" : {
             "$ref" : "#/definitions/MetadataItem"
           }
+        },
+        "byok_enabled" : {
+          "type" : "boolean",
+          "description" : "Indicates if the Deployment is BYOK enabled or not",
+          "readOnly" : true
         }
       },
       "description" : "Additional information about the current deployment object."
@@ -8715,6 +8786,39 @@
       },
       "description" : "A response returned from the Deployment restore endpoint"
     },
+    "DeploymentRoleAssignment" : {
+      "type" : "object",
+      "required" : [ "organization_id", "role_id" ],
+      "properties" : {
+        "role_id" : {
+          "type" : "string",
+          "description" : "The ID of the role that is assigned."
+        },
+        "organization_id" : {
+          "type" : "string",
+          "description" : "The ID of the organization the role is scoped to."
+        },
+        "all" : {
+          "type" : "boolean",
+          "description" : "When true, the role applies to all deployments in the organization, otherwise the role is scoped to the deployments specified in `deployment_ids`."
+        },
+        "deployment_ids" : {
+          "type" : "array",
+          "description" : "The IDs of the deployments the role is scoped to. Must be absent if `all` is true, and present if `all` is false.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "application_roles" : {
+          "type" : "array",
+          "description" : "If provided, the user assigned this role assignment will be granted this application role when signing in to the deployment(s) specified in the role assignment.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "Assignment for a role with deployment scope."
+    },
     "DeploymentSearchResponse" : {
       "type" : "object",
       "required" : [ "healthy", "id", "name", "resources" ],
@@ -8752,6 +8856,7 @@
     },
     "DeploymentSettings" : {
       "type" : "object",
+      "required" : [ "auto_ops" ],
       "properties" : {
         "traffic_filter_settings" : {
           "description" : "The traffic filter rulesets for this deployment.",
@@ -8764,6 +8869,10 @@
         "autoscaling_enabled" : {
           "type" : "boolean",
           "description" : "If autoscaling is enabled for this deployment."
+        },
+        "auto_ops" : {
+          "description" : "See AutoOps integration status for this deployment.",
+          "$ref" : "#/definitions/AutoOpsSettings"
         }
       },
       "description" : "Additional configuration about the current deployment object."
@@ -8989,6 +9098,10 @@
         "diagnostics" : {
           "description" : "Backend diagnostics. Sent if validation is requested.",
           "$ref" : "#/definitions/DeploymentDiagnostics"
+        },
+        "settings" : {
+          "description" : "Additional configuration for this Deployment",
+          "$ref" : "#/definitions/DeploymentSettings"
         }
       },
       "description" : "A response returned from the Deployment update endpoint"
@@ -9003,6 +9116,10 @@
         "autoscaling_enabled" : {
           "type" : "boolean",
           "description" : "Enable autoscaling for this deployment."
+        },
+        "auto_ops" : {
+          "description" : "See AutoOps integration status for this deployment.",
+          "$ref" : "#/definitions/AutoOpsSettings"
         }
       },
       "description" : "Additional configuration for the new deployment object."
@@ -9083,7 +9200,7 @@
         "return_count" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The number of deployments actually returned"
+          "description" : "The number of deployments actually returned, either as deployment instances or as minimalMetadata objects"
         },
         "match_count" : {
           "type" : "integer",
@@ -9095,6 +9212,16 @@
           "items" : {
             "$ref" : "#/definitions/DeploymentSearchResponse"
           }
+        },
+        "minimal_metadata" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object"
+          }
+        },
+        "cursor" : {
+          "type" : "string",
+          "description" : "To retrieve the next batch of deployments from this search, specify this value in the cursor field of the next search request. For paginated searches, it is recommended to sort on a static and unique field, like deployment or cluster id. A static and unique sort avoids concurrent updates causing a deployment to move across pages and becoming a duplicate or lost entry. The default sort of rank and modified date is often good for getting a particular deployment into the first page, but if a not yet seen deployment is modified in between page requests, then it would be left out from the next page."
         }
       },
       "description" : "Contains a list of Deployments as result of a search request."
@@ -12053,6 +12180,10 @@
         "organization" : {
           "description" : "The organization associated with this invitation",
           "$ref" : "#/definitions/Organization"
+        },
+        "role_assignments" : {
+          "description" : "The roles that will be assigned to users once they accept the invitation. Currently unavailable in self-hosted ECE.",
+          "$ref" : "#/definitions/RoleAssignments"
         }
       },
       "description" : "An invitation to an organization"
@@ -12071,6 +12202,10 @@
         "expires_in" : {
           "type" : "string",
           "description" : "The date and time when the invitation expires. Defaults to three days from now."
+        },
+        "role_assignments" : {
+          "description" : "The roles that will be assigned to users once they accept the invitation. Currently unavailable in self-hosted ECE.",
+          "$ref" : "#/definitions/RoleAssignments"
         }
       },
       "description" : "A request to create one or more invitations to an organization"
@@ -12131,6 +12266,10 @@
           "type" : "string",
           "format" : "date-time",
           "description" : "The date and time the user was added to the organization"
+        },
+        "role_assignments" : {
+          "description" : "The user's assigned roles. Currently unavailable in self-hosted ECE.",
+          "$ref" : "#/definitions/RoleAssignments"
         }
       },
       "description" : "A user's membership to an organization"
@@ -12183,6 +12322,21 @@
         }
       },
       "description" : "A request to create or update an organization"
+    },
+    "OrganizationRoleAssignment" : {
+      "type" : "object",
+      "required" : [ "organization_id", "role_id" ],
+      "properties" : {
+        "role_id" : {
+          "type" : "string",
+          "description" : "The ID of the role that is assigned."
+        },
+        "organization_id" : {
+          "type" : "string",
+          "description" : "The ID of the organization the role is scoped to."
+        }
+      },
+      "description" : "Assignment for a role with organization scope."
     },
     "Orphaned" : {
       "type" : "object",
@@ -12286,6 +12440,17 @@
       },
       "description" : "The options for performing a plan change. Specify only one property each time. The default is `grow_and_shrink`."
     },
+    "PlatformRoleAssignment" : {
+      "type" : "object",
+      "required" : [ "role_id" ],
+      "properties" : {
+        "role_id" : {
+          "type" : "string",
+          "description" : "The ID of the role that is assigned."
+        }
+      },
+      "description" : "Assignment for a role with platform scope."
+    },
     "PrefixQuery" : {
       "type" : "object",
       "required" : [ "value" ],
@@ -12301,6 +12466,66 @@
         }
       },
       "description" : "The query that matches documents with fields that contain terms with a specified, not analyzed, prefix."
+    },
+    "ProjectRoleAssignment" : {
+      "type" : "object",
+      "required" : [ "organization_id", "role_id" ],
+      "properties" : {
+        "role_id" : {
+          "type" : "string",
+          "description" : "The ID of the role that is assigned."
+        },
+        "organization_id" : {
+          "type" : "string",
+          "description" : "The ID of the organization the role is scoped to."
+        },
+        "all" : {
+          "type" : "boolean",
+          "description" : "When true, the role applies to all projects in the organization, otherwise the role is scoped to the projects specified in `project_ids`."
+        },
+        "project_ids" : {
+          "type" : "array",
+          "description" : "The IDs of the projects the role is scoped to. Must be absent if `all` is true, and present if `all` is false.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "application_roles" : {
+          "type" : "array",
+          "description" : "If provided, the user assigned this role assignment will be granted this application role when signing in to the project(s) specified in the role assignment.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "Assignment for a role with project scope."
+    },
+    "ProjectRoleAssignments" : {
+      "type" : "object",
+      "properties" : {
+        "elasticsearch" : {
+          "type" : "array",
+          "description" : "The Elasticsearch project-scoped role assignments to set",
+          "items" : {
+            "$ref" : "#/definitions/ProjectRoleAssignment"
+          }
+        },
+        "observability" : {
+          "type" : "array",
+          "description" : "The Observability project-scoped role assignments to set",
+          "items" : {
+            "$ref" : "#/definitions/ProjectRoleAssignment"
+          }
+        },
+        "security" : {
+          "type" : "array",
+          "description" : "The Security project-scoped role assignments to set",
+          "items" : {
+            "$ref" : "#/definitions/ProjectRoleAssignment"
+          }
+        }
+      },
+      "description" : "Assignments for roles with project scope."
     },
     "PublicCertificate" : {
       "type" : "object",
@@ -12597,6 +12822,37 @@
       },
       "description" : "Configures the location of a remote repository. The default is the system repository."
     },
+    "RoleAssignments" : {
+      "type" : "object",
+      "properties" : {
+        "platform" : {
+          "type" : "array",
+          "description" : "Assignments for roles with platform scope.",
+          "items" : {
+            "$ref" : "#/definitions/PlatformRoleAssignment"
+          }
+        },
+        "organization" : {
+          "type" : "array",
+          "description" : "Assignments for roles with organization scope.",
+          "items" : {
+            "$ref" : "#/definitions/OrganizationRoleAssignment"
+          }
+        },
+        "deployment" : {
+          "type" : "array",
+          "description" : "Assignments for roles with deployment scope.",
+          "items" : {
+            "$ref" : "#/definitions/DeploymentRoleAssignment"
+          }
+        },
+        "project" : {
+          "description" : "Assignments for roles with project scope.",
+          "$ref" : "#/definitions/ProjectRoleAssignments"
+        }
+      },
+      "description" : "Roles assigned to users, API keys or organization invitations. Currently unavailable in self-hosted ECE."
+    },
     "RollingGrowShrinkStrategyConfig" : {
       "type" : "object",
       "description" : "A strategy that creates new Elasticsearch instances, Kibana instances, and APM Servers with the new plan, then migrates the node data to minimize the amount of spare capacity."
@@ -12648,7 +12904,12 @@
       "properties" : {
         "from" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int32",
+          "description" : "Deprecated, use cursor for a more scalable approach to paging."
+        },
+        "cursor" : {
+          "type" : "string",
+          "description" : "To retrieve the next page of hits, set this to the cursor value of the previous response. When set, all other fields are ignored."
         },
         "size" : {
           "type" : "integer",
@@ -12660,13 +12921,10 @@
         },
         "sort" : {
           "type" : "array",
-          "description" : "An array of fields to sort the search results by.",
+          "description" : "An array of fields to sort the search results by. Defaults to query rank and last modified date descending.",
           "items" : {
             "type" : "object"
           }
-        },
-        "_source" : {
-          "type" : "object"
         }
       },
       "description" : "An Elasticsearch search request with a subset of options."
@@ -12780,35 +13038,6 @@
         }
       },
       "description" : "Line Item"
-    },
-    "SnapshotDependencies" : {
-      "type" : "object",
-      "required" : [ "resources" ],
-      "properties" : {
-        "resources" : {
-          "type" : "array",
-          "description" : "Client name that use to access additional resource",
-          "items" : {
-            "$ref" : "#/definitions/SnapshotDependency"
-          }
-        }
-      },
-      "description" : "The additional resource of Elasticsearch cluster."
-    },
-    "SnapshotDependency" : {
-      "type" : "object",
-      "required" : [ "cluster_id", "deployment_id" ],
-      "properties" : {
-        "cluster_id" : {
-          "type" : "string",
-          "description" : "Elasticsearch cluster id"
-        },
-        "deployment_id" : {
-          "type" : "string",
-          "description" : "Deployment id"
-        }
-      },
-      "description" : "The additional resource of Elasticsearch cluster."
     },
     "SnapshotStatusInfo" : {
       "type" : "object",
@@ -13264,7 +13493,7 @@
         },
         "resource" : {
           "type" : "string",
-          "description" : "Type of resource",
+          "description" : "Type of resource. In ESS the resource used should always be `memory`.",
           "enum" : [ "memory", "storage" ]
         }
       },

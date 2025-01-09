@@ -20,9 +20,57 @@ package mock
 import (
 	"fmt"
 	"net/http"
+	"regexp"
 	"sync"
 	"sync/atomic"
 )
+
+// NewMatchingByEndpointClient returns a pointer to http.Client with the mocked Transport.
+func NewMatchingByEndpointClient(r map[string][]Response) *http.Client {
+	return &http.Client{
+		Transport: NewMatchingByEndpointRoundTripper(r),
+	}
+}
+
+// NewRoundTripper initializes a new roundtripper and accepts multiple Response
+// structures as variadric arguments.
+func NewMatchingByEndpointRoundTripper(r map[string][]Response) *MatchingByEndpointRoundTripper {
+	responsesByEndpoint := make(map[string]*RoundTripper)
+
+	for endpoint, responses := range r {
+		responsesByEndpoint[endpoint] = &RoundTripper{
+			Responses: responses,
+		}
+	}
+
+	return &MatchingByEndpointRoundTripper{
+		ResponsesByEndpoint: responsesByEndpoint,
+	}
+}
+
+// MatchingByEndpointRoundTripper is aimed to be used as the Transport property in an http.Client
+// in order to mock the responses that it would return in the normal execution, matching by endpoint.
+// If the number of responses that are mocked for a specific endpoint are not enough, an error with the
+// request iteration ID, method and full URL is returned.
+type MatchingByEndpointRoundTripper struct {
+	ResponsesByEndpoint map[string]*RoundTripper
+}
+
+// RoundTrip executes a single HTTP transaction, returning
+// a Response for the provided Request, based on the Request's URL.
+func (rt *MatchingByEndpointRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	for endpoint, rt := range rt.ResponsesByEndpoint {
+		endpointRegex := regexp.MustCompile(endpoint)
+
+		if endpointRegex.MatchString(req.URL.Path) {
+			return rt.RoundTrip(req)
+		}
+	}
+
+	return nil, fmt.Errorf(
+		"failed to obtain response for request: %s %s", req.Method, req.URL,
+	)
+}
 
 // NewClient returns a pointer to http.Client with the mocked Transport.
 func NewClient(r ...Response) *http.Client {

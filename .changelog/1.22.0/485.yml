@@ -1,0 +1,4 @@
+category: enhancement
+title: Add new mock client to match responses by endpoint
+description: |
+  Adds a new mock client that provides a set of responses per endpoint, by specifying an endpoint regex as the key to a map and a set of responses as the value.

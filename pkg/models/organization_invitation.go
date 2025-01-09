@@ -62,6 +62,9 @@ type OrganizationInvitation struct {
 	// Required: true
 	Organization *Organization `json:"organization"`
 
+	// The roles that will be assigned to users once they accept the invitation. Currently unavailable in self-hosted ECE.
+	RoleAssignments *RoleAssignments `json:"role_assignments,omitempty"`
+
 	// The token used to accept the invitation
 	// Required: true
 	Token *string `json:"token"`
@@ -92,6 +95,10 @@ func (m *OrganizationInvitation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateOrganization(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRoleAssignments(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -181,6 +188,25 @@ func (m *OrganizationInvitation) validateOrganization(formats strfmt.Registry) e
 	return nil
 }
 
+func (m *OrganizationInvitation) validateRoleAssignments(formats strfmt.Registry) error {
+	if swag.IsZero(m.RoleAssignments) { // not required
+		return nil
+	}
+
+	if m.RoleAssignments != nil {
+		if err := m.RoleAssignments.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_assignments")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_assignments")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *OrganizationInvitation) validateToken(formats strfmt.Registry) error {
 
 	if err := validate.Required("token", "body", m.Token); err != nil {
@@ -198,6 +224,10 @@ func (m *OrganizationInvitation) ContextValidate(ctx context.Context, formats st
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateRoleAssignments(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -212,6 +242,22 @@ func (m *OrganizationInvitation) contextValidateOrganization(ctx context.Context
 				return ve.ValidateName("organization")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("organization")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OrganizationInvitation) contextValidateRoleAssignments(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RoleAssignments != nil {
+		if err := m.RoleAssignments.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_assignments")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_assignments")
 			}
 			return err
 		}
