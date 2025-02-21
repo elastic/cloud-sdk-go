@@ -20,6 +20,8 @@ package deploymentapi
 import (
 	"context"
 	"errors"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
+	"strings"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -32,8 +34,9 @@ import (
 type SearchParams struct {
 	*api.API
 
-	Context context.Context
-	Request *models.SearchRequest
+	Context         context.Context
+	Request         *models.SearchRequest
+	MinimalMetadata *[]string
 }
 
 // Validate ensures the parameters are usable by Shutdown.
@@ -56,10 +59,16 @@ func Search(params SearchParams) (*models.DeploymentsSearchResponse, error) {
 		return nil, err
 	}
 
+	requestParams := deployments.NewSearchDeploymentsParams().
+		WithBody(params.Request).
+		WithContext(params.Context)
+
+	if params.MinimalMetadata != nil {
+		requestParams.SetMinimalMetadata(ec.String(strings.Join(*params.MinimalMetadata, ",")))
+	}
+
 	res, err := params.V1API.Deployments.SearchDeployments(
-		deployments.NewSearchDeploymentsParams().
-			WithBody(params.Request).
-			WithContext(params.Context),
+		requestParams,
 		params.AuthWriter,
 	)
 	if err != nil {

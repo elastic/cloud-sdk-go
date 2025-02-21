@@ -19,6 +19,7 @@ package deploymentapi
 
 import (
 	"errors"
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -59,16 +60,78 @@ func TestSearch(t *testing.T) {
 		{
 			name: "Succeeds",
 			args: args{params: SearchParams{
-				API: api.NewMock(mock.New200Response(mock.NewStructBody(models.DeploymentsSearchResponse{
-					Deployments: []*models.DeploymentSearchResponse{
-						{ID: ec.String("123")},
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "POST",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/deployments/_search",
+						Query:  url.Values{},
+						Body:   mock.NewStructBody(models.SearchRequest{}),
 					},
-				}))),
+					mock.NewStructBody(models.DeploymentsSearchResponse{
+						Deployments: []*models.DeploymentSearchResponse{
+							{ID: ec.String("123")},
+						},
+					}))),
 				Request: &models.SearchRequest{},
 			}},
 			want: &models.DeploymentsSearchResponse{Deployments: []*models.DeploymentSearchResponse{
 				{ID: ec.String("123")},
 			}},
+		},
+		{
+			name: "Adds minimal metadata",
+			args: args{params: SearchParams{
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "POST",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/deployments/_search",
+						Query: url.Values{
+							"minimal_metadata": {"id,name"},
+						},
+						Body: mock.NewStructBody(models.SearchRequest{}),
+					},
+					mock.NewStringBody(`
+{
+  "return_count" : 2,
+  "match_count" : 8642,
+  "deployments" : [
+  ],
+  "minimal_metadata" : [
+    {
+      "name" : "My deployment",
+      "id" : "d5a14995cd014268819e004337fbcd83"
+    },
+    {
+      "name" : "Another deployment",
+      "id" : "4c9f5af7c2a64210bdbb88a1fdd57680"
+    }
+  ],
+  "cursor" : "dY7RDoIwDEX/pc8LARQx/IohS4USlmyga0lUsn93jcY3n3rTe9t7dmDCOMzQ7V9lcRKK0F3qojRVeyyr+nRuDm1b9wbYvQi6qikN3DeKTz27rqvXGTaWfLbDQiw06uqXoYdjYVWTI589iMTrFgfigjyyuOHTXrgRUjJwQ5n/pzSSC1EU12t7SplOCeyyKkWf9EtwiwvobSBBO6JgdiA3GFgwEPTpDQ=="
+}`),
+				)),
+				Request:         &models.SearchRequest{},
+				MinimalMetadata: &[]string{"id", "name"},
+			}},
+			want: &models.DeploymentsSearchResponse{
+				ReturnCount: ec.Int32(2),
+				MatchCount:  8642,
+				Deployments: []*models.DeploymentSearchResponse{},
+				MinimalMetadata: []interface{}{
+					map[string]interface{}{
+						"name": "My deployment",
+						"id":   "d5a14995cd014268819e004337fbcd83",
+					},
+					map[string]interface{}{
+						"name": "Another deployment",
+						"id":   "4c9f5af7c2a64210bdbb88a1fdd57680",
+					},
+				},
+				Cursor: "dY7RDoIwDEX/pc8LARQx/IohS4USlmyga0lUsn93jcY3n3rTe9t7dmDCOMzQ7V9lcRKK0F3qojRVeyyr+nRuDm1b9wbYvQi6qikN3DeKTz27rqvXGTaWfLbDQiw06uqXoYdjYVWTI589iMTrFgfigjyyuOHTXrgRUjJwQ5n/pzSSC1EU12t7SplOCeyyKkWf9EtwiwvobSBBO6JgdiA3GFgwEPTpDQ==",
+			},
 		},
 	}
 	for _, tt := range tests {
