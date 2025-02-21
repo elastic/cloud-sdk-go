@@ -20,7 +20,6 @@ package deploymentapi
 import (
 	"context"
 	"errors"
-	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 	"strings"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -28,6 +27,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // SearchParams is consumed by Search.
