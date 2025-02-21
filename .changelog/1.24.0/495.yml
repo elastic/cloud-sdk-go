@@ -1,0 +1,4 @@
+category: enhancement
+title: Add support for `MinimalMetadata` in the deployments search API.
+description: |
+  The new `MinimalMetadata` parameter allows returning only the specified fields in the response.
