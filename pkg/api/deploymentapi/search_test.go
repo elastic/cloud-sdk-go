@@ -114,7 +114,7 @@ func TestSearch(t *testing.T) {
 }`),
 				)),
 				Request:         &models.SearchRequest{},
-				MinimalMetadata: &[]string{"id", "name"},
+				MinimalMetadata: []string{"id", "name"},
 			}},
 			want: &models.DeploymentsSearchResponse{
 				ReturnCount: ec.Int32(2),

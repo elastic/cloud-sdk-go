@@ -36,7 +36,7 @@ type SearchParams struct {
 
 	Context         context.Context
 	Request         *models.SearchRequest
-	MinimalMetadata *[]string
+	MinimalMetadata []string
 }
 
 // Validate ensures the parameters are usable by Shutdown.
@@ -63,8 +63,8 @@ func Search(params SearchParams) (*models.DeploymentsSearchResponse, error) {
 		WithBody(params.Request).
 		WithContext(params.Context)
 
-	if params.MinimalMetadata != nil {
-		requestParams.SetMinimalMetadata(ec.String(strings.Join(*params.MinimalMetadata, ",")))
+	if len(params.MinimalMetadata) > 0 {
+		requestParams.SetMinimalMetadata(ec.String(strings.Join(params.MinimalMetadata, ",")))
 	}
 
 	res, err := params.V1API.Deployments.SearchDeployments(
