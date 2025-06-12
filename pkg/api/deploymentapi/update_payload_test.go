@@ -79,6 +79,11 @@ func TestNewUpdateRequest(t *testing.T) {
 		"./testdata/logging_metrics_legacy_kibana_update.json",
 	)
 
+	var integrationsServerGet, integrationsServerWant = getUpdateResponse(t,
+		"./testdata/integrations_server_get.json",
+		"./testdata/integrations_server_update.json",
+	)
+
 	type args struct {
 		res *models.DeploymentGetResponse
 	}
@@ -115,6 +120,11 @@ func TestNewUpdateRequest(t *testing.T) {
 			name: "parses a get response from a deployment with kibana legacy topology",
 			args: args{res: loggingMetricsGet},
 			want: loggingMetricsWant,
+		},
+		{
+			name: "parses a get response from a deployment with integrations",
+			args: args{res: integrationsServerGet},
+			want: integrationsServerWant,
 		},
 	}
 	for _, tt := range tests {
