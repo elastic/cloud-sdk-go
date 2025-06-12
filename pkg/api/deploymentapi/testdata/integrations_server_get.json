@@ -1,0 +1,1128 @@
+{
+  "alias": "my-deployment",
+  "healthy": true,
+  "id": "61042f21dbfb4a2c87627998bded9e04",
+  "instance_configurations": [
+    {
+      "config_version": 1,
+      "cpu_multiplier": 0.138,
+      "description": "Storage-optimized Elasticsearch instances for hot data. Based on AWS's i3 family.",
+      "discrete_sizes": {
+        "default_size": 4096,
+        "resource": "memory",
+        "sizes": [
+          1024,
+          2048,
+          4096,
+          8192,
+          15360,
+          29696,
+          59392
+        ]
+      },
+      "id": "aws.es.datahot.i3",
+      "instance_type": "elasticsearch",
+      "metadata": {
+        "sku": "aws.es.datahot.i3"
+      },
+      "name": "aws.es.datahot.i3",
+      "node_types": [
+        "master",
+        "data",
+        "ingest"
+      ],
+      "storage_multiplier": 30
+    },
+    {
+      "cpu_multiplier": 0.133,
+      "description": "Storage-optimized (dense) Elasticsearch instances for warm data. Based on AWS's i3en family.",
+      "discrete_sizes": {
+        "default_size": 4096,
+        "resource": "memory",
+        "sizes": [
+          2048,
+          4096,
+          8192,
+          15360,
+          30720,
+          61440
+        ]
+      },
+      "id": "aws.es.datawarm.i3en",
+      "instance_type": "elasticsearch",
+      "metadata": {
+        "sku": "aws.es.datawarm.i3en"
+      },
+      "name": "aws.es.datawarm.i3en",
+      "node_types": [
+        "data"
+      ],
+      "storage_multiplier": 74
+    },
+    {
+      "config_version": 1,
+      "cpu_multiplier": 0.133,
+      "description": "Storage-optimized (dense) Elasticsearch instances for cold data. Based on AWS's i3en family.",
+      "discrete_sizes": {
+        "default_size": 4096,
+        "resource": "memory",
+        "sizes": [
+          2048,
+          4096,
+          8192,
+          15360,
+          30720,
+          61440
+        ]
+      },
+      "id": "aws.es.datacold.i3en",
+      "instance_type": "elasticsearch",
+      "metadata": {
+        "sku": "aws.es.datacold.i3en.2"
+      },
+      "name": "aws.es.datacold.i3en",
+      "node_types": [
+        "data"
+      ],
+      "storage_multiplier": 74
+    },
+    {
+      "config_version": 1,
+      "cpu_multiplier": 0.133,
+      "description": "Storage-optimized (dense) Elasticsearch instances serving as a cache tier for frozen data. Based on AWS's i3en family.",
+      "discrete_sizes": {
+        "default_size": 4096,
+        "resource": "memory",
+        "sizes": [
+          4096,
+          8192,
+          15360,
+          30720,
+          61440
+        ]
+      },
+      "id": "aws.es.datafrozen.i3en",
+      "instance_type": "elasticsearch",
+      "metadata": {
+        "sku": "aws.es.datafrozen.i3en.2"
+      },
+      "name": "aws.es.datafrozen.i3en",
+      "node_types": [
+        "data"
+      ],
+      "storage_multiplier": 74
+    },
+    {
+      "config_version": 1,
+      "cpu_multiplier": 0.529,
+      "description": "CPU-optimized Elasticsearch instances serving as master-eligible nodes. Based on AWS's c5d family.",
+      "discrete_sizes": {
+        "default_size": 4096,
+        "resource": "memory",
+        "sizes": [
+          1024,
+          2048,
+          4096,
+          8192,
+          17408,
+          32768,
+          65536
+        ]
+      },
+      "id": "aws.es.master.c5d",
+      "instance_type": "elasticsearch",
+      "metadata": {
+        "sku": "aws.es.master.c5d.2"
+      },
+      "name": "aws.es.master.c5d",
+      "node_types": [
+        "master"
+      ],
+      "storage_multiplier": 12
+    },
+    {
+      "config_version": 1,
+      "cpu_multiplier": 0.267,
+      "description": "General purpose Elasticsearch instance serving as a coordinating node. Based on AWS's m5d family.",
+      "discrete_sizes": {
+        "default_size": 1024,
+        "resource": "memory",
+        "sizes": [
+          1024,
+          2048,
+          4096,
+          8192,
+          15360,
+          30720,
+          61440
+        ]
+      },
+      "id": "aws.es.coordinating.m5d",
+      "instance_type": "elasticsearch",
+      "metadata": {
+        "sku": "aws.es.coordinating.m5d.2"
+      },
+      "name": "aws.es.coordinating.m5d",
+      "node_types": [
+        "ingest"
+      ],
+      "storage_multiplier": 8
+    },
+    {
+      "cpu_multiplier": 0.529,
+      "description": "General purpose Elasticsearch instance serving as ML nodes. Based on AWS's c5d family.",
+      "discrete_sizes": {
+        "default_size": 1024,
+        "resource": "memory",
+        "sizes": [
+          1024,
+          2048,
+          4096,
+          8192,
+          16384,
+          32768,
+          65536
+        ]
+      },
+      "id": "aws.es.ml.c5d",
+      "instance_type": "elasticsearch",
+      "metadata": {
+        "sku": "aws.es.ml.c5d"
+      },
+      "name": "aws.es.ml.c5d",
+      "node_types": [
+        "ml"
+      ],
+      "storage_multiplier": 12
+    },
+    {
+      "config_version": 1,
+      "cpu_multiplier": 0.529,
+      "description": "CPU-optimized instances serving as Kibana nodes. Based on AWS's c5d family.",
+      "discrete_sizes": {
+        "default_size": 1024,
+        "resource": "memory",
+        "sizes": [
+          1024,
+          2048,
+          4096,
+          8192
+        ]
+      },
+      "id": "aws.kibana.c5d",
+      "instance_type": "kibana",
+      "metadata": {
+        "sku": "aws.kibana.c5d"
+      },
+      "name": "aws.kibana.c5d",
+      "node_types": null,
+      "storage_multiplier": 12
+    },
+    {
+      "config_version": 3,
+      "cpu_multiplier": 0.529,
+      "description": "CPU-optimized instances serving as Integrations Server nodes. Based on AWS's c5d family.",
+      "discrete_sizes": {
+        "default_size": 1024,
+        "resource": "memory",
+        "sizes": [
+          1024,
+          2048,
+          4096,
+          8192,
+          16384,
+          32768
+        ]
+      },
+      "id": "aws.integrationsserver.c5d",
+      "instance_type": "integrations_server",
+      "metadata": {
+        "sku": "aws.integrationsserver.c5d.2"
+      },
+      "name": "aws.integrationsserver.c5d",
+      "node_types": null,
+      "storage_multiplier": 12
+    }
+  ],
+  "metadata": {
+    "hidden": false,
+    "last_modified": "2025-06-11T19:59:20.382Z",
+    "last_resource_plan_modified": "2025-06-11T19:40:25.971Z",
+    "organization_id": "554443047",
+    "owner_id": "593963315",
+    "subscription_level": "standard",
+    "system_owned": false,
+    "tags": null
+  },
+  "name": "My deployment",
+  "resources": {
+    "apm": [],
+    "appsearch": [],
+    "elasticsearch": [
+      {
+        "id": "9b2c80e3248b40f78d3014f54e642c9b",
+        "info": {
+          "associated_apm_clusters": [
+            {
+              "apm_id": "c9a2fe2136bd4e37a8ee32d61388a9df",
+              "enabled": true
+            }
+          ],
+          "associated_appsearch_clusters": [],
+          "associated_enterprise_search_clusters": [],
+          "associated_kibana_clusters": [
+            {
+              "enabled": true,
+              "kibana_id": "3e813262a07a4c39b6c43209adef5ce5"
+            }
+          ],
+          "cluster_id": "9b2c80e3248b40f78d3014f54e642c9b",
+          "cluster_name": "My deployment",
+          "deployment_id": "61042f21dbfb4a2c87627998bded9e04",
+          "elasticsearch": {
+            "blocking_issues": {
+              "cluster_level": [],
+              "healthy": true,
+              "index_level": []
+            },
+            "cluster_blocking_issues": {
+              "blocks": [],
+              "healthy": true
+            },
+            "healthy": true,
+            "master_info": {
+              "healthy": true,
+              "instances_with_no_master": [],
+              "masters": [
+                {
+                  "instances": [
+                    "tiebreaker-0000000002",
+                    "instance-0000000000",
+                    "instance-0000000001"
+                  ],
+                  "master_instance_name": "instance-0000000000",
+                  "master_node_id": "H3116p7ZS1CFaAlnWAh5rg"
+                }
+              ]
+            },
+            "shard_info": {
+              "available_shards": [],
+              "healthy": true,
+              "unavailable_replicas": [],
+              "unavailable_shards": []
+            },
+            "shards_status": {
+              "status": "green"
+            }
+          },
+          "external_links": [
+            {
+              "id": "cluster-logs-saas",
+              "label": "Cluster Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_a=(columns:!(message,ece.instance,ece.runner,severity),index:'cluster-elasticsearch-*',interval:auto,sort:!('@timestamp',desc))\u0026_g=(filters:!(('$state':(store:globalState),meta:(alias:!n,disabled:!f,index:'cluster-elasticsearch-*',key:input_type,negate:!f,params:(query:elasticsearch,type:phrase),type:phrase,value:elasticsearch),query:(match:(input_type:(query:elasticsearch,type:phrase)))),('$state':(store:globalState),meta:(alias:!n,disabled:!f,index:'cluster-elasticsearch-*',key:ece.cluster,negate:!f,params:(query:'9b2c80e3248b40f78d3014f54e642c9b',type:phrase),type:phrase,value:'9b2c80e3248b40f78d3014f54e642c9b'),query:(match:(ece.cluster:(query:'9b2c80e3248b40f78d3014f54e642c9b',type:phrase))))),refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-24h,mode:quick,to:now))"
+            },
+            {
+              "id": "metrics-overview-saas",
+              "label": "Metrics Overview",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/Elasticsearch-Overview?_g=(time:(from:now-2h,to:now))\u0026_a=(query:(query_string:(query:'ece.cluster:9b2c80e3248b40f78d3014f54e642c9b OR labels.ece_cluster:9b2c80e3248b40f78d3014f54e642c9b')))"
+            },
+            {
+              "id": "constructor-logs",
+              "label": "Constructor logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1w,to:now))\u0026_a=(columns:!(level,message),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'service-constructor-*',key:cluster_id,negate:!f,params:(query:'9b2c80e3248b40f78d3014f54e642c9b'),type:phrase),query:(match_phrase:(cluster_id:'9b2c80e3248b40f78d3014f54e642c9b')))),index:'service-constructor-*',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))"
+            },
+            {
+              "id": "service-cluster-beats",
+              "label": "Log and Metrics Delivery Beats Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-24h,mode:quick,to:now))\u0026_a=(columns:!(level,message,tags),index:'service-cluster-beats-*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'ece.cluster:+9b2c80e3248b40f78d3014f54e642c9b')),sort:!('@timestamp',desc))"
+            },
+            {
+              "id": "system-metrics-for-app-containers",
+              "label": "System Metrics for Application containers",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/Compute-Applications-containers-overview?_g=(time:(from:now-2h,to:now))\u0026_a=(query:(language:kuery,query:'ece.cluster:9b2c80e3248b40f78d3014f54e642c9b'))"
+            },
+            {
+              "id": "support-stack-monitoring",
+              "label": "Support Stack Monitoring Metrics",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/Support-Stack-Monitoring?_g=(time:(from:now-2h,to:now))\u0026_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'elasticsearch-2*',key:ece.cluster,negate:!f,params:(query:'9b2c80e3248b40f78d3014f54e642c9b'),type:phrase),query:(match_phrase:(ece.cluster:'9b2c80e3248b40f78d3014f54e642c9b')))),viewMode:view)"
+            },
+            {
+              "id": "system-metrics-for-allocator-hosts",
+              "label": "System Metrics for Allocator hosts",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/Compute-Hosts-overview?_a=(description:'Resource%20usage%20overview%20for%20allocators',filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'metrics:service-extra-*',key:ece.runner,negate:!f,params:!('i-01730179a05bbd7a3','i-05eadf75d0c849b21','i-08d0f8ea192c0bea5'),type:phrases),query:(bool:(minimum_should_match:1,should:!((match_phrase:(ece.runner:'i-01730179a05bbd7a3')),(match_phrase:(ece.runner:'i-05eadf75d0c849b21')),(match_phrase:(ece.runner:'i-08d0f8ea192c0bea5'))))))),fullScreenMode:!f,options:(darkTheme:!f,hidePanelTitles:!f,useMargins:!f),query:(language:kuery,query:''),timeRestore:!f,title:'%5BCompute%5D%20Hosts%20overview',viewMode:view)\u0026_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-2h,to:now))"
+            },
+            {
+              "id": "allocator-logs",
+              "label": "Allocator logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(filters:!((meta:(index:'service-allocator-*',key:ece.runner.keyword,negate:!f,params:!('i-01730179a05bbd7a3','i-05eadf75d0c849b21','i-08d0f8ea192c0bea5'),type:phrases,value:!('i-01730179a05bbd7a3','i-05eadf75d0c849b21','i-08d0f8ea192c0bea5')),query:(bool:(minimum_should_match:1,should:!((match_phrase:(ece.runner:'i-01730179a05bbd7a3')),(match_phrase:(ece.runner:'i-05eadf75d0c849b21')),(match_phrase:(ece.runner:'i-08d0f8ea192c0bea5'))))))))\u0026_a=(columns:!(log.level,message,error.message,error.stack_trace),index:'service-allocator-*')"
+            },
+            {
+              "id": "proxy-logs-saas",
+              "label": "Proxy Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_a=(columns:!(client_ip,action,request_method,status_code,request_path),index:'service-proxy-requests-*',interval:auto,sort:!('@timestamp',desc))\u0026_g=(time:(from:now-2h,mode:quick,to:now),filters:!(('$state':(store:globalState),meta:(alias:!n,disabled:!f,index:'service-proxy-requests-*',key:handling_cluster,negate:!f,params:(query:'9b2c80e3248b40f78d3014f54e642c9b',type:phrase),type:phrase,value:'9b2c80e3248b40f78d3014f54e642c9b'),query:(match:(handling_cluster:(query:'9b2c80e3248b40f78d3014f54e642c9b',type:phrase))))))"
+            }
+          ],
+          "healthy": true,
+          "locked": false,
+          "metadata": {
+            "aliased_endpoint": "my-deployment.es.eu-west-1.aws.qa.cld.elstc.co",
+            "aliased_url": "https://my-deployment.es.eu-west-1.aws.qa.cld.elstc.co",
+            "cloud_id": "My_deployment:ZXUtd2VzdC0xLmF3cy5xYS5jbGQuZWxzdGMuY286NDQzJDliMmM4MGUzMjQ4YjQwZjc4ZDMwMTRmNTRlNjQyYzliJDNlODEzMjYyYTA3YTRjMzliNmM0MzIwOWFkZWY1Y2U1",
+            "endpoint": "9b2c80e3248b40f78d3014f54e642c9b.eu-west-1.aws.qa.cld.elstc.co",
+            "last_modified": "2025-06-11T19:54:49.781Z",
+            "ports": {
+              "http": 9200,
+              "https": 443,
+              "transport_passthrough": 9400
+            },
+            "service_url": "https://9b2c80e3248b40f78d3014f54e642c9b.eu-west-1.aws.qa.cld.elstc.co",
+            "services_urls": null,
+            "version": 25
+          },
+          "plan_info": {
+            "current": {
+              "attempt_end_time": "2025-06-11T19:37:39.521Z",
+              "attempt_start_time": "2025-06-11T19:36:42.915Z",
+              "healthy": true,
+              "plan": {
+                "autoscaling_enabled": false,
+                "cluster_topology": [
+                  {
+                    "autoscaling_max": {
+                      "resource": "memory",
+                      "value": 118784
+                    },
+                    "elasticsearch": {
+                      "node_attributes": {
+                        "data": "hot"
+                      }
+                    },
+                    "id": "hot_content",
+                    "instance_configuration_id": "aws.es.datahot.i3",
+                    "instance_configuration_version": 1,
+                    "node_roles": [
+                      "master",
+                      "ingest",
+                      "transform",
+                      "data_hot",
+                      "remote_cluster_client",
+                      "data_content"
+                    ],
+                    "size": {
+                      "resource": "memory",
+                      "value": 8192
+                    },
+                    "topology_element_control": {
+                      "min": {
+                        "resource": "memory",
+                        "value": 1024
+                      }
+                    },
+                    "zone_count": 2
+                  },
+                  {
+                    "autoscaling_max": {
+                      "resource": "memory",
+                      "value": 122880
+                    },
+                    "elasticsearch": {
+                      "node_attributes": {
+                        "data": "warm"
+                      }
+                    },
+                    "id": "warm",
+                    "instance_configuration_id": "aws.es.datawarm.i3en",
+                    "node_roles": [
+                      "data_warm",
+                      "remote_cluster_client"
+                    ],
+                    "size": {
+                      "resource": "memory",
+                      "value": 0
+                    },
+                    "topology_element_control": {
+                      "min": {
+                        "resource": "memory",
+                        "value": 0
+                      }
+                    },
+                    "zone_count": 2
+                  },
+                  {
+                    "autoscaling_max": {
+                      "resource": "memory",
+                      "value": 61440
+                    },
+                    "elasticsearch": {
+                      "node_attributes": {
+                        "data": "cold"
+                      }
+                    },
+                    "id": "cold",
+                    "instance_configuration_id": "aws.es.datacold.i3en",
+                    "instance_configuration_version": 1,
+                    "node_roles": [
+                      "data_cold",
+                      "remote_cluster_client"
+                    ],
+                    "size": {
+                      "resource": "memory",
+                      "value": 0
+                    },
+                    "topology_element_control": {
+                      "min": {
+                        "resource": "memory",
+                        "value": 0
+                      }
+                    },
+                    "zone_count": 1
+                  },
+                  {
+                    "autoscaling_max": {
+                      "resource": "memory",
+                      "value": 122880
+                    },
+                    "elasticsearch": {
+                      "node_attributes": {
+                        "data": "frozen"
+                      }
+                    },
+                    "id": "frozen",
+                    "instance_configuration_id": "aws.es.datafrozen.i3en",
+                    "instance_configuration_version": 1,
+                    "node_roles": [
+                      "data_frozen"
+                    ],
+                    "size": {
+                      "resource": "memory",
+                      "value": 0
+                    },
+                    "topology_element_control": {
+                      "min": {
+                        "resource": "memory",
+                        "value": 0
+                      }
+                    },
+                    "zone_count": 1
+                  },
+                  {
+                    "id": "master",
+                    "instance_configuration_id": "aws.es.master.c5d",
+                    "instance_configuration_version": 1,
+                    "node_roles": [
+                      "master",
+                      "remote_cluster_client"
+                    ],
+                    "size": {
+                      "resource": "memory",
+                      "value": 0
+                    },
+                    "topology_element_control": {
+                      "min": {
+                        "resource": "memory",
+                        "value": 0
+                      }
+                    },
+                    "zone_count": 3
+                  },
+                  {
+                    "id": "coordinating",
+                    "instance_configuration_id": "aws.es.coordinating.m5d",
+                    "instance_configuration_version": 1,
+                    "node_roles": [
+                      "ingest",
+                      "remote_cluster_client"
+                    ],
+                    "size": {
+                      "resource": "memory",
+                      "value": 0
+                    },
+                    "topology_element_control": {
+                      "min": {
+                        "resource": "memory",
+                        "value": 0
+                      }
+                    },
+                    "zone_count": 2
+                  },
+                  {
+                    "autoscaling_max": {
+                      "resource": "memory",
+                      "value": 65536
+                    },
+                    "autoscaling_min": {
+                      "resource": "memory",
+                      "value": 0
+                    },
+                    "autoscaling_tier_override": true,
+                    "id": "ml",
+                    "instance_configuration_id": "aws.es.ml.c5d",
+                    "node_roles": [
+                      "ml",
+                      "remote_cluster_client"
+                    ],
+                    "size": {
+                      "resource": "memory",
+                      "value": 0
+                    },
+                    "topology_element_control": {
+                      "min": {
+                        "resource": "memory",
+                        "value": 0
+                      }
+                    },
+                    "zone_count": 1
+                  }
+                ],
+                "deployment_template": {
+                  "id": "aws-storage-optimized-faster-warm"
+                },
+                "elasticsearch": {
+                  "version": "9.0.2"
+                }
+              },
+              "plan_attempt_id": "2d4da849-a703-4ee4-be15-950ae146f0a5",
+              "plan_attempt_log": [],
+              "plan_end_time": "0001-01-01T00:00:00.000Z",
+              "source": {
+                "action": "deployments.create-deployment",
+                "date": "2025-06-11T19:36:42.149Z",
+                "facilitator": "adminconsole",
+                "remote_addresses": [
+                  "34.71.147.222",
+                  "140.248.77.23",
+                  "172.23.160.9",
+                  "52.30.243.249"
+                ],
+                "user_id": "593963315"
+              },
+              "warnings": []
+            },
+            "healthy": true,
+            "history": []
+          },
+          "region": "aws-eu-west-1",
+          "settings": {
+            "curation": {
+              "specs": []
+            },
+            "dedicated_masters_threshold": 6,
+            "metadata": {
+              "hidden": false,
+              "name": "My deployment",
+              "organization_id": "554443047",
+              "owner_id": "593963315",
+              "resources": {
+                "cpu": {
+                  "boost": true,
+                  "hard_limit": true
+                }
+              },
+              "subscription_level": "standard",
+              "system_owned": false
+            },
+            "snapshot": {
+              "enabled": true,
+              "repository": {
+                "static": {
+                  "repository_type": "s3-resource",
+                  "settings": {
+                    "account_user_name": "accountuser-a04f39af3a8f4a1f8cdfebc7ec099008",
+                    "aws_account": "operations-ecqa-2-eu-west-1",
+                    "bucket_name": "419a37ba3d0d4ad68fd790c5582174ce",
+                    "client_name": "elastic-internal-9b2c80",
+                    "region": "eu-west-1"
+                  }
+                }
+              },
+              "retention": {},
+              "slm": true,
+              "suspended": []
+            },
+            "trust": {
+              "accounts": [
+                {
+                  "account_id": "554443047",
+                  "name": "Default trust for own organization",
+                  "trust_all": true,
+                  "trust_allowlist": null
+                }
+              ],
+              "direct": null,
+              "external": null
+            }
+          },
+          "snapshots": {
+            "count": 2,
+            "healthy": true,
+            "latest_end_time": "2025-06-11T20:30:00.590Z",
+            "latest_status": "SUCCESS",
+            "latest_successful": true,
+            "latest_successful_end_time": "2025-06-11T20:30:01.446Z",
+            "recent_success": true,
+            "scheduled_time": "2025-06-11T21:00:00.000Z"
+          },
+          "status": "started",
+          "system_alerts": [],
+          "topology": {
+            "healthy": true,
+            "instances": [
+              {
+                "allocator_id": "i-01730179a05bbd7a3",
+                "container_started": true,
+                "disk": {
+                  "disk_space_available": 245760,
+                  "disk_space_used": 9,
+                  "storage_multiplier": 30
+                },
+                "healthy": true,
+                "instance_configuration": {
+                  "config_version": 1,
+                  "id": "aws.es.datahot.i3",
+                  "name": "aws.es.datahot.i3",
+                  "resource": "memory"
+                },
+                "instance_name": "instance-0000000000",
+                "instance_overrides": {},
+                "maintenance_mode": false,
+                "memory": {
+                  "instance_capacity": 8192,
+                  "memory_pressure": 4,
+                  "native_memory_pressure": 58
+                },
+                "node_roles": [
+                  "master",
+                  "ingest",
+                  "transform",
+                  "data_hot",
+                  "remote_cluster_client",
+                  "data_content"
+                ],
+                "service_roles": [
+                  "data",
+                  "master",
+                  "ingest"
+                ],
+                "service_running": true,
+                "service_version": "9.0.2",
+                "zone": "eu-west-1c"
+              },
+              {
+                "allocator_id": "i-05eadf75d0c849b21",
+                "container_started": true,
+                "disk": {
+                  "disk_space_available": 245760,
+                  "disk_space_used": 9,
+                  "storage_multiplier": 30
+                },
+                "healthy": true,
+                "instance_configuration": {
+                  "config_version": 1,
+                  "id": "aws.es.datahot.i3",
+                  "name": "aws.es.datahot.i3",
+                  "resource": "memory"
+                },
+                "instance_name": "instance-0000000001",
+                "instance_overrides": {},
+                "maintenance_mode": false,
+                "memory": {
+                  "instance_capacity": 8192,
+                  "memory_pressure": 3,
+                  "native_memory_pressure": 58
+                },
+                "node_roles": [
+                  "master",
+                  "ingest",
+                  "transform",
+                  "data_hot",
+                  "remote_cluster_client",
+                  "data_content"
+                ],
+                "service_roles": [
+                  "data",
+                  "master",
+                  "ingest"
+                ],
+                "service_running": true,
+                "service_version": "9.0.2",
+                "zone": "eu-west-1a"
+              },
+              {
+                "allocator_id": "i-08d0f8ea192c0bea5",
+                "container_started": true,
+                "disk": {
+                  "disk_space_available": 12288,
+                  "disk_space_used": 1,
+                  "storage_multiplier": 12
+                },
+                "healthy": true,
+                "instance_configuration": {
+                  "config_version": 1,
+                  "id": "aws.es.master.c5d",
+                  "name": "aws.es.master.c5d",
+                  "resource": "memory"
+                },
+                "instance_name": "tiebreaker-0000000002",
+                "instance_overrides": {},
+                "maintenance_mode": false,
+                "memory": {
+                  "instance_capacity": 1024,
+                  "memory_pressure": 23,
+                  "native_memory_pressure": 85
+                },
+                "node_roles": [
+                  "master",
+                  "voting_only"
+                ],
+                "service_roles": [
+                  "master"
+                ],
+                "service_running": true,
+                "service_version": "9.0.2",
+                "zone": "eu-west-1b"
+              }
+            ]
+          }
+        },
+        "ref_id": "main-elasticsearch",
+        "region": "aws-eu-west-1"
+      }
+    ],
+    "enterprise_search": [],
+    "integrations_server": [
+      {
+        "elasticsearch_cluster_ref_id": "main-elasticsearch",
+        "id": "c9a2fe2136bd4e37a8ee32d61388a9df",
+        "info": {
+          "apm_server_mode": "managed",
+          "deployment_id": "61042f21dbfb4a2c87627998bded9e04",
+          "elasticsearch_cluster": {
+            "elasticsearch_id": "9b2c80e3248b40f78d3014f54e642c9b"
+          },
+          "external_links": [
+            {
+              "id": "cluster-metrics-apm-saas",
+              "label": "APM (standalone) Metrics",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/APM-Overview?_a=(description:'',filters:!(),fullScreenMode:!f,options:(darkTheme:!f,useMargins:!f),panels:!((gridData:(h:3,i:'1',w:6,x:0,y:0),id:AWMhl2pCkF5nKqrJxp33,panelIndex:'1',type:visualization,version:'6.2.4'),(gridData:(h:3,i:'2',w:6,x:6,y:2),id:AWMhg3u8kF5nKqrJvXXk,panelIndex:'2',type:visualization,version:'6.2.4'),(gridData:(h:3,i:'4',w:6,x:0,y:3),id:'49d4aa20-4e34-11e8-b949-7ffd7775f16f',panelIndex:'4',type:visualization,version:'6.2.4'),(gridData:(h:3,i:'5',w:6,x:6,y:5),id:b94c4750-4e34-11e8-b949-7ffd7775f16f,panelIndex:'5',type:visualization,version:'6.2.4'),(embeddableConfig:(vis:(defaultColors:('0%20-%20100':'rgb(0,104,55)'))),gridData:(h:2,i:'6',w:2,x:6,y:0),id:'107c4700-4f9d-11e8-9342-07961239d6a3',panelIndex:'6',type:visualization,version:'6.2.4'),(gridData:(h:2,i:'7',w:2,x:8,y:0),id:f9ccd2d0-4f9d-11e8-8b3e-83a0bebfca69,panelIndex:'7',type:visualization,version:'6.2.4'),(gridData:(h:3,i:'8',w:6,x:0,y:6),id:AWMhg3u8kF5nKqrJvXXk,panelIndex:'8',type:visualization,version:'6.2.4')),query:(language:lucene,query:'ece.cluster:c9a2fe2136bd4e37a8ee32d61388a9df'),timeRestore:!f,title:'%5BAPM%20Metrics%5D%20Overview',viewMode:view)\u0026_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-4h,interval:auto,mode:quick,timezone:UTC,to:now))"
+            },
+            {
+              "id": "constructor-logs",
+              "label": "Constructor logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1w,to:now))\u0026_a=(columns:!(level,message),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'service-constructor-*',key:cluster_id,negate:!f,params:(query:'c9a2fe2136bd4e37a8ee32d61388a9df'),type:phrase),query:(match_phrase:(cluster_id:'c9a2fe2136bd4e37a8ee32d61388a9df')))),index:'service-constructor-*',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))"
+            },
+            {
+              "id": "cluster-metrics-apm-saas-alpha",
+              "label": "APM (standalone) Metrics - Alpha",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/apm-overview-alpha?_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:'ece.cluster:c9a2fe2136bd4e37a8ee32d61388a9df'),timeRestore:!f,title:'%5Bapm%5D%20overview%20alpha',viewMode:view)\u0026_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-4h,to:now))"
+            },
+            {
+              "id": "allocator-logs",
+              "label": "Allocator logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(filters:!((meta:(index:'service-allocator-*',key:ece.runner.keyword,negate:!f,params:!('i-03ba28792989ef2f9'),type:phrases,value:!('i-03ba28792989ef2f9')),query:(bool:(minimum_should_match:1,should:!((match_phrase:(ece.runner:'i-03ba28792989ef2f9'))))))))\u0026_a=(columns:!(log.level,message,error.message,error.stack_trace),index:'service-allocator-*')"
+            },
+            {
+              "id": "cluster-logs-apm-saas",
+              "label": "APM (standalone) Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(time:(from:now-2h,to:now))\u0026_a=(columns:!(http.response.status_code,message,ece.instance),filters:!(),index:'cluster-apm-*',interval:auto,query:(language:lucene,query:'ece.cluster:c9a2fe2136bd4e37a8ee32d61388a9df'),sort:!('@timestamp',desc))"
+            },
+            {
+              "id": "service-cluster-beats",
+              "label": "Log and Metrics Delivery Beats Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-24h,mode:quick,to:now))\u0026_a=(columns:!(level,message,tags),index:'service-cluster-beats-*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'ece.cluster:+c9a2fe2136bd4e37a8ee32d61388a9df')),sort:!('@timestamp',desc))"
+            },
+            {
+              "id": "cluster-metrics-agent-saas",
+              "label": "Agent Fleet \u0026 APM (managed) Metrics",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/Agent-Metrics-Overview?_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:'ece.cluster:c9a2fe2136bd4e37a8ee32d61388a9df'),timeRestore:!f,title:'%5BAgent%5D%20Metrics%20overview',viewMode:view)\u0026_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-4h,to:now))"
+            },
+            {
+              "id": "system-metrics-for-allocator-hosts",
+              "label": "System Metrics for Allocator hosts",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/Compute-Hosts-overview?_a=(description:'Resource%20usage%20overview%20for%20allocators',filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'metrics:service-extra-*',key:ece.runner,negate:!f,params:!('i-03ba28792989ef2f9'),type:phrases),query:(bool:(minimum_should_match:1,should:!((match_phrase:(ece.runner:'i-03ba28792989ef2f9'))))))),fullScreenMode:!f,options:(darkTheme:!f,hidePanelTitles:!f,useMargins:!f),query:(language:kuery,query:''),timeRestore:!f,title:'%5BCompute%5D%20Hosts%20overview',viewMode:view)\u0026_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-2h,to:now))"
+            },
+            {
+              "id": "proxy-logs-saas",
+              "label": "Proxy Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_a=(columns:!(client_ip,action,request_method,status_code,request_path),index:'service-proxy-requests-*',interval:auto,sort:!('@timestamp',desc))\u0026_g=(time:(from:now-2h,mode:quick,to:now),filters:!(('$state':(store:globalState),meta:(alias:!n,disabled:!f,index:'service-proxy-requests-*',key:handling_cluster,negate:!f,params:(query:'c9a2fe2136bd4e37a8ee32d61388a9df',type:phrase),type:phrase,value:'c9a2fe2136bd4e37a8ee32d61388a9df'),query:(match:(handling_cluster:(query:'c9a2fe2136bd4e37a8ee32d61388a9df',type:phrase))))))"
+            },
+            {
+              "id": "cluster-logs-agent-saas",
+              "label": "Agent Fleet \u0026 APM (managed) Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(time:(from:now-2h,to:now))\u0026_a=(columns:!(service.name,http.response.status_code,message,ece.instance),filters:!(),index:'cluster-agent-*',interval:auto,query:(language:lucene,query:'ece.cluster:c9a2fe2136bd4e37a8ee32d61388a9df'),sort:!('@timestamp',desc))"
+            }
+          ],
+          "healthy": true,
+          "id": "c9a2fe2136bd4e37a8ee32d61388a9df",
+          "metadata": {
+            "aliased_endpoint": "my-deployment.apm.eu-west-1.aws.qa.cld.elstc.co",
+            "aliased_url": "https://my-deployment.apm.eu-west-1.aws.qa.cld.elstc.co:9243",
+            "endpoint": "c9a2fe2136bd4e37a8ee32d61388a9df.eu-west-1.aws.qa.cld.elstc.co",
+            "last_modified": "2025-06-11T19:59:20.382Z",
+            "ports": {
+              "http": 9200,
+              "https": 9243,
+              "transport_passthrough": 9400
+            },
+            "service_url": "https://c9a2fe2136bd4e37a8ee32d61388a9df.eu-west-1.aws.qa.cld.elstc.co:9243",
+            "services_urls": [
+              {
+                "service": "fleet",
+                "url": "https://my-deployment.fleet.eu-west-1.aws.qa.cld.elstc.co:9243"
+              },
+              {
+                "service": "apm",
+                "url": "https://my-deployment.apm.eu-west-1.aws.qa.cld.elstc.co:9243"
+              },
+              {
+                "service": "ingest",
+                "url": "https://my-deployment.ingest.eu-west-1.aws.qa.cld.elstc.co:9243"
+              }
+            ],
+            "version": 7
+          },
+          "name": "My deployment",
+          "plan_info": {
+            "current": {
+              "attempt_end_time": "2025-06-11T19:39:11.304Z",
+              "attempt_start_time": "2025-06-11T19:36:44.525Z",
+              "healthy": true,
+              "plan": {
+                "cluster_topology": [
+                  {
+                    "instance_configuration_id": "aws.integrationsserver.c5d",
+                    "instance_configuration_version": 3,
+                    "size": {
+                      "resource": "memory",
+                      "value": 1024
+                    },
+                    "zone_count": 1
+                  }
+                ],
+                "integrations_server": {
+                  "system_settings": {
+                    "secret_token": "0Oe61UIdMFQCbpUtrq"
+                  },
+                  "version": "9.0.2"
+                }
+              },
+              "plan_attempt_id": "2bb6d61e-0186-4e9a-bf8b-8546112f13f5",
+              "plan_attempt_log": [],
+              "plan_end_time": "0001-01-01T00:00:00.000Z",
+              "source": {
+                "action": "deployments.create-deployment",
+                "date": "2025-06-11T19:36:42.149Z",
+                "facilitator": "adminconsole",
+                "remote_addresses": [
+                  "34.71.147.222",
+                  "140.248.77.23",
+                  "172.23.160.9",
+                  "52.30.243.249"
+                ],
+                "user_id": "593963315"
+              },
+              "warnings": []
+            },
+            "healthy": true,
+            "history": []
+          },
+          "region": "aws-eu-west-1",
+          "settings": {
+            "metadata": {
+              "hidden": false,
+              "name": "My deployment",
+              "organization_id": "554443047",
+              "owner_id": "593963315",
+              "resources": {
+                "cpu": {
+                  "boost": true,
+                  "hard_limit": true
+                }
+              },
+              "system_owned": false
+            }
+          },
+          "status": "started",
+          "topology": {
+            "healthy": true,
+            "instances": [
+              {
+                "allocator_id": "i-03ba28792989ef2f9",
+                "container_started": true,
+                "healthy": true,
+                "instance_configuration": {
+                  "config_version": 3,
+                  "id": "aws.integrationsserver.c5d",
+                  "name": "aws.integrationsserver.c5d",
+                  "resource": "memory"
+                },
+                "instance_name": "instance-0000000000",
+                "maintenance_mode": false,
+                "memory": {
+                  "instance_capacity": 1024,
+                  "native_memory_pressure": 10
+                },
+                "node_roles": null,
+                "service_roles": null,
+                "service_running": true,
+                "service_version": "9.0.2",
+                "zone": "eu-west-1b"
+              }
+            ]
+          }
+        },
+        "ref_id": "main-integrations_server",
+        "region": "aws-eu-west-1"
+      }
+    ],
+    "kibana": [
+      {
+        "elasticsearch_cluster_ref_id": "main-elasticsearch",
+        "id": "3e813262a07a4c39b6c43209adef5ce5",
+        "info": {
+          "cluster_id": "3e813262a07a4c39b6c43209adef5ce5",
+          "cluster_name": "My deployment",
+          "deployment_id": "61042f21dbfb4a2c87627998bded9e04",
+          "elasticsearch_cluster": {
+            "elasticsearch_id": "9b2c80e3248b40f78d3014f54e642c9b"
+          },
+          "external_links": [
+            {
+              "id": "service-cluster-beats",
+              "label": "Log and Metrics Delivery Beats Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-24h,mode:quick,to:now))\u0026_a=(columns:!(level,message,tags),index:'service-cluster-beats-*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'ece.cluster:+3e813262a07a4c39b6c43209adef5ce5')),sort:!('@timestamp',desc))"
+            },
+            {
+              "id": "system-metrics-for-allocator-hosts",
+              "label": "System Metrics for Allocator hosts",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/Compute-Hosts-overview?_a=(description:'Resource%20usage%20overview%20for%20allocators',filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'metrics:service-extra-*',key:ece.runner,negate:!f,params:!('i-040e8c879ac8edc6c'),type:phrases),query:(bool:(minimum_should_match:1,should:!((match_phrase:(ece.runner:'i-040e8c879ac8edc6c'))))))),fullScreenMode:!f,options:(darkTheme:!f,hidePanelTitles:!f,useMargins:!f),query:(language:kuery,query:''),timeRestore:!f,title:'%5BCompute%5D%20Hosts%20overview',viewMode:view)\u0026_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-2h,to:now))"
+            },
+            {
+              "id": "system-metrics-for-app-containers",
+              "label": "System Metrics for Application containers",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/dashboard/Compute-Applications-containers-overview?_g=(time:(from:now-2h,to:now))\u0026_a=(query:(language:kuery,query:'ece.cluster:3e813262a07a4c39b6c43209adef5ce5'))"
+            },
+            {
+              "id": "proxy-logs-saas",
+              "label": "Proxy Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_a=(columns:!(client_ip,action,request_method,status_code,request_path),index:'service-proxy-requests-*',interval:auto,sort:!('@timestamp',desc))\u0026_g=(time:(from:now-2h,mode:quick,to:now),filters:!(('$state':(store:globalState),meta:(alias:!n,disabled:!f,index:'service-proxy-requests-*',key:handling_cluster,negate:!f,params:(query:'3e813262a07a4c39b6c43209adef5ce5',type:phrase),type:phrase,value:'3e813262a07a4c39b6c43209adef5ce5'),query:(match:(handling_cluster:(query:'3e813262a07a4c39b6c43209adef5ce5',type:phrase))))))"
+            },
+            {
+              "id": "allocator-logs",
+              "label": "Allocator logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(filters:!((meta:(index:'service-allocator-*',key:ece.runner.keyword,negate:!f,params:!('i-040e8c879ac8edc6c'),type:phrases,value:!('i-040e8c879ac8edc6c')),query:(bool:(minimum_should_match:1,should:!((match_phrase:(ece.runner:'i-040e8c879ac8edc6c'))))))))\u0026_a=(columns:!(log.level,message,error.message,error.stack_trace),index:'service-allocator-*')"
+            },
+            {
+              "id": "constructor-logs",
+              "label": "Constructor logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1w,to:now))\u0026_a=(columns:!(level,message),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'service-constructor-*',key:cluster_id,negate:!f,params:(query:'3e813262a07a4c39b6c43209adef5ce5'),type:phrase),query:(match_phrase:(cluster_id:'3e813262a07a4c39b6c43209adef5ce5')))),index:'service-constructor-*',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))"
+            },
+            {
+              "id": "cluster-logs-kib-saas",
+              "label": "Kibana Cluster Logs",
+              "uri": "https://platform-logging.kb.eu-west-1.aws.qa.cld.elstc.co/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-24h,mode:quick,to:now))\u0026_a=(columns:!(severity,message),index:'cluster-kibana-*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'tags:kibana%20AND%20ece.cluster%3D!'3e813262a07a4c39b6c43209adef5ce5!'')),sort:!('@timestamp',desc))"
+            }
+          ],
+          "healthy": true,
+          "metadata": {
+            "aliased_endpoint": "my-deployment.kb.eu-west-1.aws.qa.cld.elstc.co",
+            "aliased_url": "https://my-deployment.kb.eu-west-1.aws.qa.cld.elstc.co",
+            "endpoint": "3e813262a07a4c39b6c43209adef5ce5.eu-west-1.aws.qa.cld.elstc.co",
+            "last_modified": "2025-06-11T19:55:37.926Z",
+            "ports": {
+              "http": 9200,
+              "https": 443,
+              "transport_passthrough": 9400
+            },
+            "service_url": "https://3e813262a07a4c39b6c43209adef5ce5.eu-west-1.aws.qa.cld.elstc.co",
+            "services_urls": null,
+            "version": 8
+          },
+          "plan_info": {
+            "current": {
+              "attempt_end_time": "2025-06-11T19:40:25.971Z",
+              "attempt_start_time": "2025-06-11T19:39:11.387Z",
+              "healthy": true,
+              "plan": {
+                "cluster_topology": [
+                  {
+                    "instance_configuration_id": "aws.kibana.c5d",
+                    "instance_configuration_version": 1,
+                    "size": {
+                      "resource": "memory",
+                      "value": 1024
+                    },
+                    "zone_count": 1
+                  }
+                ],
+                "kibana": {
+                  "version": "9.0.2"
+                }
+              },
+              "plan_attempt_id": "fd4667d3-7b7c-43a4-8958-f871be88ac5d",
+              "plan_attempt_log": [],
+              "plan_end_time": "0001-01-01T00:00:00.000Z",
+              "source": {
+                "action": "apm.force-kibana-plan",
+                "date": "2025-06-11T19:39:11.298Z",
+                "facilitator": "constructor",
+                "remote_addresses": null
+              },
+              "warnings": []
+            },
+            "healthy": true,
+            "history": []
+          },
+          "region": "aws-eu-west-1",
+          "settings": {
+            "metadata": {
+              "hidden": false,
+              "name": "My deployment",
+              "organization_id": "554443047",
+              "owner_id": "593963315",
+              "resources": {
+                "cpu": {
+                  "boost": true,
+                  "hard_limit": true
+                }
+              },
+              "system_owned": false
+            }
+          },
+          "status": "started",
+          "topology": {
+            "healthy": true,
+            "instances": [
+              {
+                "allocator_id": "i-040e8c879ac8edc6c",
+                "container_started": true,
+                "healthy": true,
+                "instance_configuration": {
+                  "config_version": 1,
+                  "id": "aws.kibana.c5d",
+                  "name": "aws.kibana.c5d",
+                  "resource": "memory"
+                },
+                "instance_name": "instance-0000000001",
+                "maintenance_mode": false,
+                "memory": {
+                  "instance_capacity": 1024,
+                  "native_memory_pressure": 48
+                },
+                "node_roles": null,
+                "service_roles": null,
+                "service_running": true,
+                "service_version": "9.0.2",
+                "zone": "eu-west-1a"
+              }
+            ]
+          }
+        },
+        "ref_id": "main-kibana",
+        "region": "aws-eu-west-1"
+      }
+    ]
+  },
+  "settings": {
+    "autoscaling_enabled": false
+  }
+}

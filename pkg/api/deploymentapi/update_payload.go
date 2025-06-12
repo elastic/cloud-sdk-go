@@ -76,6 +76,14 @@ func NewUpdateRequest(res *models.DeploymentGetResponse) *models.DeploymentUpdat
 		}
 	}
 
+	for _, r := range res.Resources.IntegrationsServer {
+		if resource := parseIntegrationsServerGetResponse(r, esRefID); resource != nil {
+			req.Resources.IntegrationsServer = append(req.Resources.IntegrationsServer,
+				resource,
+			)
+		}
+	}
+
 	if res.Settings != nil && res.Settings.Observability != nil {
 		req.Settings = &models.DeploymentUpdateSettings{
 			Observability: res.Settings.Observability,
@@ -151,6 +159,34 @@ func parseApmGetResponse(r *models.ApmResourceInfo, esRefID string) *models.ApmP
 
 	plan.Plan.ClusterTopology = ct
 	return &models.ApmPayload{
+		ElasticsearchClusterRefID: &esRefID,
+		DisplayName:               *r.Info.Name,
+		RefID:                     r.RefID,
+		Region:                    r.Region,
+		Plan:                      plan.Plan,
+		Settings:                  r.Info.Settings,
+	}
+}
+
+func parseIntegrationsServerGetResponse(r *models.IntegrationsServerResourceInfo, esRefID string) *models.IntegrationsServerPayload {
+	plan := r.Info.PlanInfo.Current
+	if plan == nil || plan.Plan == nil {
+		return nil
+	}
+
+	if r.Info.Settings != nil {
+		r.Info.Settings.Metadata = nil
+	}
+
+	var ct = make([]*models.IntegrationsServerTopologyElement, 0, len(plan.Plan.ClusterTopology))
+	for _, t := range plan.Plan.ClusterTopology {
+		if t.Size != nil && t.Size.Value != nil && *t.Size.Value > 0 {
+			ct = append(ct, t)
+		}
+	}
+
+	plan.Plan.ClusterTopology = ct
+	return &models.IntegrationsServerPayload{
 		ElasticsearchClusterRefID: &esRefID,
 		DisplayName:               *r.Info.Name,
 		RefID:                     r.RefID,
