@@ -1,0 +1,4 @@
+category: bug
+title: Support update payload for integrations server
+description: |
+  Adds support for integrations server payload when building update payload from get response. (eg ecctl deployment show 7d8ef46efeae4490a48eba6b91b704d6 --generate-update-payload)
