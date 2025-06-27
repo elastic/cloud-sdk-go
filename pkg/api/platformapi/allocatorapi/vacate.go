@@ -127,6 +127,7 @@ func moveNodes(id string, params *VacateParams, p *pool.Pool) ([]pool.Validator,
 			WithAllocatorID(id).
 			WithMoveOnly(params.MoveOnly).
 			WithContext(api.WithRegion(context.Background(), params.Region)).
+			//WithForceMove(params.ForceMove).
 			WithValidateOnly(ec.Bool(true)),
 		params.AuthWriter,
 	)
@@ -282,6 +283,7 @@ func newVacateClusterParams(params addAllocatorMovesToPoolParams, id, kind strin
 		Output:              params.VacateParams.Output,
 		OutputFormat:        params.VacateParams.OutputFormat,
 		MoveOnly:            params.VacateParams.MoveOnly,
+		ForceMove:           params.VacateParams.ForceMove,
 		PlanOverrides:       params.VacateParams.PlanOverrides,
 	}
 
@@ -391,6 +393,7 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 		platform_infrastructure.NewMoveClustersParams().
 			WithAllocatorDown(params.AllocatorDown).
 			WithMoveOnly(params.MoveOnly).
+			WithForceMove(params.ForceMove).
 			WithAllocatorID(params.ID).
 			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithValidateOnly(ec.Bool(true)).
@@ -416,6 +419,7 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 	var moveParams = platform_infrastructure.NewMoveClustersByTypeParams().
 		WithAllocatorID(params.ID).
 		WithAllocatorDown(params.AllocatorDown).
+		WithForceMove(params.ForceMove).
 		WithContext(api.WithRegion(context.Background(), params.Region)).
 		WithBody(req)
 
@@ -653,6 +657,10 @@ func ComputeVacateRequest(pr *models.MoveClustersDetails, resources, to []string
 
 		if overrides.OverrideFailsafe != nil {
 			c.CalculatedPlan.PlanConfiguration.OverrideFailsafe = overrides.OverrideFailsafe
+		}
+
+		if overrides.ForceMove != nil {
+			c.CalculatedPlan.PlanConfiguration.ForceMove = overrides.ForceMove
 		}
 
 		c.CalculatedPlan.PlanConfiguration.PreferredAllocators = to
