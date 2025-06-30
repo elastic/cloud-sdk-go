@@ -18,7 +18,6 @@
 package api
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"net/url"
@@ -113,15 +112,22 @@ func (r *CloudClientRuntime) Submit(op *runtime.ClientOperation) (interface{}, e
 }
 
 func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) (*runtimeclient.Runtime, error) {
-	var notDeploymentNotes = !strings.Contains(op.PathPattern, "/note")
+	notDeploymentNotes := !strings.Contains(op.PathPattern, "/note")
 	regionless := globalPath[strings.Split(op.PathPattern, "/")[1]]
 	if regionless && notDeploymentNotes {
 		return r.runtime, nil
 	}
 
-	region, err := getRegion(op.Context)
-	if err != nil {
-		return nil, err
+	region, ok := GetContextRegion(op.Context)
+	if !ok {
+		// some operations do not require always a region, so we can return the
+		// regionless runtime.
+		switch {
+		case op.ID == "get-platform":
+			return r.runtime, nil
+		}
+
+		return nil, errors.New("the requested operation requires a region but none has been set")
 	}
 
 	return r.newRegionRuntime(region), nil
@@ -144,14 +150,4 @@ func overrideJSONProducer(r *runtimeclient.Runtime, opID string) func() {
 
 	r.Producers[runtime.JSONMime] = runtime.TextProducer()
 	return func() { r.Producers[runtime.JSONMime] = runtime.JSONProducer() }
-}
-
-func getRegion(ctx context.Context) (string, error) {
-	if region, ok := GetContextRegion(ctx); ok {
-		return region, nil
-	}
-
-	return "", errors.New(
-		"the requested operation requires a region but none has been set",
-	)
 }
