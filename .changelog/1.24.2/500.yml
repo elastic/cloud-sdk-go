@@ -1,0 +1,4 @@
+category: enhancement
+title: Allow PlatfromInfo to be called in regionless context
+description: |
+  Allow the get-platform operation to be called in a region bound context and also in a region less context.
