@@ -102,13 +102,13 @@ func TestNewCloudClientRuntime(t *testing.T) {
 }
 
 func TestCloudClientRuntime_getRuntime(t *testing.T) {
-	var mocknewRuntimeFunc = func(r string) *runtimeclient.Runtime {
+	mocknewRuntimeFunc := func(r string) *runtimeclient.Runtime {
 		return AddTypeConsumers(runtimeclient.NewWithClient(
 			"cloud.elastic.co", fmt.Sprintf(RegionBasePath, r),
 			[]string{"https"}, nil,
 		))
 	}
-	var regionless = AddTypeConsumers(runtimeclient.NewWithClient(
+	regionless := AddTypeConsumers(runtimeclient.NewWithClient(
 		"cloud.elastic.co",
 		DefaultBasePath,
 		[]string{"https"}, nil,
@@ -223,6 +223,32 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 				Context:     WithRegion(context.Background(), ""),
 			}},
 			err: errors.New("the requested operation requires a region but none has been set"),
+		},
+		{
+			name: "/platform get-platform operation returns the regionless path",
+			fields: fields{
+				newRegionRuntime: mocknewRuntimeFunc,
+				runtime:          regionless,
+			},
+			args: args{op: &runtime.ClientOperation{
+				PathPattern: "/platform",
+				ID:          "get-platform",
+				Context:     context.Background(),
+			}},
+			want: &runtimeclient.Runtime{BasePath: "/api/v1"},
+		},
+		{
+			name: "/platform get-platform operation with region in context returns the region path",
+			fields: fields{
+				newRegionRuntime: mocknewRuntimeFunc,
+				runtime:          regionless,
+			},
+			args: args{op: &runtime.ClientOperation{
+				PathPattern: "/platform",
+				ID:          "get-platform",
+				Context:     WithRegion(context.Background(), "us-east-2"),
+			}},
+			want: &runtimeclient.Runtime{BasePath: "/api/v1/regions/us-east-2"},
 		},
 		{
 			name: "/billing operation uses the regionless path",
@@ -394,7 +420,7 @@ func Test_overrideJSONProducer(t *testing.T) {
 				f()
 			}
 
-			var buf = new(bytes.Buffer)
+			buf := new(bytes.Buffer)
 			tt.args.r.Producers[runtime.JSONMime].Produce(buf, tt.args.content)
 			if buf.String() != tt.want {
 				t.Errorf("overrideJSONProducer() = %v, want %v", buf.String(), tt.want)

@@ -18,17 +18,14 @@
 package platformapi
 
 import (
-	"errors"
 	"net/http"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
-	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -43,7 +40,7 @@ func TestGetInfo(t *testing.T) {
 		err  string
 	}{
 		{
-			name: "Succeeds",
+			name: "Succeeds for region",
 			args: args{params: GetInfoParams{
 				Region: "us-east-1",
 				API: api.NewMock(mock.Response{
@@ -69,11 +66,29 @@ func TestGetInfo(t *testing.T) {
 			},
 		},
 		{
-			name: "fails due to parameter validation",
-			err: multierror.NewPrefixed("invalid platform get params",
-				apierror.ErrMissingAPI,
-				errors.New("region not specified and is required for this operation"),
-			).Error(),
+			name: "Succeeds without region",
+			args: args{params: GetInfoParams{
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body: mock.NewStructBody(models.PlatformInfo{
+							EulaAccepted:     ec.Bool(false),
+							PhoneHomeEnabled: ec.Bool(false),
+						}),
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/platform",
+					},
+				}),
+			}},
+			want: &models.PlatformInfo{
+				EulaAccepted:     ec.Bool(false),
+				PhoneHomeEnabled: ec.Bool(false),
+			},
 		},
 	}
 	for _, tt := range tests {
