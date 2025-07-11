@@ -1,6 +1,8 @@
 module github.com/elastic/cloud-sdk-go
 
-go 1.19
+go 1.23.0
+
+toolchain go1.24.5
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
@@ -20,7 +22,7 @@ require (
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/text v0.22.0
+	golang.org/x/text v0.27.0
 )
 
 require (
