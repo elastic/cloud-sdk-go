@@ -43,6 +43,9 @@ type DeploymentSettings struct {
 	// If autoscaling is enabled for this deployment.
 	AutoscalingEnabled *bool `json:"autoscaling_enabled,omitempty"`
 
+	// BYOK settings
+	Byok *ByokSettings `json:"byok,omitempty"`
+
 	// Logging and monitoring settings for this deployment.
 	Observability *DeploymentObservabilitySettings `json:"observability,omitempty"`
 
@@ -55,6 +58,10 @@ func (m *DeploymentSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAutoOps(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateByok(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -84,6 +91,25 @@ func (m *DeploymentSettings) validateAutoOps(formats strfmt.Registry) error {
 				return ve.ValidateName("auto_ops")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("auto_ops")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentSettings) validateByok(formats strfmt.Registry) error {
+	if swag.IsZero(m.Byok) { // not required
+		return nil
+	}
+
+	if m.Byok != nil {
+		if err := m.Byok.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("byok")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("byok")
 			}
 			return err
 		}
@@ -138,6 +164,10 @@ func (m *DeploymentSettings) ContextValidate(ctx context.Context, formats strfmt
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateByok(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateObservability(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -160,6 +190,22 @@ func (m *DeploymentSettings) contextValidateAutoOps(ctx context.Context, formats
 				return ve.ValidateName("auto_ops")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("auto_ops")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentSettings) contextValidateByok(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Byok != nil {
+		if err := m.Byok.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("byok")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("byok")
 			}
 			return err
 		}

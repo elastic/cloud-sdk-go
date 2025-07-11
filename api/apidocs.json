@@ -17934,6 +17934,17 @@
       },
       "description" : "A query for documents that match boolean combinations of other queries."
     },
+    "ByokSettings": {
+      "type": "object",
+      "required": ["key_resource_path"],
+      "properties": {
+        "key_resource_path": {
+          "type": "string",
+          "description": "Customer-managed key id on a cloud (AWS ARN)"
+        }
+      },
+      "description": "The configuration settings for the BYOK"
+    },
     "CapacityConstraintsResource" : {
       "type" : "object",
       "required" : [ "max", "min" ],
@@ -19645,6 +19656,10 @@
     "DeploymentCreateSettings" : {
       "type" : "object",
       "properties" : {
+        "byok": {
+          "description": "Enables Your Own encryption key. Settings block",
+          "$ref": "#/definitions/ByokSettings"
+        },
         "traffic_filter_settings" : {
           "description" : "The traffic filter rulesets to apply to this deployment.",
           "$ref" : "#/definitions/TrafficFilterSettings"
@@ -20160,6 +20175,10 @@
       "type" : "object",
       "required" : [ "auto_ops" ],
       "properties" : {
+        "byok": {
+          "description": "BYOK settings",
+          "$ref": "#/definitions/ByokSettings"
+        },
         "traffic_filter_settings" : {
           "description" : "The traffic filter rulesets for this deployment.",
           "$ref" : "#/definitions/TrafficFilterSettings"
