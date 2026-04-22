@@ -275,7 +275,7 @@
           "description" : "The desired bucketing strategy for the charts. Defaults to `daily`.",
           "required" : false,
           "type" : "string",
-          "default" : "Daily",
+          "default" : "daily",
           "enum" : [ "daily", "monthly" ]
         } ],
         "responses" : {
@@ -490,7 +490,7 @@
           "description" : "The desired bucketing strategy for the charts. Defaults to `daily`.",
           "required" : false,
           "type" : "string",
-          "default" : "Daily",
+          "default" : "daily",
           "enum" : [ "daily", "monthly" ]
         } ],
         "responses" : {
@@ -2306,6 +2306,13 @@
           "required" : false,
           "type" : "boolean",
           "default" : false
+        }, {
+          "name" : "show_instance_metrics",
+          "in" : "query",
+          "description" : "Whether to show resources instance metrics in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
         }, {
           "name" : "show_instance_configurations",
           "in" : "query",
@@ -4337,7 +4344,7 @@
     "/deployments/{deployment_id}/upgrade_assistant/status" : {
       "get" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Get Deployment upgade assistant status",
+        "summary" : "Get Deployment upgrade assistant status",
         "description" : "Get details about an Elasticsearch resource belonging to a given deployment.",
         "operationId" : "get-deployment-upgrade-assistant-status",
         "produces" : [ "application/json" ],
@@ -5414,7 +5421,7 @@
       "post" : {
         "tags" : [ "Deployments" ],
         "summary" : "Upgrade Kibana, APM, Integrations Server, AppSearch, Enterprise Search inside Deployment",
-        "description" : "Upgrades a running cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Update deployment](#update-deployment) instead.\n\nUpgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -7503,6 +7510,17 @@
       },
       "description" : "A query for documents that match boolean combinations of other queries."
     },
+    "ByokSettings" : {
+      "type" : "object",
+      "required" : [ "key_resource_path" ],
+      "properties" : {
+        "key_resource_path" : {
+          "type" : "string",
+          "description" : "Key path (i.e arn:aws:kms:us-east-1:1234567890:key/12345678-0000-0000-0000-000000000000)."
+        }
+      },
+      "description" : "Information required to create a Bring Your Own Key (BYOK) deployment."
+    },
     "CertificateAuthority" : {
       "type" : "object",
       "required" : [ "public_certificates", "recommended_trust_restriction" ],
@@ -8439,9 +8457,17 @@
           "description" : "Observability settings for this deployment",
           "$ref" : "#/definitions/DeploymentObservabilitySettings"
         },
+        "byok" : {
+          "description" : "BYOK settings for this deployment. Not supported on ECE.",
+          "$ref" : "#/definitions/ByokSettings"
+        },
         "autoscaling_enabled" : {
           "type" : "boolean",
           "description" : "Enable autoscaling for this deployment."
+        },
+        "solution_type" : {
+          "type" : "string",
+          "description" : "An optional string that declares the deployment's expected application. Example supported values are: elasticsearch, observability, security."
         }
       },
       "description" : "Additional configuration for the new deployment object."
@@ -8873,6 +8899,14 @@
         "auto_ops" : {
           "description" : "See AutoOps integration status for this deployment.",
           "$ref" : "#/definitions/AutoOpsSettings"
+        },
+        "byok" : {
+          "description" : "Bring Your Own Key (BYOK) settings for this deployment. Not supported on ECE.",
+          "$ref" : "#/definitions/ByokSettings"
+        },
+        "solution_type" : {
+          "type" : "string",
+          "description" : "An optional string that declares the deployment's expected application. Example supported values are: elasticsearch, observability, security."
         }
       },
       "description" : "Additional configuration about the current deployment object."
@@ -12142,6 +12176,10 @@
           "items" : {
             "type" : "string"
           }
+        },
+        "sso_login_identifier" : {
+          "type" : "string",
+          "description" : "The login identifier for initiating SSO"
         }
       },
       "description" : "An organization"
@@ -13214,6 +13252,13 @@
         "accessible" : {
           "type" : "boolean",
           "description" : "Whether or not this version is accessible by the calling user. This is only relevant in EC (SaaS) and is not sent in ECE."
+        },
+        "rolling_upgrade_compatible_versions" : {
+          "type" : "array",
+          "description" : "List of versions that can be upgraded to the current version of the stackpack",
+          "items" : {
+            "type" : "string"
+          }
         }
       },
       "description" : "The details for an Elastic Stack configuration."

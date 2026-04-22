@@ -123,6 +123,14 @@ type GetDeploymentParams struct {
 	*/
 	ShowInstanceConfigurations *bool
 
+	/* ShowInstanceMetrics.
+
+	   Whether to show resources instance metrics in the response.
+
+	   Default: true
+	*/
+	ShowInstanceMetrics *bool
+
 	/* ShowMetadata.
 
 	   Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials
@@ -206,6 +214,8 @@ func (o *GetDeploymentParams) SetDefaults() {
 
 		showInstanceConfigurationsDefault = bool(true)
 
+		showInstanceMetricsDefault = bool(true)
+
 		showMetadataDefault = bool(false)
 
 		showPlanDefaultsDefault = bool(false)
@@ -229,6 +239,7 @@ func (o *GetDeploymentParams) SetDefaults() {
 		EnrichWithTemplate:         &enrichWithTemplateDefault,
 		ForceAllPlanHistory:        &forceAllPlanHistoryDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
+		ShowInstanceMetrics:        &showInstanceMetricsDefault,
 		ShowMetadata:               &showMetadataDefault,
 		ShowPlanDefaults:           &showPlanDefaultsDefault,
 		ShowPlanHistory:            &showPlanHistoryDefault,
@@ -342,6 +353,17 @@ func (o *GetDeploymentParams) WithShowInstanceConfigurations(showInstanceConfigu
 // SetShowInstanceConfigurations adds the showInstanceConfigurations to the get deployment params
 func (o *GetDeploymentParams) SetShowInstanceConfigurations(showInstanceConfigurations *bool) {
 	o.ShowInstanceConfigurations = showInstanceConfigurations
+}
+
+// WithShowInstanceMetrics adds the showInstanceMetrics to the get deployment params
+func (o *GetDeploymentParams) WithShowInstanceMetrics(showInstanceMetrics *bool) *GetDeploymentParams {
+	o.SetShowInstanceMetrics(showInstanceMetrics)
+	return o
+}
+
+// SetShowInstanceMetrics adds the showInstanceMetrics to the get deployment params
+func (o *GetDeploymentParams) SetShowInstanceMetrics(showInstanceMetrics *bool) {
+	o.ShowInstanceMetrics = showInstanceMetrics
 }
 
 // WithShowMetadata adds the showMetadata to the get deployment params
@@ -525,6 +547,23 @@ func (o *GetDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qShowInstanceConfigurations != "" {
 
 			if err := r.SetQueryParam("show_instance_configurations", qShowInstanceConfigurations); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ShowInstanceMetrics != nil {
+
+		// query param show_instance_metrics
+		var qrShowInstanceMetrics bool
+
+		if o.ShowInstanceMetrics != nil {
+			qrShowInstanceMetrics = *o.ShowInstanceMetrics
+		}
+		qShowInstanceMetrics := swag.FormatBool(qrShowInstanceMetrics)
+		if qShowInstanceMetrics != "" {
+
+			if err := r.SetQueryParam("show_instance_metrics", qShowInstanceMetrics); err != nil {
 				return err
 			}
 		}

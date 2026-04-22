@@ -88,7 +88,7 @@ type CaptureDeploymentResourceDiagnosticsParams struct {
 
 	   Capture mode - whether to obtain all the diagnostics data or the lightweight, essential-only subset of it. Applicable only to Elasticsearch, ignored for any other components which have just one capture mode implemented.
 
-	   Default: "Full"
+	   Default: "full"
 	*/
 	Mode *string
 
@@ -122,7 +122,7 @@ func (o *CaptureDeploymentResourceDiagnosticsParams) WithDefaults() *CaptureDepl
 // All values with no default are reset to their zero value.
 func (o *CaptureDeploymentResourceDiagnosticsParams) SetDefaults() {
 	var (
-		modeDefault = string("Full")
+		modeDefault = string("full")
 	)
 
 	val := CaptureDeploymentResourceDiagnosticsParams{

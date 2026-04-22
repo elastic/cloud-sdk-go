@@ -78,6 +78,12 @@ SamlInitParams contains all the parameters to send to the API endpoint
 */
 type SamlInitParams struct {
 
+	/* Realm.
+
+	   An optional SAML realm to use for authentication
+	*/
+	Realm *string
+
 	/* State.
 
 	   An optional relay state that is sent back to the client after the user is authenticated
@@ -137,6 +143,17 @@ func (o *SamlInitParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithRealm adds the realm to the saml init params
+func (o *SamlInitParams) WithRealm(realm *string) *SamlInitParams {
+	o.SetRealm(realm)
+	return o
+}
+
+// SetRealm adds the realm to the saml init params
+func (o *SamlInitParams) SetRealm(realm *string) {
+	o.Realm = realm
+}
+
 // WithState adds the state to the saml init params
 func (o *SamlInitParams) WithState(state *string) *SamlInitParams {
 	o.SetState(state)
@@ -155,6 +172,23 @@ func (o *SamlInitParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		return err
 	}
 	var res []error
+
+	if o.Realm != nil {
+
+		// query param realm
+		var qrRealm string
+
+		if o.Realm != nil {
+			qrRealm = *o.Realm
+		}
+		qRealm := qrRealm
+		if qRealm != "" {
+
+			if err := r.SetQueryParam("realm", qRealm); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.State != nil {
 

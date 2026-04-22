@@ -38,8 +38,14 @@ type DeploymentCreateSettings struct {
 	// Enable autoscaling for this deployment.
 	AutoscalingEnabled *bool `json:"autoscaling_enabled,omitempty"`
 
+	// BYOK settings for this deployment. Not supported on ECE.
+	Byok *ByokSettings `json:"byok,omitempty"`
+
 	// Observability settings for this deployment
 	Observability *DeploymentObservabilitySettings `json:"observability,omitempty"`
+
+	// An optional string that declares the deployment's expected application. Example supported values are: elasticsearch, observability, security.
+	SolutionType string `json:"solution_type,omitempty"`
 
 	// The traffic filter rulesets to apply to this deployment.
 	TrafficFilterSettings *TrafficFilterSettings `json:"traffic_filter_settings,omitempty"`
@@ -48,6 +54,10 @@ type DeploymentCreateSettings struct {
 // Validate validates this deployment create settings
 func (m *DeploymentCreateSettings) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateByok(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateObservability(formats); err != nil {
 		res = append(res, err)
@@ -60,6 +70,25 @@ func (m *DeploymentCreateSettings) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DeploymentCreateSettings) validateByok(formats strfmt.Registry) error {
+	if swag.IsZero(m.Byok) { // not required
+		return nil
+	}
+
+	if m.Byok != nil {
+		if err := m.Byok.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("byok")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("byok")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -105,6 +134,10 @@ func (m *DeploymentCreateSettings) validateTrafficFilterSettings(formats strfmt.
 func (m *DeploymentCreateSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateByok(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateObservability(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -116,6 +149,22 @@ func (m *DeploymentCreateSettings) ContextValidate(ctx context.Context, formats 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *DeploymentCreateSettings) contextValidateByok(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Byok != nil {
+		if err := m.Byok.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("byok")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("byok")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

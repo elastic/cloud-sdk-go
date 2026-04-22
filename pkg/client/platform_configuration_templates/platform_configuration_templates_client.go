@@ -47,7 +47,7 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGlobalDeploymentTemplatesOK, error)
+	GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGlobalDeploymentTemplatesOK, *GetGlobalDeploymentTemplatesNoContent, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -57,7 +57,7 @@ GetGlobalDeploymentTemplates gets all templates cross region
 
 Global deployment template endpoint which fetches the deployment templates across all region services.
 */
-func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGlobalDeploymentTemplatesOK, error) {
+func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGlobalDeploymentTemplatesOK, *GetGlobalDeploymentTemplatesNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGlobalDeploymentTemplatesParams()
@@ -81,15 +81,16 @@ func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplat
 
 	result, err := a.transport.Submit(op)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	success, ok := result.(*GetGlobalDeploymentTemplatesOK)
-	if ok {
-		return success, nil
+	switch value := result.(type) {
+	case *GetGlobalDeploymentTemplatesOK:
+		return value, nil, nil
+	case *GetGlobalDeploymentTemplatesNoContent:
+		return nil, value, nil
 	}
-	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for get-global-deployment-templates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for platform_configuration_templates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

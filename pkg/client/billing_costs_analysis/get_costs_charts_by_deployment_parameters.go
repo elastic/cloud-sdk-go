@@ -82,7 +82,7 @@ type GetCostsChartsByDeploymentParams struct {
 
 	   The desired bucketing strategy for the charts. Defaults to `daily`.
 
-	   Default: "Daily"
+	   Default: "daily"
 	*/
 	BucketingStrategy *string
 
@@ -128,7 +128,7 @@ func (o *GetCostsChartsByDeploymentParams) WithDefaults() *GetCostsChartsByDeplo
 // All values with no default are reset to their zero value.
 func (o *GetCostsChartsByDeploymentParams) SetDefaults() {
 	var (
-		bucketingStrategyDefault = string("Daily")
+		bucketingStrategyDefault = string("daily")
 	)
 
 	val := GetCostsChartsByDeploymentParams{

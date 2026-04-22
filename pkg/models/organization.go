@@ -55,6 +55,9 @@ type Organization struct {
 
 	// The list of contacts for operational notifications, if specified
 	OperationalContacts []string `json:"operational_contacts"`
+
+	// The login identifier for initiating SSO
+	SsoLoginIdentifier string `json:"sso_login_identifier,omitempty"`
 }
 
 // Validate validates this organization
