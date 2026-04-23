@@ -67,6 +67,9 @@ type StackVersionConfig struct {
 	// Example: 6.7.0
 	MinUpgradableFrom string `json:"min_upgradable_from,omitempty"`
 
+	// List of versions that can be upgraded to the current version of the stackpack
+	RollingUpgradeCompatibleVersions []string `json:"rolling_upgrade_compatible_versions"`
+
 	// template
 	// Required: true
 	Template *StackVersionTemplateInfo `json:"template"`

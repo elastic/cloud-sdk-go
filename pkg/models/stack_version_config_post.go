@@ -58,6 +58,9 @@ type StackVersionConfigPost struct {
 
 	// metadata
 	Metadata *StackVersionMetadata `json:"metadata,omitempty"`
+
+	// List of versions that can be upgraded to the current version of the stackpack
+	RollingUpgradeCompatibleVersions []string `json:"rolling_upgrade_compatible_versions"`
 }
 
 // Validate validates this stack version config post

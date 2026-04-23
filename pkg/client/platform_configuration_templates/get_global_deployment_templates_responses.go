@@ -46,6 +46,12 @@ func (o *GetGlobalDeploymentTemplatesReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
+	case 204:
+		result := NewGetGlobalDeploymentTemplatesNoContent()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -108,6 +114,72 @@ func (o *GetGlobalDeploymentTemplatesOK) GetPayload() []*models.GlobalDeployment
 }
 
 func (o *GetGlobalDeploymentTemplatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGlobalDeploymentTemplatesNoContent creates a GetGlobalDeploymentTemplatesNoContent with default headers values
+func NewGetGlobalDeploymentTemplatesNoContent() *GetGlobalDeploymentTemplatesNoContent {
+	return &GetGlobalDeploymentTemplatesNoContent{}
+}
+
+/*
+GetGlobalDeploymentTemplatesNoContent describes a response with status code 204, with default header values.
+
+There are no deployment templates available.
+*/
+type GetGlobalDeploymentTemplatesNoContent struct {
+	Payload models.EmptyResponse
+}
+
+// IsSuccess returns true when this get global deployment templates no content response has a 2xx status code
+func (o *GetGlobalDeploymentTemplatesNoContent) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get global deployment templates no content response has a 3xx status code
+func (o *GetGlobalDeploymentTemplatesNoContent) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get global deployment templates no content response has a 4xx status code
+func (o *GetGlobalDeploymentTemplatesNoContent) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get global deployment templates no content response has a 5xx status code
+func (o *GetGlobalDeploymentTemplatesNoContent) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get global deployment templates no content response a status code equal to that given
+func (o *GetGlobalDeploymentTemplatesNoContent) IsCode(code int) bool {
+	return code == 204
+}
+
+// Code gets the status code for the get global deployment templates no content response
+func (o *GetGlobalDeploymentTemplatesNoContent) Code() int {
+	return 204
+}
+
+func (o *GetGlobalDeploymentTemplatesNoContent) Error() string {
+	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/global][%d] getGlobalDeploymentTemplatesNoContent  %+v", 204, o.Payload)
+}
+
+func (o *GetGlobalDeploymentTemplatesNoContent) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/global][%d] getGlobalDeploymentTemplatesNoContent  %+v", 204, o.Payload)
+}
+
+func (o *GetGlobalDeploymentTemplatesNoContent) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
+func (o *GetGlobalDeploymentTemplatesNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
