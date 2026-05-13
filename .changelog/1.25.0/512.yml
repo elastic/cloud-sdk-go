@@ -1,0 +1,4 @@
+category: enhancement
+title: Add BYOK (Bring Your Own Key) settings for deployments.
+description: |
+  The `ByokSettings` model is now available in `DeploymentCreateSettings` and `DeploymentSettings`, enabling customer-managed encryption key support when creating or reading deployments.
