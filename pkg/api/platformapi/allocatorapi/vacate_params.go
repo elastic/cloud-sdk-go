@@ -51,7 +51,7 @@ var (
 )
 
 // VacateParams used to vacate N allocators or clusters.
-//nolint
+// nolint
 type VacateParams struct {
 	*api.API
 
@@ -97,6 +97,9 @@ type VacateParams struct {
 	// Optional value to be set to keep the cluster in its current -possibly broken- state and just does the
 	// bare minimum to move the requested instances across to another allocator.
 	MoveOnly *bool
+
+	// Optional value to be set to force_move to true for primitive vacate or false for standard.
+	ForceMove *bool
 
 	// SkipTracking skips displaying and waiting for the individual vacates to complete.
 	// Setting it to true will render the concurrency flag pretty much ineffective since
@@ -166,6 +169,7 @@ type VacateClusterParams struct {
 	TrackFrequency time.Duration
 	AllocatorDown  *bool
 	MoveOnly       *bool
+	ForceMove      *bool
 	Output         *output.Device
 	OutputFormat   string
 	MaxPollRetries uint8
@@ -222,4 +226,5 @@ type PlanOverrides struct {
 	SkipSnapshot      *bool
 	SkipDataMigration *bool
 	OverrideFailsafe  *bool
+	ForceMove         *bool
 }
