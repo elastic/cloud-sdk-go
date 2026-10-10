@@ -18,6 +18,7 @@
 package input
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"sync"
@@ -60,6 +61,9 @@ func (s *Scanner) Scan(text string) string {
 	var err error
 	_, err = fmt.Fscanln(s.reader, &result)
 	for err != nil && result == "" {
+		if errors.Is(err, io.EOF) {
+			return ""
+		}
 		if err.Error() == "unexpected newline" {
 			fmt.Fprint(s.writer.Writer(), text)
 		}

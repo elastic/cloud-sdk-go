@@ -75,6 +75,22 @@ func TestScannerScan(t *testing.T) {
 			},
 			wantResult: "igotthistext",
 		},
+		{
+			name: "returns an empty result when the input is empty",
+			fields: fields{
+				reader: strings.NewReader(""),
+				writer: output.NewDevice(new(bytes.Buffer)),
+			},
+			wantResult: "",
+		},
+		{
+			name: "returns an empty result when the input ends after empty lines",
+			fields: fields{
+				reader: strings.NewReader("\n\n"),
+				writer: output.NewDevice(new(bytes.Buffer)),
+			},
+			wantResult: "",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -82,8 +98,15 @@ func TestScannerScan(t *testing.T) {
 				reader: tt.fields.reader,
 				writer: tt.fields.writer,
 			}
-			if gotResult := s.Scan(tt.args.text); gotResult != tt.wantResult {
-				t.Errorf("Scanner.Scan() = %v, want %v", gotResult, tt.wantResult)
+			c := make(chan string, 1)
+			go func() { c <- s.Scan(tt.args.text) }()
+			select {
+			case gotResult := <-c:
+				if gotResult != tt.wantResult {
+					t.Errorf("Scanner.Scan() = %v, want %v", gotResult, tt.wantResult)
+				}
+			case <-time.After(time.Second):
+				t.Fatal("Scanner.Scan() did not return")
 			}
 		})
 	}
@@ -96,9 +119,10 @@ func TestScannerFull(t *testing.T) {
 	// THIS IS THE DEVICE WHERE WE WRITE
 	var outputDevice = output.NewDevice(out)
 
-	// We wrap it like this to avoid races in reads & writes.
+	// Like a terminal, the pipe blocks reads until input is written.
+	r, w := io.Pipe()
 	var inputDevice = &Stdin{
-		in:  &ConcBuf{buf: new(bytes.Buffer)},
+		in:  pipe{r, w},
 		out: out,
 	}
 
@@ -166,6 +190,11 @@ func (in *Stdin) Write(p []byte) (n int, err error) {
 
 func (in *Stdin) Read(p []byte) (n int, err error) {
 	return in.in.Read(p)
+}
+
+type pipe struct {
+	*io.PipeReader
+	*io.PipeWriter
 }
 
 type ConcBuf struct {
